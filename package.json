@@ -1,8 +1,9 @@
 {
-  "name": "react-redux-starter-kit",
-  "version": "3.0.0-alpha.2",
-  "description": "Get started with React, Redux, and React-Router!",
+  "name": "kubeless-ui",
+  "version": "0.1.0",
+  "description": "UI for kubeless",
   "main": "index.js",
+  "private": true,
   "engines": {
     "node": ">=4.5.0",
     "npm": "^3.0.0"
