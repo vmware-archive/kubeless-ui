@@ -1,4 +1,18 @@
-.route--active {
-  font-weight: bold;
-  text-decoration: underline;
+.header {
+  position: fixed;
+  height: 50px;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background: #00313E;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 0px 20px;
+  z-index: 10;
+
+  a {
+    color: white;
+  }
 }

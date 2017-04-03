@@ -1,0 +1,13 @@
+.treeview {
+  flex: 1;
+  max-width: 250px;
+  background: #00313E;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    opacity: 0.3;
+  }
+}
