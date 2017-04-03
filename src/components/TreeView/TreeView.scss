@@ -1,0 +1,74 @@
+/*
+Copyright 2017 Bitnami.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+.treeview {
+  position: relative;
+  flex: 1;
+  max-width: 250px;
+  background: #00313E;
+  color: white;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  .loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0; top: 0;
+    opacity: 0.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+  }
+
+  .folder {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 0 10px;
+    background: #002B35;
+  }
+  .folder-title {
+    font-size: 1.2em;
+    margin: 0 10px;
+  }
+  .folder-icon {
+    width: 20px;
+  }
+
+  .files {
+    text-align: left;
+    padding: 10px 0 0 0;
+    .file {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      padding: 0 10px;
+      &.active {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .title {
+        font-size: 0.9em;
+        font-weight: normal;
+      }
+      img {
+        width: 15px;
+        margin-right: 5px;
+        margin-bottom: 2px;
+      }
+    }
+  }
+}

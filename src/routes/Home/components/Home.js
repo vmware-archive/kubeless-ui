@@ -15,12 +15,12 @@ limitations under the License.
 */
 import React, { Component } from 'react'
 import Editor from './Editor'
-import TreeView from './TreeView'
+import TreeView from '../../../components/TreeView'
 import './Home.scss'
 
 class Home extends Component {
 
-  render () {
+  render() {
     return (
       <div className='home'>
         <TreeView />

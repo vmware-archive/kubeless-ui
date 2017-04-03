@@ -13,16 +13,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-.treeview {
-  flex: 1;
-  max-width: 250px;
-  background: #00313E;
-  display: flex;
-  color: white;
-  align-items: center;
-  justify-content: center;
-
-  h3 {
-    opacity: 0.3;
-  }
-}
+import TreeView from './TreeView'
+export default TreeView

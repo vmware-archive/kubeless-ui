@@ -19,9 +19,10 @@
     "__COVERAGE__" : false
   },
   "rules": {
-    "key-spacing"          : 0,
-    "jsx-quotes"           : [2, "prefer-single"],
-    "max-len"              : [2, 120, 2],
-    "object-curly-spacing" : [2, "always"]
+    "key-spacing"                 : 0,
+    "jsx-quotes"                  : [2, "prefer-single"],
+    "max-len"                     : [2, 120, 2],
+    "object-curly-spacing"        : [2, "always"],
+    "space-before-function-paren" : ["error", "never"]
   }
 }
