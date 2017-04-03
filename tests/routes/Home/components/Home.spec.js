@@ -14,35 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
-import CoreLayout from 'layouts/CoreLayout/CoreLayout'
+import { HomeView } from 'routes/Home/components/Home'
+import { render } from 'enzyme'
 
-function shallowRender (component) {
-  const renderer = TestUtils.createRenderer()
-
-  renderer.render(component)
-  return renderer.getRenderOutput()
-}
-
-function shallowRenderWithProps (props = {}) {
-  return shallowRender(<CoreLayout {...props} />)
-}
-
-describe('(Layout) Core', function () {
+describe('(View) Home', () => {
   let _component
-  let _props
-  let _child
 
-  beforeEach(function () {
-    _child = <h1 className='child'>Child</h1>
-    _props = {
-      children : _child
-    }
-
-    _component = shallowRenderWithProps(_props)
+  beforeEach(() => {
+    _component = render(<HomeView />)
   })
 
-  it('Should render as a <div>.', function () {
+  it('Renders as a div', () => {
     expect(_component.type).to.equal('div')
   })
 })

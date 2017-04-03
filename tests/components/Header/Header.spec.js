@@ -1,8 +1,23 @@
+/*
+Copyright 2017 Bitnami.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 import React from 'react'
 import { Header } from 'components/Header/Header'
-import { IndexLink, Link } from 'react-router'
 import { shallow } from 'enzyme'
 
+// Sample on how to test a component:
 describe('(Component) Header', () => {
   let _wrapper
 
@@ -14,23 +29,5 @@ describe('(Component) Header', () => {
     const welcome = _wrapper.find('h1')
     expect(welcome).to.exist
     expect(welcome.text()).to.match(/React Redux Starter Kit/)
-  })
-
-  describe('Navigation links...', () => {
-    it('Should render a Link to Home route', () => {
-      expect(_wrapper.contains(
-        <IndexLink activeClassName='route--active' to='/'>
-          Home
-        </IndexLink>
-      )).to.be.true
-    })
-
-    it('Should render a Link to Counter route', () => {
-      expect(_wrapper.contains(
-        <Link activeClassName='route--active' to='/counter'>
-          Counter
-        </Link>
-      )).to.be.true
-    })
   })
 })
