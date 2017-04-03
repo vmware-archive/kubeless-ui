@@ -13,5 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import TreeViewContainer from './TreeViewContainer'
-export default TreeViewContainer
+import { connect } from 'react-redux'
+import Editor from './Editor'
+
+const mapStateToProps = ({ files }) => ({
+  file: files.selected
+})
+
+export default connect(mapStateToProps)(Editor)

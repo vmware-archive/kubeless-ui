@@ -13,5 +13,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import TreeViewContainer from './TreeViewContainer'
-export default TreeViewContainer
+import { connect } from 'react-redux'
+import TreeView from './TreeView'
+import { fileSelect } from 'store/files'
+
+const mapStateToProps = ({ files }) => ({
+  files: files.list,
+  selectedFile: files.selected,
+  loading: files.loading
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSelect: (file) => {
+    dispatch(fileSelect(file))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TreeView)

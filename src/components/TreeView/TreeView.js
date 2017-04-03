@@ -13,32 +13,32 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import fileIcon from './assets/file.png'
 import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
 
+const fileType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  content: PropTypes.string
+}) // TODO: Move this
 class TreeView extends Component {
 
-  state = {
-    loading: true,
-    files: [],
-    selectedIndex: null
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ loading: false, files: ['foo.py', 'bar.js'], selectedIndex: 0 })
-    }, 1000)
+  static propTypes = {
+    files: PropTypes.arrayOf(fileType).isRequired,
+    selectedFile: fileType,
+    loading: PropTypes.bool,
+    onSelect: PropTypes.func
   }
 
   render() {
     return (
       <div className='treeview'>
         {this.renderHeader()}
-        {this.state.loading && this.renderLoading()}
+        {this.props.loading && this.renderLoading()}
         <div className='files'>
-          {this.state.files.map((file, i) => this.renderFile(file, i))}
+          {this.props.files.map(file => this.renderFile(file))}
         </div>
       </div>
     )
@@ -60,13 +60,15 @@ class TreeView extends Component {
     )
   }
 
-  renderFile(file, i) {
+  renderFile(file) {
+    const { selectedFile } = this.props
+    const isActive = selectedFile && file.id === selectedFile.id
     return (
-      <div key={i}
-        onClick={() => this.setState({ selectedIndex: i })}
-        className={`file ${i === this.state.selectedIndex && 'active'}`}>
+      <div key={file.id}
+        onClick={() => this.props.onSelect(file)}
+        className={`file ${isActive && 'active'}`}>
         <img src={fileIcon} />
-        <h4 className='title'>{file}</h4>
+        <h4 className='title'>{file.name}</h4>
       </div>
     )
   }

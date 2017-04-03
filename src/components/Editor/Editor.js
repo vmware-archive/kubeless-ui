@@ -13,22 +13,39 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import AceEditor from 'react-ace'
 import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
+import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
 import './Editor.scss'
 
+const fileType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  content: PropTypes.string
+}) // TODO: Move this
+
 class Editor extends Component {
 
+  static propTypes = {
+    file: fileType
+  }
+
   render() {
+    const { file } = this.props
+    let mode = 'javascript'
+    if (file && file.name.indexOf('.py') !== -1) {
+      mode = 'python'
+    }
     return (
       <div className='editor'>
         <AceEditor
-          mode='python'
+          mode={mode}
           theme='solarized_dark'
           // onChange={onChange}
+          value={file ? file.content : ''}
           name='UNIQUE_ID_OF_DIV'
         />
       </div>
