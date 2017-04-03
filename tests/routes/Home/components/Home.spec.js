@@ -14,17 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import { HomeView } from 'routes/Home/components/Home'
-import { render } from 'enzyme'
+import Home from 'routes/Home/components/Home'
+import Editor from 'components/Editor'
+import TreeView from 'components/TreeView'
+import { shallow } from 'enzyme'
 
 describe('(View) Home', () => {
-  let _component
+  let _wrapper
 
   beforeEach(() => {
-    _component = render(<HomeView />)
+    _wrapper = shallow(<Home />)
   })
 
   it('Renders as a div', () => {
-    expect(_component.type).to.equal('div')
+    expect(_wrapper.contains(<Editor />)).to.equal(true)
+    expect(_wrapper.contains(<TreeView />)).to.equal(true)
+    // expect contain editor
+    // expect contain treeview
   })
 })

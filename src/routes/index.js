@@ -13,8 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import CoreLayout from '../layouts/CoreLayout'
-import Home from './Home'
+import CoreLayout from 'components/CoreLayout'
+import Home from 'routes/Home'
 
 export const createRoutes = (store) => ({
   path        : '/',

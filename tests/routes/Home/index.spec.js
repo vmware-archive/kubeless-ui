@@ -13,13 +13,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+import React from 'react'
 import HomeRoute from 'routes/Home'
+import { shallow } from 'enzyme'
 
 describe('(Route) Home', () => {
   let _component
+  let _wrapper
 
   beforeEach(() => {
-    _component = HomeRoute.component()
+    _component = HomeRoute.component
+    _wrapper = shallow(<_component />)
   })
 
   it('Should return a route configuration object', () => {
@@ -27,6 +31,6 @@ describe('(Route) Home', () => {
   })
 
   it('Should define a route component', () => {
-    expect(_component.type).to.equal('div')
+    expect(_wrapper.type()).to.equal('div')
   })
 })

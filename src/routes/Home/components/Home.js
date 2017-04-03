@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React, { Component } from 'react'
-import Editor from './Editor'
-import TreeView from '../../../components/TreeView'
+import Editor from 'components/Editor'
+import TreeView from 'components/TreeView'
 import './Home.scss'
 
 class Home extends Component {

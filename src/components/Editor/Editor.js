@@ -22,7 +22,7 @@ import './Editor.scss'
 
 class Editor extends Component {
 
-  render () {
+  render() {
     return (
       <div className='editor'>
         <AceEditor

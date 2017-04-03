@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    ["module-alias", [
+      { "src": "./src/components", "expose": "components" },
+      { "src": "./src/assets", "expose": "assets" },
+      { "src": "./src/routes", "expose": "routes" },
+      { "src": "./src/store", "expose": "store" },
+      { "src": "./src/styles", "expose": "styles" },
+      { "src": "./src", "expose": "src" }
+    ]]
+  ]
+}
