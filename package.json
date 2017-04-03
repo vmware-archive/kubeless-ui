@@ -1,7 +1,7 @@
 {
   "name": "kubeless-ui",
   "version": "0.1.0",
-  "description": "UI for kubeless",
+  "description": "Graphical User Interface for Kubeless",
   "main": "index.js",
   "private": true,
   "engines": {
