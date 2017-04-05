@@ -50,7 +50,7 @@ class TreeView extends Component {
   renderHeader() {
     const cluster = this.props.clusters[0]
     return (
-      <div className='folder'>
+      <div className='folder' onClick={() => this.props.onSelect(null)}>
         <img className='folder-icon' src={cubeIcon} />
         <h3 className='folder-title'>{cluster.name}</h3>
       </div>

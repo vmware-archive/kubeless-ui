@@ -19,6 +19,10 @@ import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
+import TextField from 'material-ui/TextField'
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+import Button from 'material-ui/RaisedButton'
+import IconButton from 'material-ui/IconButton'
 import './Editor.scss'
 
 const fileType = PropTypes.shape({
@@ -33,8 +37,13 @@ class Editor extends Component {
     file: fileType
   }
 
+  state = {
+    showRunPanel: false
+  }
+
   render() {
     const { file } = this.props
+    const { showRunPanel } = this.state
     let mode = 'javascript'
     if (file && file.name.indexOf('.py') !== -1) {
       mode = 'python'
@@ -49,6 +58,12 @@ class Editor extends Component {
           value={file ? file.content : ''}
           name='UNIQUE_ID_OF_DIV'
         />}
+        {file && !showRunPanel &&
+          <div className='show-panel-button' onClick={() => this.setState({ showRunPanel: true })}>
+            {'Run function'}
+          </div>
+        }
+        {file && showRunPanel && this.renderSidePanel()}
       </div>
     )
   }
@@ -59,6 +74,38 @@ class Editor extends Component {
         <p>{':)'}<br />
           {'Choose a file or create a new one'}
         </p>
+      </div>
+    )
+  }
+
+  renderSidePanel() {
+    const { file } = this.props
+    return (
+      <div className='editor-panel'>
+        <div className='function-title'>
+          <IconButton className='close-icon' iconClassName='muidocs-icon-close'
+            onClick={() => this.setState({ showRunPanel: false })}
+          />
+          <h3>{file.name}</h3>
+          <p>{ 'Function description goes here...'}</p>
+        </div>
+        <div className='function-run'>
+          <h5>Request</h5>
+          <textarea className='body' placeholder='Request body...' />
+          <br /><br />
+          <RadioButtonGroup name='bodyFormat' defaultSelected='json'>
+            <RadioButton value='json' label='JSON'
+              className='radioButton' />
+            <RadioButton value='text' label='Text'
+              className='radioButton' />
+          </RadioButtonGroup>
+          <br />
+          <Button label='Run function' primary />
+        </div>
+        <div className='function-result'>
+          <h5>Response</h5>
+          <p className='body'>{`{ "data": "Hello world" }`}</p>
+        </div>
       </div>
     )
   }
