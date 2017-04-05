@@ -41,13 +41,24 @@ class Editor extends Component {
     }
     return (
       <div className='editor'>
-        <AceEditor
+        {!file && this.renderEmptyView()}
+        {file && <AceEditor
           mode={mode}
           theme='solarized_dark'
           // onChange={onChange}
           value={file ? file.content : ''}
           name='UNIQUE_ID_OF_DIV'
-        />
+        />}
+      </div>
+    )
+  }
+
+  renderEmptyView() {
+    return (
+      <div className='editor-empty'>
+        <p>{':)'}<br />
+          {'Choose a file or create a new one'}
+        </p>
       </div>
     )
   }

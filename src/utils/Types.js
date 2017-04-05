@@ -13,20 +13,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import { connect } from 'react-redux'
-import TreeView from './TreeView'
-import { filesSelect, filesFetch } from 'store/files'
+import { PropTypes } from 'react'
 
-const mapStateToProps = ({ files, clusters }) => ({
-  files: files.list,
-  selectedFile: files.selected,
-  loading: files.loading,
-  clusters: clusters.list
+export const File = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  content: PropTypes.string
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onSelect: (file) => dispatch(filesSelect(file)),
-  onFetch: (cluster) => dispatch(filesFetch(cluster))
+export const Cluster = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired
 })
-
-export default connect(mapStateToProps, mapDispatchToProps)(TreeView)

@@ -16,11 +16,13 @@ limitations under the License.
 import { combineReducers } from 'redux'
 import locationReducer from './location'
 import filesReducer from './files'
+import clustersReducer from './clusters'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     location: locationReducer,
     files: filesReducer,
+    clusters: clustersReducer,
     ...asyncReducers
   })
 }

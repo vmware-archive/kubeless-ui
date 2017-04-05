@@ -14,22 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React, { Component, PropTypes } from 'react'
+import { File, Cluster } from 'utils/Types'
 import fileIcon from './assets/file.png'
 import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
 
-const fileType = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  content: PropTypes.string
-}) // TODO: Move this
 class TreeView extends Component {
 
   static propTypes = {
-    files: PropTypes.arrayOf(fileType).isRequired,
-    selectedFile: fileType,
+    files: PropTypes.arrayOf(File).isRequired,
+    clusters: PropTypes.arrayOf(Cluster).isRequired,
+    selectedFile: File,
     loading: PropTypes.bool,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    onFetch: PropTypes.func
+  }
+
+  componentDidMount() {
+    const cluster = this.props.clusters[0]
+    this.props.onFetch && this.props.onFetch(cluster)
   }
 
   render() {
@@ -45,10 +48,11 @@ class TreeView extends Component {
   }
 
   renderHeader() {
+    const cluster = this.props.clusters[0]
     return (
       <div className='folder'>
         <img className='folder-icon' src={cubeIcon} />
-        <h3 className='folder-title'>{'k8s-bitnami'}</h3>
+        <h3 className='folder-title'>{cluster.name}</h3>
       </div>
     )
   }

@@ -6,6 +6,7 @@
       { "src": "./src/routes", "expose": "routes" },
       { "src": "./src/store", "expose": "store" },
       { "src": "./src/styles", "expose": "styles" },
+      { "src": "./src/utils", "expose": "utils" },
       { "src": "./src", "expose": "src" }
     ]]
   ]

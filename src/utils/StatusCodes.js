@@ -13,20 +13,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import { connect } from 'react-redux'
-import TreeView from './TreeView'
-import { filesSelect, filesFetch } from 'store/files'
+const StatusCodes = {
+  // Success
+  OK: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
+  NO_CONTENT: 204,
 
-const mapStateToProps = ({ files, clusters }) => ({
-  files: files.list,
-  selectedFile: files.selected,
-  loading: files.loading,
-  clusters: clusters.list
-})
+  // Client Error
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  PAYMENT_REQUIRED: 402,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
 
-const mapDispatchToProps = (dispatch) => ({
-  onSelect: (file) => dispatch(filesSelect(file)),
-  onFetch: (cluster) => dispatch(filesFetch(cluster))
-})
+  // Server Error
+  INTERNAL_SERVER_ERROR: 500,
+  UNAVAILABLE: 503,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(TreeView)
+export default StatusCodes;

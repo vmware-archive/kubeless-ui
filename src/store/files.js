@@ -13,25 +13,40 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+import Immutable from 'immutable'
+import Api from 'utils/Api'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const FILE_SELECT = 'FILE_SELECT'
-export const FILE_LOADING = 'FILE_LOADING'
+export const FILES_SELECT = 'FILES_SELECT'
+export const FILES_FETCH = 'FILES_FETCH'
+export const FILES_LOADING = 'FILES_LOADING'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function fileSelect(file) {
+export function filesSelect(file) {
   return {
-    type: FILE_SELECT,
-    file: file
+    type: FILES_SELECT,
+    file
   }
 }
-export function fileLoading(loading = false) {
+export function filesLoading(loading = false) {
   return {
-    type: FILE_LOADING,
-    loading: loading
+    type: FILES_LOADING,
+    loading
+  }
+}
+export function filesFetch(cluster) {
+  filesLoading(true)
+  return (dispatch, getState) => {
+    return Api.get('/functions', {}, cluster).then(result => {
+      dispatch({
+        type: FILES_FETCH,
+        list: result.toJS()
+      })
+    })
   }
 }
 
@@ -54,11 +69,17 @@ function bar(context) {
 }
 export default function fileReducer(state = initialState, action) {
   switch (action.type) {
-    case FILE_SELECT:
+    case FILES_SELECT:
       return Object.assign({}, state, {
         selected: action.file
       })
-    case FILE_LOADING:
+    case FILES_FETCH:
+      return Object.assign({}, state, {
+        list: action.list,
+        selected: null,
+        loading: false
+      })
+    case FILES_LOADING:
       return Object.assign({}, state, {
         loading: action.loading
       })
