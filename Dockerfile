@@ -1,22 +1,30 @@
-FROM node:4.4.4
+FROM node:6.9
 
-RUN apt-get update && \
-    apt-get install -y nginx
+RUN useradd --user-group --create-home --shell /bin/false app && mkdir -p /opt/app
 
-ENV TERM=xterm
-ENV ROOT /var/www/kubeless-ui
+ENV HOME=/home/app TERM=xterm APP=/opt/app
 
-# make this cache-able
-RUN mkdir -p $ROOT/dist && \
-    mkdir -p $ROOT/src
-COPY package.json $ROOT/src/
+# add more arguments from CI to the image so that `$ env` should reveal more info
+ARG CI_BUILD_ID
+ARG CI_BUILD_REF
+ARG CI_REGISTRY_IMAGE
+ARG CI_PROJECT_NAME
+ARG CI_BUILD_REF_NAME
+ARG CI_BUILD_TIME
 
-WORKDIR $ROOT/src
-RUN npm install --loglevel=warn
+ENV CI_BUILD_ID=$CI_BUILD_ID CI_BUILD_REF=$CI_BUILD_REF CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE \
+    CI_PROJECT_NAME=$CI_PROJECT_NAME CI_BUILD_REF_NAME=$CI_BUILD_REF_NAME CI_BUILD_TIME=$CI_BUILD_TIME \
+    npm_config_tmp=/tmp
 
-# build & test
-COPY . $ROOT/src/
-RUN npm run compile && npm run test
+ADD package.json yarn.lock $APP/
 
-# start sever
-CMD ./run.sh
+RUN chown -R app $APP && chgrp -R app $APP && chown -R app /usr/local
+
+WORKDIR $APP
+
+USER app
+
+RUN npm install --global yarn
+
+# RUN yarn install && yarn upgrade
+RUN rm -rf node_modules && yarn install && yarn cache clean && npm cache clean && rm -rf ~/tmp/*

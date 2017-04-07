@@ -1,11 +1,17 @@
 version: '2'
 
 services:
-  web:
-    build: .
+  dev:
+    image: kubeless-ui-dev
     env_file: .env
-    ports:
-      - '8000:8000'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "yarn install && npm rebuild node-sass && yarn run dev"
+    environment:
+      NODE_ENV: development
     volumes:
-      - .:/var/www/kubeless-ui/src
-      - /var/www/kubeless-ui/src/node_modules
+      - .:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - "3000:3000"
