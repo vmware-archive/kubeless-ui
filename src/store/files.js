@@ -22,6 +22,8 @@ import Api from 'utils/Api'
 export const FILES_SELECT = 'FILES_SELECT'
 export const FILES_FETCH = 'FILES_FETCH'
 export const FILES_LOADING = 'FILES_LOADING'
+export const FILES_RUN = 'FILES_RUN'
+export const FILES_SAVE = 'FILES_SAVE'
 
 // ------------------------------------
 // Actions
@@ -47,6 +49,19 @@ export function filesFetch(cluster) {
         list: result.toJS()
       })
     })
+  }
+}
+export function filesSave(file) {
+  return {
+    type: FILES_SAVE,
+    file
+  }
+}
+export function filesRun(file, body) {
+  return {
+    type: FILES_RUN,
+    file,
+    body
   }
 }
 
@@ -83,6 +98,10 @@ export default function fileReducer(state = initialState, action) {
       return Object.assign({}, state, {
         loading: action.loading
       })
+    case FILES_SAVE:
+      return state
+    case FILES_RUN:
+      return state
     default:
       return state
   }

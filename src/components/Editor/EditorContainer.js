@@ -15,9 +15,15 @@ limitations under the License.
 */
 import { connect } from 'react-redux'
 import Editor from './Editor'
+import { filesRun, filesSave } from 'store/files'
 
 const mapStateToProps = ({ files }) => ({
   file: files.selected
 })
 
-export default connect(mapStateToProps)(Editor)
+const mapDispatchToProps = (dispatch) => ({
+  onRun: (file, body) => dispatch(filesRun(file, body)),
+  onSave: (file) => dispatch(filesSave(file))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Editor)
