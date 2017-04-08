@@ -16,9 +16,9 @@ $ yarn start      # Compile and launch (same as `npm start`)
 
 Dev server with Hot Module Replacement should run at http://localhost:3000
 
-## Run in Docker container
+## Dev in Docker container
 
-Work in progress...
+Work in progress... (missing hmr)
 
 ```bash
 docker-compose up

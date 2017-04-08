@@ -3,7 +3,6 @@ version: '2'
 services:
   dev:
     image: kubeless-ui-dev
-    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile

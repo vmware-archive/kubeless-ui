@@ -1,0 +1,16 @@
+FROM node:6.9
+
+ENV TERM=xterm
+ENV ROOT /var/www/kubeless-ui
+ENV NODE_ENV=production
+
+RUN mkdir -p $ROOT/dist && \
+    mkdir -p $ROOT/src
+COPY package.json $ROOT/src/
+
+WORKDIR $ROOT/src
+RUN npm install --global yarn
+
+# build & test
+COPY . $ROOT/src/
+RUN rm -rf node_modules && yarn install && yarn cache clean

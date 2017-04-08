@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  prod:
+    image: kubeless-ui-prod
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
+    command: bash -c "yarn install && npm rebuild node-sass && yarn run compile && yarn run start"
+    environment:
+      NODE_ENV: production
+      PORT: 8000
+    volumes:
+      - .:/var/www/kubeless-ui/src
+      - /var/www/kubeless-ui/src/node_modules
+    ports:
+      - "8000:8000"

@@ -29,7 +29,7 @@ const StatusCodes = {
 
   // Server Error
   INTERNAL_SERVER_ERROR: 500,
-  UNAVAILABLE: 503,
-};
+  UNAVAILABLE: 503
+}
 
-export default StatusCodes;
+export default StatusCodes
