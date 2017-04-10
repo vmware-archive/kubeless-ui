@@ -55,7 +55,7 @@ class RunFunc extends Component {
     return (
       <div className='editor-panel'>
         <div className='function-title'>
-          <h3>{file.name}</h3>
+          <h3>{file.metadata.name}</h3>
           <p>{ 'Function description goes here...'}</p>
         </div>
         <div className='function-run'>
@@ -85,7 +85,7 @@ class RunFunc extends Component {
     let content
     if (running) {
       content = (
-        <p>{`Running ${file.name}...`}</p>
+        <p>{`Running ${file.metadata.name}...`}</p>
       )
     } else if (result) {
       content = (

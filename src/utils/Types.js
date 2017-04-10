@@ -16,9 +16,9 @@ limitations under the License.
 import { PropTypes } from 'react'
 
 export const File = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  content: PropTypes.string
+  kind: PropTypes.string.isRequired,
+  metadata: PropTypes.object.isRequired,
+  spec: PropTypes.object.isRequired
 })
 
 export const Cluster = PropTypes.shape({

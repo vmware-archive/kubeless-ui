@@ -46,7 +46,7 @@ export function filesFetch(cluster) {
     return Api.get('/functions', {}, cluster).then(result => {
       dispatch({
         type: FILES_FETCH,
-        list: result.toJS()
+        list: result.items
       })
     })
   }
@@ -70,14 +70,14 @@ export function filesRun(file, body) {
 // ------------------------------------
 const initialState = {
   list: [
-    { id: 'id1', name: 'foo.py', content: `
-def foo(context):
-  return context.json
-` },
-    { id: 'id2', name: 'bar.js', content: `
-function bar(context) {
-  return context.json;
-}` }
+//     { id: 'id1', name: 'foo.py', content: `
+// def foo(context):
+//   return context.json
+// ` },
+//     { id: 'id2', name: 'bar.js', content: `
+// function bar(context) {
+//   return context.json;
+// }` }
   ],
   selected: null,
   loading: false

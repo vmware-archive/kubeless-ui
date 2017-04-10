@@ -25,6 +25,7 @@ const config = {
   // ----------------------------------
   server_host : process.env.HOST || 'localhost',
   server_port : process.env.PORT || 3000,
+  cors_proxy_port : process.env.PROXY_PORT || 3001,
 
   // ----------------------------------
   // Compiler Configuration

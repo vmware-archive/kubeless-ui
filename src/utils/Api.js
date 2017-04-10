@@ -15,21 +15,24 @@ limitations under the License.
 */
 import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
-import Immutable from 'immutable'
+// import Immutable from 'immutable'
 import _ from 'lodash'
+const CONFIG = { // TODO: take that from config
+  server_host: 'http://localhost',
+  cors_proxy_port: '3001'
+}
 
 export default class Api {
 
   static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
     const { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
-    return fetch(URL, {
+    const proxiedURL = `${CONFIG.server_host}:${CONFIG.cors_proxy_port}/${encodeURI(URL)}`
+    return fetch(proxiedURL, {
       method,
       headers,
-      mode: 'no-cors',
       body: _.isEmpty(body) ? undefined : JSON.stringify(body)
     }).then((response = {}) => {
       console.log(`[Api] - ${URL}`, response)
-
       if (typeof response.text !== 'function') {
         const t = response.text
         response.text = () => new Promise(resolve => {
@@ -47,7 +50,6 @@ export default class Api {
       }
       return response.text()
     }).then((text) => {
-      console.log('R', text)
       if (typeof text !== 'string' || text.trim() === '') {
         return {}
       }
@@ -55,7 +57,7 @@ export default class Api {
       if (json) { return json }
       return text
     }).then((json) => {
-      return Immutable.fromJS(json)
+      return json
     }).catch((error) => {
       console.log('E', error)
       return this.handleError(error, url)

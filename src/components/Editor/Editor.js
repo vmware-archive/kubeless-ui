@@ -39,7 +39,7 @@ class Editor extends Component {
     const { file, onRun } = this.props
     const { showRunPanel } = this.state
     let mode = 'javascript'
-    if (file && file.name.indexOf('.py') !== -1) {
+    if (file && file.spec.runtime.indexOf('python') !== -1) {
       mode = 'python'
     }
     return (
@@ -49,7 +49,7 @@ class Editor extends Component {
           mode={mode}
           theme='solarized_dark'
           // onChange={onChange}
-          value={file ? file.content : ''}
+          value={file ? file.spec.function : ''}
           name='UNIQUE_ID_OF_DIV'
         />}
         {file && !showRunPanel &&

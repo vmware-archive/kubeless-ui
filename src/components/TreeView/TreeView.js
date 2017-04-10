@@ -66,13 +66,13 @@ class TreeView extends Component {
 
   renderFile(file) {
     const { selectedFile } = this.props
-    const isActive = selectedFile && file.id === selectedFile.id
+    const isActive = selectedFile && file.metadata.uid === selectedFile.metadata.uid
     return (
-      <div key={file.id}
+      <div key={file.metadata.uid}
         onClick={() => this.props.onSelect(file)}
         className={`file ${isActive && 'active'}`}>
         <img src={fileIcon} />
-        <h4 className='title'>{file.name}</h4>
+        <h4 className='title'>{file.metadata.name}</h4>
       </div>
     )
   }
