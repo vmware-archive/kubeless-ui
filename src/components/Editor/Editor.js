@@ -13,26 +13,35 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React, { Component, PropTypes } from 'react'
+
+// @flow
+import React, { Component } from 'react'
 import AceEditor from 'react-ace'
 import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
 import './Editor.scss'
-import { File as FileType } from 'utils/Types'
+import type { File } from 'utils/Types'
 import RunFunc from './RunFunc'
 
-class Editor extends Component {
+export default class Editor extends Component {
 
-  static propTypes = {
-    file: FileType,
-    onRun: PropTypes.func,
-    onSave: PropTypes.func
+  props: {
+    file: File,
+    onRun: () => void,
+    onSave: () => void
   }
 
-  state = {
-    showRunPanel: true
+  state: {
+    showRunPanel: boolean
+  }
+
+  constructor() {
+    super()
+    this.state = {
+      showRunPanel: true
+    }
   }
 
   render() {
@@ -72,5 +81,3 @@ class Editor extends Component {
     )
   }
 }
-
-export default Editor

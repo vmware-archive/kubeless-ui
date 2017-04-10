@@ -13,21 +13,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React, { Component, PropTypes } from 'react'
-import { File, Cluster } from 'utils/Types'
+
+// @flow
+import React, { Component } from 'react'
+import type { File, Cluster } from 'utils/Types'
 import fileIcon from './assets/file.png'
 import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
 
-class TreeView extends Component {
+export default class TreeView extends Component {
 
-  static propTypes = {
-    files: PropTypes.arrayOf(File).isRequired,
-    clusters: PropTypes.arrayOf(Cluster).isRequired,
-    selectedFile: File,
-    loading: PropTypes.bool,
-    onSelect: PropTypes.func,
-    onFetch: PropTypes.func
+  props: {
+    files: Array<File>,
+    clusters: Array<Cluster>,
+    selectedFile?: File,
+    loading: boolean,
+    onSelect: (?File) => void,
+    onFetch: (Cluster) => void
   }
 
   componentDidMount() {
@@ -64,18 +66,16 @@ class TreeView extends Component {
     )
   }
 
-  renderFile(file) {
-    const { selectedFile } = this.props
+  renderFile(file: File) {
+    const { selectedFile, onSelect } = this.props
     const isActive = selectedFile && file.metadata.uid === selectedFile.metadata.uid
     return (
       <div key={file.metadata.uid}
-        onClick={() => this.props.onSelect(file)}
-        className={`file ${isActive && 'active'}`}>
+        onClick={() => onSelect(file)}
+        className={`file ${isActive ? 'active' : ''}`}>
         <img src={fileIcon} />
         <h4 className='title'>{file.metadata.name}</h4>
       </div>
     )
   }
 }
-
-export default TreeView

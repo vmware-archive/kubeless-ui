@@ -13,9 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
-// import Immutable from 'immutable'
 import _ from 'lodash'
 const CONFIG = { // TODO: take that from config
   server_host: 'http://localhost',

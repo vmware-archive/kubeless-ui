@@ -1,5 +1,7 @@
 {
+  "presets": ["flow"],
   "plugins": [
+    "flow-react-proptypes",
     ["module-alias", [
       { "src": "./src/components", "expose": "components" },
       { "src": "./src/assets", "expose": "assets" },

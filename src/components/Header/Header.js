@@ -13,16 +13,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React from 'react'
+
+// @flow
+import React, { Component } from 'react'
 import './Header.scss'
 
-export const Header = () => (
-  <div className='header'>
-    <h1>Kubeless editor</h1>
-    <a href='https://github.com/bitnami/kubeless'>
-      Github
-    </a>
-  </div>
-)
+export default class Header extends Component {
 
-export default Header
+  render() {
+    return (
+      <div className='header'>
+        <h1>Kubeless editor</h1>
+        <a href='https://github.com/bitnami/kubeless'>
+          Github
+        </a>
+      </div>
+    )
+  }
+}

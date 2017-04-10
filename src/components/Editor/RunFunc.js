@@ -13,23 +13,34 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React, { Component, PropTypes } from 'react'
+
+// @flow
+import React, { Component } from 'react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
-import { File as FileType } from 'utils/Types'
+import type { File } from 'utils/Types'
 
-class RunFunc extends Component {
+export default class RunFunc extends Component {
 
-  static propTypes = {
-    file: FileType,
-    onRun: PropTypes.func
+  props: {
+    file?: File,
+    onRun?: () => void
   }
 
-  state = {
-    body: '',
-    json: true,
-    running: false,
-    result: null
+  state: {
+    body: string,
+    json: boolean,
+    running: boolean,
+    result?: string
+  }
+
+  constructor() {
+    super()
+    this.state = {
+      body: '',
+      json: true,
+      running: false
+    }
   }
 
   run = () => {
@@ -39,19 +50,21 @@ class RunFunc extends Component {
       requestBody = json ? JSON.parse(body) : body
     } catch (e) {
       console.log('e', e)
-      return this.setState({ result: e.message })
+      this.setState({ result: e.message })
+      return
     }
     console.log('Executing function with body: ', requestBody)
     this.setState({ running: true })
     setTimeout(() => {
       this.setState({ running: false, result: `{ "data": "Hello world" }` })
     }, 2000)
+    this.props.onRun && this.props.onRun()
   }
 
   render() {
     const { file } = this.props
     const { body, json } = this.state
-    if (!file) { return false }
+    if (!file) { return }
     return (
       <div className='editor-panel'>
         <div className='function-title'>
@@ -81,6 +94,7 @@ class RunFunc extends Component {
 
   renderResult() {
     const { file } = this.props
+    if (!file) { return }
     const { running, result } = this.state
     let content
     if (running) {
@@ -104,5 +118,3 @@ class RunFunc extends Component {
     )
   }
 }
-
-export default RunFunc

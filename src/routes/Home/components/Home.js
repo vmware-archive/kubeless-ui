@@ -13,12 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+// @flow
 import React, { Component } from 'react'
 import Editor from 'components/Editor'
 import TreeView from 'components/TreeView'
 import './Home.scss'
 
-class Home extends Component {
+export default class Home extends Component {
 
   render() {
     return (
@@ -29,5 +31,3 @@ class Home extends Component {
     )
   }
 }
-
-export default Home

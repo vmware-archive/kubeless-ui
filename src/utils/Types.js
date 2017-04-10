@@ -13,16 +13,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import { PropTypes } from 'react'
+// @flow
 
-export const File = PropTypes.shape({
-  kind: PropTypes.string.isRequired,
-  metadata: PropTypes.object.isRequired,
-  spec: PropTypes.object.isRequired
-})
+export type File = {
+  kind: string,
+  metadata: {
+    uid: string,
+    name: string
+  },
+  spec: {
+    'function': string,
+    runtime: string
+  }
+}
 
-export const Cluster = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired
-})
+export type Cluster = {
+  url: string,
+  name: string,
+}
+
+// Redux Action Type
+export type ReduxAction = {
+  type: string,
+  list?: Array<any>,
+  item: any,
+}

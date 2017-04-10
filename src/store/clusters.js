@@ -13,6 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+// @flow
+import type { Cluster, ReduxAction } from 'utils/Types'
+
+type State = {
+  list: Array<Cluster>,
+  selected?: Cluster
+}
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -22,10 +31,10 @@ export const CLUSTER_LOADING = 'CLUSTER_LOADING'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function clusterSelect(cluster) {
+export function clusterSelect(cluster: Cluster) {
   return {
     type: CLUSTER_SELECT,
-    cluster
+    item: cluster
   }
 }
 
@@ -38,14 +47,14 @@ const initialState = {
       name: 'localhost',
       url: 'http://localhost:8080'
     }
-  ],
-  selected: null
+  ]
 }
-export default function clusterReducer(state = initialState, action) {
+
+export default function clusterReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
     case CLUSTER_SELECT:
       return Object.assign({}, state, {
-        selected: action.cluster
+        selected: action.item
       })
     default:
       return state

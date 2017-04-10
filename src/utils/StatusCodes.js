@@ -13,7 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const StatusCodes = {
+
+export default {
   // Success
   OK: 200,
   CREATED: 201,
@@ -31,5 +32,3 @@ const StatusCodes = {
   INTERNAL_SERVER_ERROR: 500,
   UNAVAILABLE: 503
 }
-
-export default StatusCodes

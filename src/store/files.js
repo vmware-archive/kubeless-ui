@@ -13,9 +13,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-// import Immutable from 'immutable'
-import Api from 'utils/Api'
 
+// @flow
+import Api from 'utils/Api'
+import type { File, Cluster, ReduxAction } from 'utils/Types'
+
+type State = {
+  list: Array<Cluster>,
+  selected?: Cluster,
+  loading: boolean
+}
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -28,21 +35,21 @@ export const FILES_SAVE = 'FILES_SAVE'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function filesSelect(file) {
+export function filesSelect(file: File) {
   return {
     type: FILES_SELECT,
-    file
+    item: file
   }
 }
-export function filesLoading(loading = false) {
+export function filesLoading(loading: boolean = false) {
   return {
     type: FILES_LOADING,
     loading
   }
 }
-export function filesFetch(cluster) {
+export function filesFetch(cluster: Cluster) {
   filesLoading(true)
-  return (dispatch, getState) => {
+  return (dispatch: () => void) => {
     return Api.get('/functions', {}, cluster).then(result => {
       dispatch({
         type: FILES_FETCH,
@@ -51,16 +58,16 @@ export function filesFetch(cluster) {
     })
   }
 }
-export function filesSave(file) {
+export function filesSave(file: File) {
   return {
     type: FILES_SAVE,
-    file
+    item: file
   }
 }
-export function filesRun(file, body) {
+export function filesRun(file: File, body: string) {
   return {
     type: FILES_RUN,
-    file,
+    item: file,
     body
   }
 }
@@ -69,24 +76,14 @@ export function filesRun(file, body) {
 // Reducer
 // ------------------------------------
 const initialState = {
-  list: [
-//     { id: 'id1', name: 'foo.py', content: `
-// def foo(context):
-//   return context.json
-// ` },
-//     { id: 'id2', name: 'bar.js', content: `
-// function bar(context) {
-//   return context.json;
-// }` }
-  ],
-  selected: null,
+  list: [],
   loading: false
 }
-export default function fileReducer(state = initialState, action) {
+export default function fileReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
     case FILES_SELECT:
       return Object.assign({}, state, {
-        selected: action.file
+        selected: action.item
       })
     case FILES_FETCH:
       return Object.assign({}, state, {
@@ -96,7 +93,7 @@ export default function fileReducer(state = initialState, action) {
       })
     case FILES_LOADING:
       return Object.assign({}, state, {
-        loading: action.loading
+        loading: action.item
       })
     case FILES_SAVE:
       return state
