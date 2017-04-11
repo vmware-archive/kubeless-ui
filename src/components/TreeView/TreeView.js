@@ -18,6 +18,7 @@ limitations under the License.
 import React, { Component } from 'react'
 import type { Func, Cluster } from 'utils/Types'
 import FuncsList from './FuncsList'
+import CreateFunc from './CreateFunc'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
@@ -40,8 +41,7 @@ export default class TreeView extends Component {
   state = {
     editClusterOpen: false,
     editedClusterUrl: '',
-    newFuncOpen: false,
-    newFuncName: ''
+    newFuncOpen: false
   }
 
   componentDidMount() {
@@ -66,11 +66,7 @@ export default class TreeView extends Component {
     this.props.onFetch(cluster)
   }
 
-  createFunc() {
-    if (!this.state.newFuncName) { return }
-    const params = {
-      name: this.state.newFuncName
-    }
+  createFunc(params: {}) {
     this.props.onCreateFunc(params, this.props.cluster)
   }
 
@@ -137,31 +133,13 @@ export default class TreeView extends Component {
   }
 
   renderFooter() {
-    const dialogActions = [
-      <FlatButton
-        label='Cancel' primary
-        onClick={() => this.setState({ newFuncOpen: false })}
-      />,
-      <FlatButton
-        label='Done' primary
-        onClick={() => this.createFunc()}
-      />
-    ]
     return (
       <div className='treeviewFooter'>
         <a href='#' onClick={() => this.setState({ newFuncOpen: true })}>Add</a>
-        <Dialog
-          title='New function' modal={false} actions={dialogActions}
-          open={this.state.newFuncOpen}
-          onRequestClose={() => this.setState({ newFuncOpen: false })}
-        >
-          <TextField
-            floatingLabelText='Function name'
-            hintText='launch.py'
-            onChange={(e) => this.setState({ newFuncName: e.target.value })}
-          />
-          <br />
-        </Dialog>
+        <CreateFunc open={this.state.newFuncOpen}
+          onDismiss={() => this.setState({ newFuncOpen: false })}
+          onCreate={(params) => this.createFunc(params)}
+        />
       </div>
     )
   }

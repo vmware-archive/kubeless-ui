@@ -74,9 +74,20 @@ export function funcsSave(func: Func) {
   }
 }
 
-export function funcsCreate(params: {name: string}, cluster: Cluster) {
+export function funcsCreate(params: any, cluster: Cluster) {
   return (dispatch: () => void) => {
-    return Api.post('/functions', { name: params.name }, cluster).then(result => {
+    const data = {
+      kind: 'Function',
+      metadata: {
+        name: params.name,
+        handler: params.handler
+      },
+      spec: {
+        'function': '',
+        runtime: params.runtime
+      }
+    }
+    return Api.post('/functions', data, cluster).then(result => {
       dispatch({
         type: FUNCS_CREATE,
         item: result.item
