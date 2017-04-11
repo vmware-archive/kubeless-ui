@@ -18,12 +18,12 @@ limitations under the License.
 import React, { Component } from 'react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
-import type { File } from 'utils/Types'
+import type { Func } from 'utils/Types'
 
 export default class RunFunc extends Component {
 
   props: {
-    file?: File,
+    func?: Func,
     onRun?: () => void
   }
 
@@ -62,13 +62,13 @@ export default class RunFunc extends Component {
   }
 
   render() {
-    const { file } = this.props
+    const { func } = this.props
     const { body, json } = this.state
-    if (!file) { return }
+    if (!func) { return }
     return (
       <div className='editor-panel'>
         <div className='function-title'>
-          <h3>{file.metadata.name}</h3>
+          <h3>{func.metadata.name}</h3>
           <p>{ 'Function description goes here...'}</p>
         </div>
         <div className='function-run'>
@@ -93,13 +93,13 @@ export default class RunFunc extends Component {
   }
 
   renderResult() {
-    const { file } = this.props
-    if (!file) { return }
+    const { func } = this.props
+    if (!func) { return }
     const { running, result } = this.state
     let content
     if (running) {
       content = (
-        <p>{`Running ${file.metadata.name}...`}</p>
+        <p>{`Running ${func.metadata.name}...`}</p>
       )
     } else if (result) {
       content = (

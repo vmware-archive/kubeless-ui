@@ -16,7 +16,7 @@ limitations under the License.
 
 // @flow
 import Api from 'utils/Api'
-import type { File, Cluster, ReduxAction } from 'utils/Types'
+import type { Func, Cluster, ReduxAction } from 'utils/Types'
 
 type State = {
   list: Array<Cluster>,
@@ -26,56 +26,56 @@ type State = {
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const FILES_SELECT = 'FILES_SELECT'
-export const FILES_FETCH = 'FILES_FETCH'
-export const FILES_LOADING = 'FILES_LOADING'
-export const FILES_RUN = 'FILES_RUN'
-export const FILES_SAVE = 'FILES_SAVE'
+export const FUNCS_SELECT = 'FUNCS_SELECT'
+export const FUNCS_FETCH = 'FUNCS_FETCH'
+export const FUNCS_LOADING = 'FUNCS_LOADING'
+export const FUNCS_RUN = 'FUNCS_RUN'
+export const FUNCS_SAVE = 'FUNCS_SAVE'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function filesSelect(file: File) {
+export function funcsSelect(func: Func) {
   return {
-    type: FILES_SELECT,
-    item: file
+    type: FUNCS_SELECT,
+    item: func
   }
 }
-export function filesLoading(loading: boolean = false) {
+export function funcsLoading(loading: boolean = false) {
   return {
-    type: FILES_LOADING,
+    type: FUNCS_LOADING,
     loading
   }
 }
-export function filesFetch(cluster: Cluster) {
+export function funcsFetch(cluster: Cluster) {
   return (dispatch: () => void) => {
     dispatch({
-      type: FILES_LOADING,
+      type: FUNCS_LOADING,
       item: true
     })
     return Api.get('/functions', {}, cluster).then(result => {
       dispatch({
-        type: FILES_FETCH,
+        type: FUNCS_FETCH,
         list: result.items
       })
     }).catch(e => {
       dispatch({
-        type: FILES_FETCH,
+        type: FUNCS_FETCH,
         list: []
       })
     })
   }
 }
-export function filesSave(file: File) {
+export function funcsSave(func: Func) {
   return {
-    type: FILES_SAVE,
-    item: file
+    type: FUNCS_SAVE,
+    item: func
   }
 }
-export function filesRun(file: File, body: string) {
+export function funcsRun(func: Func, body: string) {
   return {
-    type: FILES_RUN,
-    item: file,
+    type: FUNCS_RUN,
+    item: func,
     body
   }
 }
@@ -87,25 +87,25 @@ const initialState = {
   list: [],
   loading: false
 }
-export default function fileReducer(state: State = initialState, action: ReduxAction) {
+export default function funcsReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
-    case FILES_SELECT:
+    case FUNCS_SELECT:
       return Object.assign({}, state, {
         selected: action.item
       })
-    case FILES_FETCH:
+    case FUNCS_FETCH:
       return Object.assign({}, state, {
         list: action.list,
         selected: null,
         loading: false
       })
-    case FILES_LOADING:
+    case FUNCS_LOADING:
       return Object.assign({}, state, {
         loading: action.item
       })
-    case FILES_SAVE:
+    case FUNCS_SAVE:
       return state
-    case FILES_RUN:
+    case FUNCS_RUN:
       return state
     default:
       return state

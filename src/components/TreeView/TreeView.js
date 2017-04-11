@@ -16,8 +16,8 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
-import type { File, Cluster } from 'utils/Types'
-import FilesList from './FilesList'
+import type { Func, Cluster } from 'utils/Types'
+import FuncsList from './FuncsList'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
@@ -27,11 +27,11 @@ import './TreeView.scss'
 export default class TreeView extends Component {
 
   props: {
-    files: Array<File>,
+    funcs: Array<Func>,
     cluster: Cluster,
-    selectedFile?: File,
+    selectedFunc?: Func,
     loading: boolean,
-    onSelect: (?File) => void,
+    onSelect: (?Func) => void,
     onFetch: (Cluster) => void,
     onEditCluster: (Cluster) => void
   }
@@ -69,8 +69,8 @@ export default class TreeView extends Component {
       <div className='treeview'>
         {this.renderLoader()}
         {this.renderHeader()}
-        <FilesList
-          files={this.props.files} selectedFile={this.props.selectedFile}
+        <FuncsList
+          funcs={this.props.funcs} selectedFunc={this.props.selectedFunc}
           onSelect={this.props.onSelect}
         />
       </div>
@@ -112,7 +112,7 @@ export default class TreeView extends Component {
     let content
     if (this.props.loading) {
       content = (<p>{'...Loading functions...'}</p>)
-    } else if (this.props.files.length === 0) {
+    } else if (this.props.funcs.length === 0) {
       content = (
         <p>{'No function found'}<br />
           <a href='#' onClick={() => this.refresh()}>Refresh</a>

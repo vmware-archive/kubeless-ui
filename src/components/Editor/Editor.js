@@ -22,13 +22,13 @@ import 'brace/mode/python'
 import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
 import './Editor.scss'
-import type { File } from 'utils/Types'
+import type { Func } from 'utils/Types'
 import RunFunc from './RunFunc'
 
 export default class Editor extends Component {
 
   props: {
-    file: File,
+    func: Func,
     onRun: () => void,
     onSave: () => void
   }
@@ -45,28 +45,28 @@ export default class Editor extends Component {
   }
 
   render() {
-    const { file, onRun } = this.props
+    const { func, onRun } = this.props
     const { showRunPanel } = this.state
     let mode = 'javascript'
-    if (file && file.spec.runtime.indexOf('python') !== -1) {
+    if (func && func.spec.runtime.indexOf('python') !== -1) {
       mode = 'python'
     }
     return (
       <div className='editor'>
-        {!file && this.renderEmptyView()}
-        {file && <AceEditor
+        {!func && this.renderEmptyView()}
+        {func && <AceEditor
           mode={mode}
           theme='solarized_dark'
           // onChange={onChange}
-          value={file ? file.spec.function : ''}
+          value={func ? func.spec.function : ''}
           name='UNIQUE_ID_OF_DIV'
         />}
-        {file && !showRunPanel &&
+        {func && !showRunPanel &&
           <div className='show-panel-button' onClick={() => this.setState({ showRunPanel: true })}>
             {'Run function'}
           </div>
         }
-        {file && showRunPanel && <RunFunc file={file} onRun={onRun} />}
+        {func && showRunPanel && <RunFunc func={func} onRun={onRun} />}
       </div>
     )
   }
@@ -75,7 +75,7 @@ export default class Editor extends Component {
     return (
       <div className='editor-empty'>
         <p>{':)'}<br />
-          {'Choose a file or create a new one'}
+          {'Choose a function or create a new one'}
         </p>
       </div>
     )

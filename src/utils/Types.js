@@ -15,7 +15,7 @@ limitations under the License.
 */
 // @flow
 
-export type File = {
+export type Func = {
   kind: string,
   metadata: {
     uid: string,

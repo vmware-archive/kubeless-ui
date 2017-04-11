@@ -16,35 +16,35 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
-import type { File } from 'utils/Types'
-import fileIcon from './assets/file.png'
+import type { Func } from 'utils/Types'
+import funcIcon from './assets/file.png'
 import './TreeView.scss'
 
-export default class FilesList extends Component {
+export default class FuncsList extends Component {
 
   props: {
-    files: Array<File>,
-    selectedFile?: File,
-    onSelect: (?File) => void,
+    funcs: Array<Func>,
+    selectedFunc?: Func,
+    onSelect: (?Func) => void,
   }
 
   render() {
     return (
-      <div className='files'>
-        {this.props.files.map(file => this.renderFile(file))}
+      <div className='funcs'>
+        {this.props.funcs.map(func => this.renderFunc(func))}
       </div>
     )
   }
 
-  renderFile(file: File) {
-    const { selectedFile, onSelect } = this.props
-    const isActive = selectedFile && file.metadata.uid === selectedFile.metadata.uid
+  renderFunc(func: Func) {
+    const { selectedFunc, onSelect } = this.props
+    const isActive = selectedFunc && func.metadata.uid === selectedFunc.metadata.uid
     return (
-      <div key={file.metadata.uid}
-        onClick={() => onSelect(file)}
-        className={`file ${isActive ? 'active' : ''}`}>
-        <img src={fileIcon} />
-        <h4 className='title'>{file.metadata.name}</h4>
+      <div key={func.metadata.uid}
+        onClick={() => onSelect(func)}
+        className={`func ${isActive ? 'active' : ''}`}>
+        <img src={funcIcon} />
+        <h4 className='title'>{func.metadata.name}</h4>
       </div>
     )
   }
