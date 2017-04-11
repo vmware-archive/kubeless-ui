@@ -18,8 +18,7 @@ limitations under the License.
 import type { Cluster, ReduxAction } from 'utils/Types'
 
 type State = {
-  list: Array<Cluster>,
-  selected?: Cluster
+  cluster: Cluster
 }
 
 // ------------------------------------
@@ -27,6 +26,7 @@ type State = {
 // ------------------------------------
 export const CLUSTER_SELECT = 'CLUSTER_SELECT'
 export const CLUSTER_LOADING = 'CLUSTER_LOADING'
+export const CLUSTER_EDIT = 'CLUSTER_EDIT'
 
 // ------------------------------------
 // Actions
@@ -37,24 +37,33 @@ export function clusterSelect(cluster: Cluster) {
     item: cluster
   }
 }
+export function clusterEdit(cluster: Cluster) {
+  return {
+    type: CLUSTER_EDIT,
+    item: cluster
+  }
+}
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = {
-  list: [
-    { id: 'id1',
-      name: 'localhost',
-      url: 'http://localhost:8080'
-    }
-  ]
+  cluster: {
+    id: 'id1',
+    name: 'localhost',
+    url: 'http://localhost:8080'
+  }
 }
 
 export default function clusterReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
     case CLUSTER_SELECT:
       return Object.assign({}, state, {
-        selected: action.item
+        cluster: action.item
+      })
+    case CLUSTER_EDIT:
+      return Object.assign({}, state, {
+        cluster: action.item
       })
     default:
       return state

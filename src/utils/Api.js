@@ -45,7 +45,7 @@ export default class Api {
         })
       }
       // avoid error when the server doesn't return json
-      if (response.status === StatusCodes.NO_CONTENT) {
+      if (response.status === 404) {
         return {}
       }
       return response.text()

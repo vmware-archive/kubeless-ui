@@ -18,17 +18,19 @@ limitations under the License.
 import { connect } from 'react-redux'
 import TreeView from './TreeView'
 import { filesSelect, filesFetch } from 'store/files'
+import { clusterEdit } from 'store/clusters'
 
 const mapStateToProps = ({ files, clusters }) => ({
   files: files.list,
   selectedFile: files.selected,
   loading: files.loading,
-  clusters: clusters.list
+  cluster: clusters.cluster
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onSelect: (file) => dispatch(filesSelect(file)),
-  onFetch: (cluster) => dispatch(filesFetch(cluster))
+  onFetch: (cluster) => dispatch(filesFetch(cluster)),
+  onEditCluster: (cluster) => dispatch(clusterEdit(cluster))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TreeView)

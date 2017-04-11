@@ -48,12 +48,20 @@ export function filesLoading(loading: boolean = false) {
   }
 }
 export function filesFetch(cluster: Cluster) {
-  filesLoading(true)
   return (dispatch: () => void) => {
+    dispatch({
+      type: FILES_LOADING,
+      item: true
+    })
     return Api.get('/functions', {}, cluster).then(result => {
       dispatch({
         type: FILES_FETCH,
         list: result.items
+      })
+    }).catch(e => {
+      dispatch({
+        type: FILES_FETCH,
+        list: []
       })
     })
   }

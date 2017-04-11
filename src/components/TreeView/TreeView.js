@@ -17,7 +17,10 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import type { File, Cluster } from 'utils/Types'
-import fileIcon from './assets/file.png'
+import FilesList from './FilesList'
+import Dialog from 'material-ui/Dialog'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
 import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
 
@@ -25,57 +28,98 @@ export default class TreeView extends Component {
 
   props: {
     files: Array<File>,
-    clusters: Array<Cluster>,
+    cluster: Cluster,
     selectedFile?: File,
     loading: boolean,
     onSelect: (?File) => void,
-    onFetch: (Cluster) => void
+    onFetch: (Cluster) => void,
+    onEditCluster: (Cluster) => void
+  }
+
+  state = {
+    editClusterOpen: false,
+    editedClusterUrl: ''
   }
 
   componentDidMount() {
-    const cluster = this.props.clusters[0]
-    this.props.onFetch && this.props.onFetch(cluster)
+    this.refresh()
+  }
+
+  refresh() {
+    const cluster = this.props.cluster
+    this.props.onFetch(cluster)
+  }
+
+  headerPressed() {
+    this.props.onSelect(null)
+    this.setState({ editClusterOpen: true })
+  }
+
+  doneEditCluster() {
+    console.log('???', this.state.editedClusterUrl)
+    const { cluster } = this.props
+    cluster.url = this.state.editedClusterUrl
+    this.setState({ editClusterOpen: false })
+    this.props.onEditCluster(cluster)
+    this.props.onFetch(cluster)
   }
 
   render() {
     return (
       <div className='treeview'>
+        {this.renderLoader()}
         {this.renderHeader()}
-        {this.props.loading && this.renderLoading()}
-        <div className='files'>
-          {this.props.files.map(file => this.renderFile(file))}
-        </div>
+        <FilesList
+          files={this.props.files} selectedFile={this.props.selectedFile}
+          onSelect={this.props.onSelect}
+        />
       </div>
     )
   }
 
   renderHeader() {
-    const cluster = this.props.clusters[0]
+    const cluster = this.props.cluster
+    const dialogActions = [
+      <FlatButton
+        label='Cancel' primary
+        onClick={() => this.setState({ editClusterOpen: false })}
+      />,
+      <FlatButton
+        label='Done' primary
+        onClick={() => this.doneEditCluster()}
+      />
+    ]
     return (
-      <div className='folder' onClick={() => this.props.onSelect(null)}>
+      <div className='folder' onClick={() => this.headerPressed()}>
         <img className='folder-icon' src={cubeIcon} />
-        <h3 className='folder-title'>{cluster.name}</h3>
+        <h3 className='folder-title'>{cluster.url}</h3>
+        <Dialog
+          title='Cluster info' modal={false} actions={dialogActions}
+          open={this.state.editClusterOpen}
+          onRequestClose={() => this.setState({ editClusterOpen: false })}
+        >
+          <TextField
+            floatingLabelText='Cluster url'
+            defaultValue={cluster.url}
+            onChange={(e) => this.setState({ editedClusterUrl: e.target.value })}
+          />
+          <br />
+        </Dialog>
       </div>
     )
   }
-  renderLoading() {
-    return (
-      <div className='loading'>
-        <p>{'...Loading functions...'}</p>
-      </div>
-    )
+  renderLoader() {
+    let content
+    if (this.props.loading) {
+      content = (<p>{'...Loading functions...'}</p>)
+    } else if (this.props.files.length === 0) {
+      content = (
+        <p>{'No function found'}<br />
+          <a href='#' onClick={() => this.refresh()}>Refresh</a>
+        </p>
+      )
+    } else { return }
+    return <div className='centerMessage'>{content}</div>
   }
 
-  renderFile(file: File) {
-    const { selectedFile, onSelect } = this.props
-    const isActive = selectedFile && file.metadata.uid === selectedFile.metadata.uid
-    return (
-      <div key={file.metadata.uid}
-        onClick={() => onSelect(file)}
-        className={`file ${isActive ? 'active' : ''}`}>
-        <img src={fileIcon} />
-        <h4 className='title'>{file.metadata.name}</h4>
-      </div>
-    )
-  }
 }
