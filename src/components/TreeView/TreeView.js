@@ -33,12 +33,15 @@ export default class TreeView extends Component {
     loading: boolean,
     onSelect: (?Func) => void,
     onFetch: (Cluster) => void,
-    onEditCluster: (Cluster) => void
+    onEditCluster: (Cluster) => void,
+    onCreateFunc: ({}, Cluster) => void
   }
 
   state = {
     editClusterOpen: false,
-    editedClusterUrl: ''
+    editedClusterUrl: '',
+    newFuncOpen: false,
+    newFuncName: ''
   }
 
   componentDidMount() {
@@ -56,7 +59,6 @@ export default class TreeView extends Component {
   }
 
   doneEditCluster() {
-    console.log('???', this.state.editedClusterUrl)
     const { cluster } = this.props
     cluster.url = this.state.editedClusterUrl
     this.setState({ editClusterOpen: false })
@@ -64,15 +66,26 @@ export default class TreeView extends Component {
     this.props.onFetch(cluster)
   }
 
+  createFunc() {
+    if (!this.state.newFuncName) { return }
+    const params = {
+      name: this.state.newFuncName
+    }
+    this.props.onCreateFunc(params, this.props.cluster)
+  }
+
   render() {
     return (
       <div className='treeview'>
-        {this.renderLoader()}
         {this.renderHeader()}
-        <FuncsList
-          funcs={this.props.funcs} selectedFunc={this.props.selectedFunc}
-          onSelect={this.props.onSelect}
-        />
+        {this.renderLoader()}
+        {this.props.funcs.length > 0 &&
+          <FuncsList
+            funcs={this.props.funcs} selectedFunc={this.props.selectedFunc}
+            onSelect={this.props.onSelect}
+          />
+        }
+        {this.renderFooter()}
       </div>
     )
   }
@@ -90,7 +103,7 @@ export default class TreeView extends Component {
       />
     ]
     return (
-      <div className='folder' onClick={() => this.headerPressed()}>
+      <div className='treeviewHeader' onClick={() => this.headerPressed()}>
         <img className='folder-icon' src={cubeIcon} />
         <h3 className='folder-title'>{cluster.url}</h3>
         <Dialog
@@ -108,6 +121,7 @@ export default class TreeView extends Component {
       </div>
     )
   }
+
   renderLoader() {
     let content
     if (this.props.loading) {
@@ -122,4 +136,33 @@ export default class TreeView extends Component {
     return <div className='centerMessage'>{content}</div>
   }
 
+  renderFooter() {
+    const dialogActions = [
+      <FlatButton
+        label='Cancel' primary
+        onClick={() => this.setState({ newFuncOpen: false })}
+      />,
+      <FlatButton
+        label='Done' primary
+        onClick={() => this.createFunc()}
+      />
+    ]
+    return (
+      <div className='treeviewFooter'>
+        <a href='#' onClick={() => this.setState({ newFuncOpen: true })}>Add</a>
+        <Dialog
+          title='New function' modal={false} actions={dialogActions}
+          open={this.state.newFuncOpen}
+          onRequestClose={() => this.setState({ newFuncOpen: false })}
+        >
+          <TextField
+            floatingLabelText='Function name'
+            hintText='launch.py'
+            onChange={(e) => this.setState({ newFuncName: e.target.value })}
+          />
+          <br />
+        </Dialog>
+      </div>
+    )
+  }
 }

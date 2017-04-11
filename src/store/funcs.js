@@ -31,6 +31,7 @@ export const FUNCS_FETCH = 'FUNCS_FETCH'
 export const FUNCS_LOADING = 'FUNCS_LOADING'
 export const FUNCS_RUN = 'FUNCS_RUN'
 export const FUNCS_SAVE = 'FUNCS_SAVE'
+export const FUNCS_CREATE = 'FUNCS_CREATE'
 
 // ------------------------------------
 // Actions
@@ -72,6 +73,18 @@ export function funcsSave(func: Func) {
     item: func
   }
 }
+
+export function funcsCreate(params: {name: string}, cluster: Cluster) {
+  return (dispatch: () => void) => {
+    return Api.post('/functions', { name: params.name }, cluster).then(result => {
+      dispatch({
+        type: FUNCS_CREATE,
+        item: result.item
+      })
+    })
+  }
+}
+
 export function funcsRun(func: Func, body: string) {
   return {
     type: FUNCS_RUN,
