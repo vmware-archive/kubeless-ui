@@ -72,8 +72,8 @@ export default class Editor extends Component {
 
   render() {
     const { func } = this.props
-    let mode = 'javascript'
-    if (func && func.spec.runtime.indexOf('python') !== -1) {
+    let mode = (func && func.spec.runtime) || 'javascript'
+    if (mode.indexOf('python') !== -1) {
       mode = 'python'
     }
     return (

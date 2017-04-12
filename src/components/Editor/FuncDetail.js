@@ -47,7 +47,7 @@ export default class FuncDetail extends Component {
     }
   }
 
-  run=() => {
+  run = () => {
     const { body, json } = this.state
     let requestBody
     try {
@@ -70,11 +70,15 @@ export default class FuncDetail extends Component {
   }
 
   doneEditing = (params: any) => {
+    const { func, cluster } = this.props
     const data = {
       metadata: { name: params.name },
-      spec: { handler: params.handler, runtime: params.runtime }
+      spec: {
+        handler: params.handler,
+        runtime: params.runtime,
+        type: params.type
+      }
     }
-    const { func, cluster } = this.props
     this.props.onSave(func, cluster, data)
     this.setState({ editing: false })
   }

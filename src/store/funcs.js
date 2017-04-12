@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 // @flow
+import _ from 'lodash'
 import Api from 'utils/Api'
 import EntityHelper from 'utils/EntityHelper'
 import type { Func, Cluster, ReduxAction } from 'utils/Types'
@@ -71,7 +72,8 @@ export function funcsFetch(cluster: Cluster) {
 }
 export function funcsSave(func: Func, cluster: Cluster, params: {}) {
   return (dispatch: () => void) => {
-    return Api.put(`/functions/${func.metadata.name}`, params, cluster, func).then(result => {
+    const data = _.merge(func, params)
+    return Api.put(`/functions/${func.metadata.name}`, data, cluster, func).then(result => {
       dispatch({
         type: FUNCS_SAVE,
         item: result

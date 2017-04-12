@@ -26,7 +26,8 @@ import type { Func } from 'utils/Types'
 const initialState = {
   name: '',
   handler: '',
-  runtime: 'javascript'
+  runtime: 'javascript',
+  type: 'HTTP'
 }
 export default class CreateFunc extends Component {
 
@@ -46,7 +47,8 @@ export default class CreateFunc extends Component {
         this.setState({
           name: func.metadata.name,
           handler: func.spec.handler,
-          runtime: func.spec.runtime
+          runtime: func.spec.runtime,
+          type: func.spec.type
         })
       } else {
         this.setState(initialState)
@@ -61,6 +63,8 @@ export default class CreateFunc extends Component {
 
   render() {
     const doneAction = this.props.func ? 'Edit' : 'Create'
+    const title = this.props.func ? 'Edit function' : 'New function'
+
     const dialogActions = [
       <FlatButton
         label='Cancel' primary
@@ -76,11 +80,16 @@ export default class CreateFunc extends Component {
       <MenuItem key={1} value='javascript' primaryText='Javascript' />,
       <MenuItem key={2} value='python27' primaryText='Python27' />
     ]
+    const types = [
+      <MenuItem key={1} value='HTTP' primaryText='HTTP' />,
+      <MenuItem key={2} value='PubSub' primaryText='PubSub' />
+    ]
     return (
       <Dialog
-        title='New function' modal={false} actions={dialogActions}
+        title={title} modal={false} actions={dialogActions}
         open={this.props.open}
         onRequestClose={this.props.onDismiss}
+        contentStyle={{ width: '310px' }}
         autoScrollBodyContent
       >
         <div className='createFunc'>
@@ -90,13 +99,19 @@ export default class CreateFunc extends Component {
             disabled={!!this.props.func}
             value={this.state.name}
             onChange={(e, value) => this.setState({ name: value })}
-          />
+          /><br />
           <TextField
             floatingLabelText='Handler'
             hintText='test.foobar'
             value={this.state.handler}
             onChange={(e, value) => this.setState({ handler: value })}
           /><br />
+          <SelectField
+            value={this.state.type}
+            onChange={(e, i, value) => this.setState({ type: value })}
+          >
+            {types}
+          </SelectField><br />
           <SelectField
             value={this.state.runtime}
             onChange={(e, i, value) => this.setState({ runtime: value })}
