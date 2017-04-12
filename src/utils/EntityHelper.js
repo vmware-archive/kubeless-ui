@@ -15,10 +15,12 @@ limitations under the License.
 */
 
 // @flow
+import _ from 'lodash'
 
 export default class EntityHelper {
 
   static updateEntityInList(list: Array<any>, entity: any): Array<any> {
+    console.log('LIST', list)
     for (let i = 0; i < list.length; i++) {
       const e = list[i]
       if (e.metadata.uid === entity.metadata.uid) {
@@ -26,6 +28,30 @@ export default class EntityHelper {
         break
       }
     }
+    console.log('LIST_AFTER', list)
     return list
+  }
+
+  static deleteEntityInList(list: Array<any>, entity: any): Array<any> {
+    return _.remove(list, (e) => {
+      return e.metadata.uid !== entity.metadata.uid
+    })
+  }
+
+  static functionFromParams(params: {[string]: any}) {
+    return {
+      kind: 'Function',
+      metadata: {
+        name: params.name,
+        namespace: params.namespace || 'default'
+      },
+      spec: {
+        'function': params['function'] || '',
+        handler: params.handler,
+        runtime: params.runtime,
+        topic: params.topic || 'kubeless',
+        type: params.type || 'HTTP'
+      }
+    }
   }
 }

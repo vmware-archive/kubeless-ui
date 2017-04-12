@@ -32,7 +32,7 @@ export default class CreateFunc extends Component {
 
   state = {
     name: '',
-    handle: '',
+    handler: '',
     runtime: 'javascript'
   }
 
@@ -68,12 +68,12 @@ export default class CreateFunc extends Component {
           <TextField
             floatingLabelText='Function name'
             hintText='Test Func'
-            onChange={(e, i, value) => this.setState({ name: value })}
+            onChange={(e, value) => this.setState({ name: value })}
           />
           <TextField
             floatingLabelText='Handler'
             hintText='test.foobar'
-            onChange={(e, i, value) => this.setState({ handle: value })}
+            onChange={(e, value) => this.setState({ handler: value })}
           /><br />
           <SelectField
             value={this.state.runtime}

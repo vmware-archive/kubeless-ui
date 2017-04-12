@@ -31,7 +31,8 @@ export default class Editor extends Component {
     func: Func,
     cluster: Cluster,
     onRun: () => void,
-    onSave: () => void
+    onSave: () => void,
+    onDelete: () => void
   }
 
   state: {
@@ -47,7 +48,7 @@ export default class Editor extends Component {
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
     if (nextProps.func !== this.props.func) {
-      this.setState({ content: nextProps.func.spec['function'] })
+      this.setState({ content: nextProps.func ? nextProps.func.spec['function'] : '' })
     }
   }
 
@@ -59,6 +60,11 @@ export default class Editor extends Component {
     const { func } = this.props
     func.spec['function'] = this.state.content
     this.props.onSave(func, this.props.cluster)
+  }
+
+  delete() {
+    const { func, cluster } = this.props
+    this.props.onDelete(func, cluster)
   }
 
   render() {
@@ -89,6 +95,7 @@ export default class Editor extends Component {
     return (
       <div className='editorFooter'>
         <a href='#' onClick={() => this.save()}>Save</a>
+        <a href='#' onClick={() => this.delete()}>Delete</a>
       </div>
     )
   }

@@ -33,6 +33,7 @@ export const FUNCS_LOADING = 'FUNCS_LOADING'
 export const FUNCS_RUN = 'FUNCS_RUN'
 export const FUNCS_SAVE = 'FUNCS_SAVE'
 export const FUNCS_CREATE = 'FUNCS_CREATE'
+export const FUNCS_DELETE = 'FUNCS_DELETE'
 
 // ------------------------------------
 // Actions
@@ -68,7 +69,7 @@ export function funcsFetch(cluster: Cluster) {
     })
   }
 }
-export function funcsSave(func: Func, cluster) {
+export function funcsSave(func: Func, cluster: Cluster) {
   return (dispatch: () => void) => {
     return Api.put(`/functions/${func.metadata.name}`, func, cluster, func).then(result => {
       dispatch({
@@ -81,23 +82,23 @@ export function funcsSave(func: Func, cluster) {
 
 export function funcsCreate(params: any, cluster: Cluster) {
   return (dispatch: () => void) => {
-    const data = {
-      kind: 'Function',
-      metadata: {
-        name: params.name,
-        handler: params.handler
-      },
-      spec: {
-        'function': '',
-        runtime: params.runtime
-      }
-    }
-    return Api.post('/functions', data, cluster).then(result => {
+    const entity = EntityHelper.functionFromParams(params)
+    return Api.post('/functions', entity, cluster, entity).then(result => {
       dispatch({
         type: FUNCS_CREATE,
-        item: result.item
+        item: result
       })
     })
+  }
+}
+
+export function funcsDelete(func: Func, cluster: Cluster) {
+  return (dispatch: () => void) => {
+    dispatch({
+      type: FUNCS_DELETE,
+      item: func
+    })
+    return Api.delete(`/functions/${func.metadata.name}`, {}, cluster, func)
   }
 }
 
@@ -136,6 +137,18 @@ export default function funcsReducer(state: State = initialState, action: ReduxA
       return Object.assign({}, state, {
         list: EntityHelper.updateEntityInList(state.list, action.item),
         selected: action.item
+      })
+    case FUNCS_CREATE:
+      const list = state.list
+      list.push(action.item)
+      return Object.assign({}, state, {
+        list,
+        selected: action.item
+      })
+    case FUNCS_DELETE:
+      return Object.assign({}, state, {
+        list: EntityHelper.deleteEntityInList(state.list, action.item),
+        selected: null
       })
     case FUNCS_RUN:
       return state

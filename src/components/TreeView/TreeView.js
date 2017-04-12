@@ -59,15 +59,17 @@ export default class TreeView extends Component {
   }
 
   doneEditCluster() {
+    this.setState({ editClusterOpen: false })
+    if (!this.state.editedClusterUrl) { return }
     const { cluster } = this.props
     cluster.url = this.state.editedClusterUrl
-    this.setState({ editClusterOpen: false })
     this.props.onEditCluster(cluster)
     this.props.onFetch(cluster)
   }
 
   createFunc(params: {}) {
     this.props.onCreateFunc(params, this.props.cluster)
+    this.setState({ newFuncOpen: false })
   }
 
   render() {
