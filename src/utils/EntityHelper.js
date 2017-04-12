@@ -15,18 +15,17 @@ limitations under the License.
 */
 
 // @flow
-import { connect } from 'react-redux'
-import Editor from './Editor'
-import { funcsRun, funcsSave } from 'store/funcs'
 
-const mapStateToProps = ({ funcs, clusters }) => ({
-  func: funcs.selected,
-  cluster: clusters.cluster
-})
+export default class EntityHelper {
 
-const mapDispatchToProps = (dispatch) => ({
-  onRun: (func, body) => dispatch(funcsRun(func, body)),
-  onSave: (func, cluster) => dispatch(funcsSave(func, cluster))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Editor)
+  static updateEntityInList(list: Array<any>, entity: any): Array<any> {
+    for (let i = 0; i < list.length; i++) {
+      const e = list[i]
+      if (e.metadata.uid === entity.metadata.uid) {
+        list[i] = entity
+        break
+      }
+    }
+    return list
+  }
+}

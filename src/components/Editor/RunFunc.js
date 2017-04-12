@@ -66,12 +66,12 @@ export default class RunFunc extends Component {
     const { body, json } = this.state
     if (!func) { return }
     return (
-      <div className='editor-panel'>
-        <div className='function-title'>
+      <div className='editorPanel'>
+        <div className='functionTitle'>
           <h3>{func.metadata.name}</h3>
           <p>{ 'Function description goes here...'}</p>
         </div>
-        <div className='function-run'>
+        <div className='functionTun'>
           <h5>Request</h5>
           <textarea className='body' placeholder='Request body...'
             value={body} onChange={(e) => this.setState({ body: e.target.value })} />
@@ -112,7 +112,7 @@ export default class RunFunc extends Component {
       )
     }
     return (
-      <div className='function-result'>
+      <div className='functionResult'>
         {content}
       </div>
     )

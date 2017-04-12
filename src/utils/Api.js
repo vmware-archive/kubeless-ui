@@ -133,7 +133,7 @@ export default class Api {
         }
         let namespace
         if (url.indexOf('/nodes') === -1) {
-          namespace = entity ? entity.getIn(['metadata', 'namespace']) : cluster.currentNamespace
+          namespace = entity ? entity.metadata.namespace : cluster.currentNamespace
         }
         path = namespace ? `${api}/namespaces/${namespace}` : api
       }

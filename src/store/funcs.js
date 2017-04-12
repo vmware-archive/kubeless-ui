@@ -16,6 +16,7 @@ limitations under the License.
 
 // @flow
 import Api from 'utils/Api'
+import EntityHelper from 'utils/EntityHelper'
 import type { Func, Cluster, ReduxAction } from 'utils/Types'
 
 type State = {
@@ -67,10 +68,14 @@ export function funcsFetch(cluster: Cluster) {
     })
   }
 }
-export function funcsSave(func: Func) {
-  return {
-    type: FUNCS_SAVE,
-    item: func
+export function funcsSave(func: Func, cluster) {
+  return (dispatch: () => void) => {
+    return Api.put(`/functions/${func.metadata.name}`, func, cluster, func).then(result => {
+      dispatch({
+        type: FUNCS_SAVE,
+        item: result
+      })
+    })
   }
 }
 
@@ -128,7 +133,10 @@ export default function funcsReducer(state: State = initialState, action: ReduxA
         loading: action.item
       })
     case FUNCS_SAVE:
-      return state
+      return Object.assign({}, state, {
+        list: EntityHelper.updateEntityInList(state.list, action.item),
+        selected: action.item
+      })
     case FUNCS_RUN:
       return state
     default:

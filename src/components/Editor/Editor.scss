@@ -20,22 +20,16 @@ limitations under the License.
   background: #002B35;
   display: flex;
 }
+.editorInnerContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 .ace_editor {
   flex: 1;
   height: auto !important;
 }
-.show-panel-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.9);
-  color: black;
-  border-radius: 4px;
-  box-shadow: -2px 2px 10px black;
-  cursor: pointer;
-}
-.editor-empty {
+.editorEmpty {
   flex: 1;
   display: flex;
   align-items: center;
@@ -43,7 +37,19 @@ limitations under the License.
   color: rgba(255, 255, 255, 0.2);
   font-size: 1.2em;
 }
-.editor-panel {
+.editorFooter {
+  height: 40px;
+  display: flex;
+  padding: 0 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  align-items: center;
+  justify-content: flex-start;
+  a {
+    color: white;
+  }
+}
+.editorPanel {
   width: 300px;
   color: white;
   background: #00313E;
@@ -52,16 +58,11 @@ limitations under the License.
   padding: 0 10px 20px 10px;
   overflow: auto;
 
-  .function-title {
+  .functionTitle {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 20px;
-    .close-icon {
-      position: absolute !important;
-      top: 10px;
-      right: 10px;
-    }
   }
-  .function-run {
+  .functionRun {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 20px;
     margin-bottom: 20px;
