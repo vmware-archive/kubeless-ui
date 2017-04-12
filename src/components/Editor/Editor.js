@@ -57,9 +57,12 @@ export default class Editor extends Component {
   }
 
   save = () => {
-    const { func } = this.props
-    func.spec['function'] = this.state.content
-    this.props.onSave(func, this.props.cluster)
+    const { func, cluster } = this.props
+    const params = {
+      ...func,
+      spec: { 'function': this.state.content }
+    }
+    this.props.onSave(func, cluster, params)
   }
 
   delete = () => {

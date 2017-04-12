@@ -21,35 +21,54 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import type { Func } from 'utils/Types'
 
+const initialState = {
+  name: '',
+  handler: '',
+  runtime: 'javascript'
+}
 export default class CreateFunc extends Component {
 
   props: {
+    func?: Func,
     open: boolean,
     onDismiss: () => void,
-    onCreate: ({}) => void
+    onDone: ({}) => void
   }
 
-  state = {
-    name: '',
-    handler: '',
-    runtime: 'javascript'
+  state = initialState
+
+  componentWillReceiveProps(nextProps: any) {
+    if (!this.props.open && nextProps.open) {
+      const { func } = nextProps
+      if (func) {
+        this.setState({
+          name: func.metadata.name,
+          handler: func.spec.handler,
+          runtime: func.spec.runtime
+        })
+      } else {
+        this.setState(initialState)
+      }
+    }
   }
 
-  createFunc() {
+  donePressed = () => {
     const params = this.state
-    this.props.onCreate(params)
+    this.props.onDone(params)
   }
 
   render() {
+    const doneAction = this.props.func ? 'Edit' : 'Create'
     const dialogActions = [
       <FlatButton
         label='Cancel' primary
         onClick={this.props.onDismiss}
       />,
       <FlatButton
-        label='Create' primary
-        onClick={() => this.createFunc()}
+        label={doneAction} primary
+        onClick={this.donePressed}
       />
     ]
 
@@ -68,11 +87,14 @@ export default class CreateFunc extends Component {
           <TextField
             floatingLabelText='Function name'
             hintText='Test Func'
+            disabled={!!this.props.func}
+            value={this.state.name}
             onChange={(e, value) => this.setState({ name: value })}
           />
           <TextField
             floatingLabelText='Handler'
             hintText='test.foobar'
+            value={this.state.handler}
             onChange={(e, value) => this.setState({ handler: value })}
           /><br />
           <SelectField

@@ -18,21 +18,24 @@ limitations under the License.
 import React, { Component } from 'react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
-import type { Func } from 'utils/Types'
+import CreateFunc from 'components/TreeView/CreateFunc'
+import type { Func, Cluster } from 'utils/Types'
 
 export default class FuncDetail extends Component {
 
   props: {
-    func?: Func,
-    onRun?: () => void,
-    onSave?: () => void,
-    onDelete?: () => void
+    func: Func,
+    cluster: Cluster,
+    onRun: () => void,
+    onSave: () => void,
+    onDelete: () => void
   }
 
   state: {
     body: string,
-    json: boolean,
-    running: boolean,
+    json?: boolean,
+    running?: boolean,
+    editing?: boolean,
     result?: string
   }
 
@@ -40,8 +43,7 @@ export default class FuncDetail extends Component {
     super()
     this.state = {
       body: '',
-      json: true,
-      running: false
+      json: true
     }
   }
 
@@ -51,7 +53,6 @@ export default class FuncDetail extends Component {
     try {
       requestBody = json ? JSON.parse(body) : body
     } catch (e) {
-      console.log('e', e)
       this.setState({ result: e.message })
       return
     }
@@ -61,6 +62,21 @@ export default class FuncDetail extends Component {
       this.setState({ running: false, result: `{ "data": "Hello world" }` })
     }, 2000)
     this.props.onRun && this.props.onRun()
+  }
+
+  delete = () => {
+    const { func, cluster } = this.props
+    this.props.onDelete(func, cluster)
+  }
+
+  doneEditing = (params: any) => {
+    const data = {
+      metadata: { name: params.name },
+      spec: { handler: params.handler, runtime: params.runtime }
+    }
+    const { func, cluster } = this.props
+    this.props.onSave(func, cluster, data)
+    this.setState({ editing: false })
   }
 
   render() {
@@ -75,6 +91,13 @@ export default class FuncDetail extends Component {
             <b>Runtime: </b>{func.spec.runtime}<br />
             <b>Type: </b>{func.spec.type}
           </p>
+          <Button className='button' label='Edit' primary onClick={() => this.setState({ editing: true })} />
+          <CreateFunc open={!!this.state.editing} func={func}
+            onDismiss={() => this.setState({ editing: false })}
+            onDone={(params) => this.doneEditing(params)}
+          />
+          <br />
+          <br />
         </div>
         {this.renderRun()}
         {this.renderResult()}
@@ -99,10 +122,11 @@ export default class FuncDetail extends Component {
             className='radioButton' />
         </RadioButtonGroup>
         <br />
-        <Button label='Run function' onClick={this.run} />
+        <Button label='Run function' primary onClick={this.run} />
       </div>
     )
   }
+
   renderResult() {
     const { func } = this.props
     if (!func) { return }

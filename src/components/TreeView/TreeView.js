@@ -48,17 +48,17 @@ export default class TreeView extends Component {
     this.refresh()
   }
 
-  refresh() {
+  refresh = () => {
     const cluster = this.props.cluster
     this.props.onFetch(cluster)
   }
 
-  headerPressed() {
+  headerPressed = () => {
     this.props.onSelect(null)
     this.setState({ editClusterOpen: true })
   }
 
-  doneEditCluster() {
+  doneEditCluster = () => {
     this.setState({ editClusterOpen: false })
     if (!this.state.editedClusterUrl) { return }
     const { cluster } = this.props
@@ -67,7 +67,7 @@ export default class TreeView extends Component {
     this.props.onFetch(cluster)
   }
 
-  createFunc(params: {}) {
+  createFunc = (params: {}) => {
     this.props.onCreateFunc(params, this.props.cluster)
     this.setState({ newFuncOpen: false })
   }
@@ -97,11 +97,11 @@ export default class TreeView extends Component {
       />,
       <FlatButton
         label='Done' primary
-        onClick={() => this.doneEditCluster()}
+        onClick={this.doneEditCluster}
       />
     ]
     return (
-      <div className='treeviewHeader' onClick={() => this.headerPressed()}>
+      <div className='treeviewHeader' onClick={this.headerPressed}>
         <img className='folder-icon' src={cubeIcon} />
         <h3 className='folder-title'>{cluster.url}</h3>
         <Dialog
@@ -127,7 +127,7 @@ export default class TreeView extends Component {
     } else if (this.props.funcs.length === 0) {
       content = (
         <p>{'No function found'}<br />
-          <a href='#' onClick={() => this.refresh()}>Refresh</a>
+          <a href='#' onClick={this.refresh}>Refresh</a>
         </p>
       )
     } else { return }
@@ -140,7 +140,7 @@ export default class TreeView extends Component {
         <a href='#' onClick={() => this.setState({ newFuncOpen: true })}>Add</a>
         <CreateFunc open={this.state.newFuncOpen}
           onDismiss={() => this.setState({ newFuncOpen: false })}
-          onCreate={(params) => this.createFunc(params)}
+          onDone={this.createFunc}
         />
       </div>
     )

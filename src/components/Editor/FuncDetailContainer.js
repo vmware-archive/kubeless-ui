@@ -26,7 +26,7 @@ const mapStateToProps = ({ funcs, clusters }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onRun: (func, body) => dispatch(funcsRun(func, body)),
-  onSave: (func, cluster) => dispatch(funcsSave(func, cluster)),
+  onSave: (func, cluster, params) => dispatch(funcsSave(func, cluster, params)),
   onDelete: (func, cluster) => dispatch(funcsDelete(func, cluster))
 })
 

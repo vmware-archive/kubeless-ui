@@ -69,9 +69,9 @@ export function funcsFetch(cluster: Cluster) {
     })
   }
 }
-export function funcsSave(func: Func, cluster: Cluster) {
+export function funcsSave(func: Func, cluster: Cluster, params: {}) {
   return (dispatch: () => void) => {
-    return Api.put(`/functions/${func.metadata.name}`, func, cluster, func).then(result => {
+    return Api.put(`/functions/${func.metadata.name}`, params, cluster, func).then(result => {
       dispatch({
         type: FUNCS_SAVE,
         item: result
