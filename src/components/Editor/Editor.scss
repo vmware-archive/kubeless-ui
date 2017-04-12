@@ -78,9 +78,10 @@ limitations under the License.
   .body {
     width: 100%;
     border: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 5px;
     resize: vertical;
+    outline: none;
   }
 }

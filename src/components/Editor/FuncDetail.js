@@ -20,11 +20,13 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
 import type { Func } from 'utils/Types'
 
-export default class RunFunc extends Component {
+export default class FuncDetail extends Component {
 
   props: {
     func?: Func,
-    onRun?: () => void
+    onRun?: () => void,
+    onSave?: () => void,
+    onDelete?: () => void
   }
 
   state: {
@@ -43,7 +45,7 @@ export default class RunFunc extends Component {
     }
   }
 
-  run = () => {
+  run=() => {
     const { body, json } = this.state
     let requestBody
     try {
@@ -63,35 +65,44 @@ export default class RunFunc extends Component {
 
   render() {
     const { func } = this.props
-    const { body, json } = this.state
     if (!func) { return }
     return (
       <div className='editorPanel'>
         <div className='functionTitle'>
           <h3>{func.metadata.name}</h3>
-          <p>{ 'Function description goes here...'}</p>
+          <p>
+            <b>Handler: </b>{func.spec.handler}<br />
+            <b>Runtime: </b>{func.spec.runtime}<br />
+            <b>Type: </b>{func.spec.type}
+          </p>
         </div>
-        <div className='functionTun'>
-          <h5>Request</h5>
-          <textarea className='body' placeholder='Request body...'
-            value={body} onChange={(e) => this.setState({ body: e.target.value })} />
-          <br /><br />
-          <RadioButtonGroup name='bodyFormat'
-            valueSelected={json ? 'json' : 'text'}
-            onChange={(o, v) => this.setState({ json: v === 'json' })}>
-            <RadioButton value='json' label='JSON'
-              className='radioButton' />
-            <RadioButton value='text' label='Text'
-              className='radioButton' />
-          </RadioButtonGroup>
-          <br />
-          <Button label='Run function' onClick={this.run} />
-        </div>
+        {this.renderRun()}
         {this.renderResult()}
       </div>
     )
   }
 
+  renderRun() {
+    const { body, json } = this.state
+    return (
+      <div className='functionRun'>
+        <h5>Request</h5>
+        <textarea className='body' placeholder='Request data...'
+          value={body} onChange={(e) => this.setState({ body: e.target.value })} />
+        <br /><br />
+        <RadioButtonGroup name='bodyFormat'
+          valueSelected={json ? 'json' : 'text'}
+          onChange={(o, v) => this.setState({ json: v === 'json' })}>
+          <RadioButton value='json' label='JSON'
+            className='radioButton' />
+          <RadioButton value='text' label='Text'
+            className='radioButton' />
+        </RadioButtonGroup>
+        <br />
+        <Button label='Run function' onClick={this.run} />
+      </div>
+    )
+  }
   renderResult() {
     const { func } = this.props
     if (!func) { return }

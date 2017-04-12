@@ -16,8 +16,8 @@ limitations under the License.
 
 // @flow
 import { connect } from 'react-redux'
-import Editor from './Editor'
-import { funcsSave, funcsDelete } from 'store/funcs'
+import FuncDetail from './FuncDetail'
+import { funcsRun, funcsSave, funcsDelete } from 'store/funcs'
 
 const mapStateToProps = ({ funcs, clusters }) => ({
   func: funcs.selected,
@@ -25,8 +25,9 @@ const mapStateToProps = ({ funcs, clusters }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  onRun: (func, body) => dispatch(funcsRun(func, body)),
   onSave: (func, cluster) => dispatch(funcsSave(func, cluster)),
   onDelete: (func, cluster) => dispatch(funcsDelete(func, cluster))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Editor)
+export default connect(mapStateToProps, mapDispatchToProps)(FuncDetail)

@@ -23,7 +23,7 @@ import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
 import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
-import RunFunc from './RunFunc'
+import FuncDetail from './FuncDetailContainer'
 
 export default class Editor extends Component {
 
@@ -52,23 +52,23 @@ export default class Editor extends Component {
     }
   }
 
-  onTextChange(text: string) {
+  onTextChange = (text: string) => {
     this.setState({ content: text })
   }
 
-  save() {
+  save = () => {
     const { func } = this.props
     func.spec['function'] = this.state.content
     this.props.onSave(func, this.props.cluster)
   }
 
-  delete() {
+  delete = () => {
     const { func, cluster } = this.props
     this.props.onDelete(func, cluster)
   }
 
   render() {
-    const { func, onRun } = this.props
+    const { func } = this.props
     let mode = 'javascript'
     if (func && func.spec.runtime.indexOf('python') !== -1) {
       mode = 'python'
@@ -80,13 +80,13 @@ export default class Editor extends Component {
           {func && <AceEditor
             mode={mode}
             theme='solarized_dark'
-            onChange={(t) => this.onTextChange(t)}
+            onChange={this.onTextChange}
             value={this.state.content}
             name='UNIQUE_ID_OF_DIV'
           />}
           {func && this.renderFooter()}
         </div>
-        {func && <RunFunc func={func} onRun={onRun} />}
+        {func && <FuncDetail />}
       </div>
     )
   }
@@ -94,8 +94,8 @@ export default class Editor extends Component {
   renderFooter() {
     return (
       <div className='editorFooter'>
-        <a href='#' onClick={() => this.save()}>Save</a>
-        <a href='#' onClick={() => this.delete()}>Delete</a>
+        <a href='#' onClick={this.save}>Save</a>
+        <a href='#' onClick={this.delete}>Delete</a>
       </div>
     )
   }

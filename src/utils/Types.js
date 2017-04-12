@@ -23,7 +23,9 @@ export type Func = {
   },
   spec: {
     'function': string,
-    runtime: string
+    runtime: string,
+    handler: string,
+    type: string
   }
 }
 
