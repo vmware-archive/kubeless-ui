@@ -1,5 +1,4 @@
 version: '2'
-
 services:
   dev:
     image: kubeless-ui-dev
@@ -10,7 +9,6 @@ services:
     environment:
       NODE_ENV: development
     volumes:
-      - .:/opt/app
-      - /opt/app/node_modules
+      - .:/app
     ports:
       - "3000:3000"
