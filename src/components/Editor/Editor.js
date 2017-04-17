@@ -36,8 +36,16 @@ export default class Editor extends Component {
   }
 
   state: {
-    content: string
+    content: string,
+    edited?: boolean,
   }
+
+  hotkeysMap = [
+    { name: 'save',
+      bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
+      exec: () => this.save()
+    }
+  ]
 
   constructor(props: any) {
     super(props)
@@ -53,7 +61,7 @@ export default class Editor extends Component {
   }
 
   onTextChange = (text: string) => {
-    this.setState({ content: text })
+    this.setState({ content: text, edited: true })
   }
 
   save = () => {
@@ -63,6 +71,7 @@ export default class Editor extends Component {
       spec: { 'function': this.state.content }
     }
     this.props.onSave(func, cluster, params)
+    this.setState({ edited: false })
   }
 
   delete = () => {
@@ -86,6 +95,8 @@ export default class Editor extends Component {
             onChange={this.onTextChange}
             value={this.state.content}
             name='UNIQUE_ID_OF_DIV'
+            commands={this.hotkeysMap}
+            enableBasicAutocompletion
           />}
           {func && this.renderFooter()}
         </div>
@@ -97,7 +108,7 @@ export default class Editor extends Component {
   renderFooter() {
     return (
       <div className='editorFooter'>
-        <a href='#' onClick={this.save}>Save</a>
+        {this.state.edited && <a href='#' onClick={this.save}>Save</a>}
       </div>
     )
   }

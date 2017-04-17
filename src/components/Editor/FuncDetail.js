@@ -38,7 +38,7 @@ export default class FuncDetail extends Component {
     json?: boolean,
     running?: boolean,
     editing?: boolean,
-    confirmDelete?: boolean,
+    confirmDelete: boolean,
     result?: string
   }
 
@@ -46,7 +46,8 @@ export default class FuncDetail extends Component {
     super()
     this.state = {
       body: '',
-      json: true
+      json: true,
+      confirmDelete: false
     }
   }
 

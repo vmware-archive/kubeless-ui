@@ -63,10 +63,10 @@ export function funcsFetch(cluster: Cluster) {
         list: result.items
       })
     }).catch(e => {
-      // dispatch({
-      //   type: FUNCS_FETCH,
-      //   list: []
-      // })
+      dispatch({
+        type: FUNCS_FETCH,
+        list: []
+      })
     })
   }
 }
