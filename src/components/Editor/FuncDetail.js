@@ -18,6 +18,8 @@ limitations under the License.
 import React, { Component } from 'react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import Dialog from 'material-ui/Dialog'
 import CreateFunc from 'components/TreeView/CreateFunc'
 import type { Func, Cluster } from 'utils/Types'
 
@@ -36,6 +38,7 @@ export default class FuncDetail extends Component {
     json?: boolean,
     running?: boolean,
     editing?: boolean,
+    confirmDelete?: boolean,
     result?: string
   }
 
@@ -86,6 +89,18 @@ export default class FuncDetail extends Component {
   render() {
     const { func } = this.props
     if (!func) { return }
+
+    const deleteActions = [
+      <FlatButton
+        label='Cancel' primary
+        onTouchTap={() => this.setState({ confirmDelete: false })}
+      />,
+      <FlatButton
+        label='Yes, delete it!' secondary
+        onTouchTap={this.delete}
+      />
+    ]
+
     return (
       <div className='editorPanel'>
         <div className='functionTitle'>
@@ -95,11 +110,24 @@ export default class FuncDetail extends Component {
             <b>Runtime: </b>{func.spec.runtime}<br />
             <b>Type: </b>{func.spec.type}
           </p>
-          <Button className='button' label='Edit' primary onClick={() => this.setState({ editing: true })} />
+          <div className='actionsButtons'>
+            <Button className='button' label='Edit' primary onClick={() => this.setState({ editing: true })} />
+            <Button className='button' label='Delete' secondary
+              onClick={() => this.setState({ confirmDelete: true })} />
+          </div>
           <CreateFunc open={!!this.state.editing} func={func}
             onDismiss={() => this.setState({ editing: false })}
             onDone={(params) => this.doneEditing(params)}
           />
+          <Dialog
+            actions={deleteActions}
+            modal={false}
+            contentStyle={{ width: '300px' }}
+            open={this.state.confirmDelete}
+            onRequestClose={() => this.setState({ confirmDelete: false })}
+          >
+            {`Delete ${func.metadata.name} function from Kubeless? This cannot be undone`}
+          </Dialog>
           <br />
           <br />
         </div>

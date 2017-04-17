@@ -78,6 +78,7 @@ export default class CreateFunc extends Component {
 
     const runtimes = [
       <MenuItem key={1} value='javascript' primaryText='Javascript' />,
+      <MenuItem key={2} value='nodejs6.10 ' primaryText='NodeJS 6.10' />,
       <MenuItem key={2} value='python27' primaryText='Python27' />
     ]
     const types = [
@@ -117,7 +118,7 @@ export default class CreateFunc extends Component {
             onChange={(e, i, value) => this.setState({ runtime: value })}
           >
             {runtimes}
-          </SelectField>
+          </SelectField><br /><br />
         </div>
       </Dialog>
     )

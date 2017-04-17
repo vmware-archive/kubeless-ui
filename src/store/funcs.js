@@ -21,7 +21,7 @@ import EntityHelper from 'utils/EntityHelper'
 import type { Func, Cluster, ReduxAction } from 'utils/Types'
 
 type State = {
-  list: Array<Cluster>,
+  list: Array<Func>,
   selected?: Cluster,
   loading: boolean
 }
@@ -63,10 +63,10 @@ export function funcsFetch(cluster: Cluster) {
         list: result.items
       })
     }).catch(e => {
-      dispatch({
-        type: FUNCS_FETCH,
-        list: []
-      })
+      // dispatch({
+      //   type: FUNCS_FETCH,
+      //   list: []
+      // })
     })
   }
 }
@@ -116,7 +116,21 @@ export function funcsRun(func: Func, body: string) {
 // Reducer
 // ------------------------------------
 const initialState = {
-  list: [],
+  list: [
+    {
+      kind: 'Function',
+      metadata: {
+        uid: 'uid1',
+        name: 'test1'
+      },
+      spec: {
+        'function': '',
+        runtime: 'javascript',
+        handler: 'test1.handler',
+        type: 'HTTP'
+      }
+    }
+  ],
   loading: false
 }
 export default function funcsReducer(state: State = initialState, action: ReduxAction) {

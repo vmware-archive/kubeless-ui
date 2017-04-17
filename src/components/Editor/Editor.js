@@ -98,7 +98,6 @@ export default class Editor extends Component {
     return (
       <div className='editorFooter'>
         <a href='#' onClick={this.save}>Save</a>
-        <a href='#' onClick={this.delete}>Delete</a>
       </div>
     )
   }

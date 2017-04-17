@@ -34,6 +34,7 @@ limitations under the License.
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   color: rgba(255, 255, 255, 0.2);
   font-size: 1.2em;
 }
@@ -66,6 +67,17 @@ limitations under the License.
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 20px;
     margin-bottom: 20px;
+  }
+  .actionsButtons {
+    text-align: right;
+    .button:nth-child(1), .button:nth-child(1) button {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    .button:nth-child(2), .button:nth-child(2) button {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
   }
   .radioButton {
     width: auto !important;
