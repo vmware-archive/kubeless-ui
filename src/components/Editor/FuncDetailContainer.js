@@ -21,11 +21,12 @@ import { funcsRun, funcsSave, funcsDelete } from 'store/funcs'
 
 const mapStateToProps = ({ funcs, clusters }) => ({
   func: funcs.selected,
-  cluster: clusters.cluster
+  cluster: clusters.cluster,
+  response: funcs.runResponse
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onRun: (func, body) => dispatch(funcsRun(func, body)),
+  onRun: (func, data, cluster) => dispatch(funcsRun(func, data, cluster)),
   onSave: (func, cluster, params) => dispatch(funcsSave(func, cluster, params)),
   onDelete: (func, cluster) => dispatch(funcsDelete(func, cluster))
 })

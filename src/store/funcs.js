@@ -23,6 +23,7 @@ import type { Func, Cluster, ReduxAction } from 'utils/Types'
 type State = {
   list: Array<Func>,
   selected?: Cluster,
+  runResponse?: string,
   loading: boolean
 }
 // ------------------------------------
@@ -104,11 +105,17 @@ export function funcsDelete(func: Func, cluster: Cluster) {
   }
 }
 
-export function funcsRun(func: Func, body: string) {
-  return {
-    type: FUNCS_RUN,
-    item: func,
-    body
+export function funcsRun(func: Func, data: {}, cluster: Cluster) {
+  return (dispatch: () => void) => {
+    return Api.get(`/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`,
+      data, cluster, func).then(result => {
+        dispatch({
+          type: FUNCS_RUN,
+          item: result
+        })
+      }).catch(e => {
+        console.log('ERR', e)
+      })
   }
 }
 
@@ -121,7 +128,8 @@ const initialState = {
       kind: 'Function',
       metadata: {
         uid: 'uid1',
-        name: 'test1'
+        name: 'test1',
+        namespace: 'default'
       },
       spec: {
         'function': '',
@@ -131,13 +139,15 @@ const initialState = {
       }
     }
   ],
-  loading: false
+  loading: false,
+  runResponse: null
 }
 export default function funcsReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
     case FUNCS_SELECT:
       return Object.assign({}, state, {
-        selected: action.item
+        selected: action.item,
+        runResponse: null
       })
     case FUNCS_FETCH:
       return Object.assign({}, state, {
@@ -167,7 +177,9 @@ export default function funcsReducer(state: State = initialState, action: ReduxA
         selected: null
       })
     case FUNCS_RUN:
-      return state
+      return Object.assign({}, state, {
+        runResponse: action.item
+      })
     default:
       return state
   }

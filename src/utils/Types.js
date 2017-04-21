@@ -19,7 +19,8 @@ export type Func = {
   kind: string,
   metadata: {
     uid: string,
-    name: string
+    name: string,
+    namespace: string
   },
   spec: {
     'function': string,

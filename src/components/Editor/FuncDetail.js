@@ -28,6 +28,7 @@ export default class FuncDetail extends Component {
   props: {
     func: Func,
     cluster: Cluster,
+    response: ?string,
     onRun: () => void,
     onSave: () => void,
     onDelete: () => void
@@ -51,21 +52,26 @@ export default class FuncDetail extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps: any) {
+    if (this.props.response !== nextProps.response) {
+      this.setState({ running: false })
+    }
+  }
+
   run = () => {
+    if (this.state.running) { return }
     const { body, json } = this.state
-    let requestBody
+    const { func, cluster } = this.props
+    let requestData
     try {
-      requestBody = json ? JSON.parse(body) : body
+      requestData = json ? JSON.parse(body) : { data: body }
     } catch (e) {
       this.setState({ result: e.message })
       return
     }
-    console.log('Executing function with body: ', requestBody)
+    console.log('Executing function with body: ', requestData)
     this.setState({ running: true })
-    setTimeout(() => {
-      this.setState({ running: false, result: `{ "data": "Hello world" }` })
-    }, 2000)
-    this.props.onRun && this.props.onRun()
+    this.props.onRun(func, requestData, cluster)
   }
 
   delete = () => {
@@ -161,20 +167,20 @@ export default class FuncDetail extends Component {
   }
 
   renderResult() {
-    const { func } = this.props
+    const { func, response } = this.props
     if (!func) { return }
-    const { running, result } = this.state
+    const { running } = this.state
     let content
     if (running) {
       content = (
         <p>{`Running ${func.metadata.name}...`}</p>
       )
-    } else if (result) {
+    } else if (response) {
       content = (
         <div>
           <h5>Response</h5>
           <p className='body'>
-            {result}
+            {response}
           </p>
         </div>
       )
