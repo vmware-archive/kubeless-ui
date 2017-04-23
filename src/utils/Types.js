@@ -23,7 +23,7 @@ export type Func = {
     namespace: string
   },
   spec: {
-    'function': string,
+    function: string,
     runtime: string,
     handler: string,
     type: string
@@ -38,6 +38,6 @@ export type Cluster = {
 // Redux Action Type
 export type ReduxAction = {
   type: string,
-  list?: Array<any>,
+  list: ?Array<any>,
   item: any,
 }

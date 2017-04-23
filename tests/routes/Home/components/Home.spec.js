@@ -18,6 +18,7 @@ import Home from 'routes/Home/components/Home'
 import Editor from 'components/Editor'
 import TreeView from 'components/TreeView'
 import { shallow } from 'enzyme'
+import { expect } from 'chai'
 
 describe('(View) Home', () => {
   let _wrapper

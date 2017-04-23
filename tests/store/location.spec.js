@@ -19,6 +19,8 @@ import {
   updateLocation,
   default as locationReducer
 } from 'store/location'
+import { expect } from 'chai'
+import sinon from 'sinon'
 
 describe('(Internal Module) Location', () => {
   it('Should export a constant LOCATION_CHANGE.', () => {
@@ -93,7 +95,7 @@ describe('(Internal Module) Location', () => {
 
     it('Should call dispatch exactly once.', () => {
       updateLocation({ dispatch: _dispatchSpy })('/')
-      expect(_dispatchSpy.should.have.been.calledOnce)
+      expect(_dispatchSpy.calledOnce)
     })
   })
 })

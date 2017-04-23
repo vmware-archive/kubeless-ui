@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react'
 import HomeRoute from 'routes/Home'
 import { shallow } from 'enzyme'
+import { expect } from 'chai'
 
 describe('(Route) Home', () => {
   let _component

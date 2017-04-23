@@ -13,14 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import {
-  default as createStore
-} from 'store/createStore'
+import createStore from 'store/createStore'
+import { expect } from 'chai'
 
 describe('(Store) createStore', () => {
   let store
 
-  before(() => {
+  beforeAll(() => {
     store = createStore()
   })
 

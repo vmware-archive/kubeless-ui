@@ -14,8 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import { Header } from 'components/Header/Header'
+import Header from 'components/Header/'
 import { shallow } from 'enzyme'
+import { expect } from 'chai'
 
 describe('(Component) Header', () => {
   let _wrapper
@@ -26,7 +27,7 @@ describe('(Component) Header', () => {
 
   it('Renders app title', () => {
     const welcome = _wrapper.find('h1')
-    expect(welcome).to.exist
+    expect(welcome).to.have.length(1)
     expect(welcome.text()).to.match(/Kubeless editor/)
   })
 })

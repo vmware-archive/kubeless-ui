@@ -13,14 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-class AppContainer extends Component {
+export default class AppContainer extends Component {
   static propTypes = {
     routes : PropTypes.object.isRequired,
     store  : PropTypes.object.isRequired
@@ -44,5 +45,3 @@ class AppContainer extends Component {
     )
   }
 }
-
-export default AppContainer
