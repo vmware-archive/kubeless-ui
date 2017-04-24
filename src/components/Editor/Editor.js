@@ -79,12 +79,20 @@ export default class Editor extends Component {
     this.props.onDelete(func, cluster)
   }
 
-  render() {
+  runtimeToMode = () => {
     const { func } = this.props
     let mode = (func && func.spec.runtime) || 'javascript'
     if (mode.indexOf('python') !== -1) {
       mode = 'python'
+    } else if (mode.indexOf('node') !== -1) {
+      mode = 'javascript'
     }
+    return mode
+  }
+
+  render() {
+    const { func } = this.props
+    let mode = this.runtimeToMode()
     return (
       <div className='editor'>
         <div className='editorInnerContainer'>
