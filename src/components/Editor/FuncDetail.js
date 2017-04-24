@@ -40,7 +40,7 @@ export default class FuncDetail extends Component {
     running?: boolean,
     editing?: boolean,
     confirmDelete: boolean,
-    result?: string
+    errorMessage?: ?string
   }
 
   constructor() {
@@ -66,11 +66,12 @@ export default class FuncDetail extends Component {
     try {
       requestData = json ? JSON.parse(body) : { data: body }
     } catch (e) {
-      this.setState({ result: e.message })
+      console.log('Error executing function', e, e.message)
+      this.setState({ errorMessage: e.message, running: false })
       return
     }
     console.log('Executing function with body: ', requestData)
-    this.setState({ running: true })
+    this.setState({ running: true, errorMessage: null })
     this.props.onRun(func, requestData, cluster)
   }
 
@@ -139,7 +140,7 @@ export default class FuncDetail extends Component {
           <br />
         </div>
         {this.renderRun()}
-        {this.renderResult()}
+        {this.renderResponse()}
       </div>
     )
   }
@@ -166,14 +167,23 @@ export default class FuncDetail extends Component {
     )
   }
 
-  renderResult() {
+  renderResponse() {
     const { func, response } = this.props
     if (!func) { return }
-    const { running } = this.state
+    const { running, errorMessage } = this.state
     let content
     if (running) {
       content = (
         <p>{`Running ${func.metadata.name}...`}</p>
+      )
+    } else if (errorMessage) {
+      content = (
+        <div>
+          <h5>Error</h5>
+          <p className='body'>
+            {errorMessage}
+          </p>
+        </div>
       )
     } else if (response) {
       content = (
@@ -191,4 +201,5 @@ export default class FuncDetail extends Component {
       </div>
     )
   }
+
 }

@@ -59,7 +59,6 @@ export default class Api {
     }).then((json) => {
       return json
     }).catch((error) => {
-      console.log('E', error)
       return this.handleError(error, url)
     })
   }

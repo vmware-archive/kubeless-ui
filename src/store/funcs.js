@@ -114,7 +114,10 @@ export function funcsRun(func: Func, data: {}, cluster: Cluster) {
           item: result
         })
       }).catch(e => {
-        console.log('ERR', e)
+        dispatch({
+          type: FUNCS_RUN,
+          item: e.message
+        })
       })
   }
 }
@@ -139,9 +142,9 @@ const initialState = {
       }
     }
   ],
-  loading: false,
-  runResponse: null
+  loading: false
 }
+
 export default function funcsReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
     case FUNCS_SELECT:
