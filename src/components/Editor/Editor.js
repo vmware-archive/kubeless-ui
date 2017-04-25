@@ -24,6 +24,7 @@ import 'brace/theme/solarized_dark'
 import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
 import FuncDetail from './FuncDetailContainer'
+import Logs from 'components/Logs'
 
 export default class Editor extends Component {
 
@@ -38,6 +39,7 @@ export default class Editor extends Component {
   state: {
     content: string,
     edited?: boolean,
+    showLogs?: boolean,
   }
 
   hotkeysMap = [
@@ -50,13 +52,14 @@ export default class Editor extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
+      showLogs: true,
       content: props.func ? props.func.spec.function : ''
     }
   }
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
     if (nextProps.func !== this.props.func) {
-      this.setState({ content: nextProps.func ? nextProps.func.spec['function'] : '' })
+      this.setState({ showLogs: false, content: nextProps.func ? nextProps.func.spec['function'] : '' })
     }
   }
 
@@ -90,6 +93,11 @@ export default class Editor extends Component {
     return mode
   }
 
+  toggleLogs = () => {
+    const showLogs = !this.state.showLogs
+    this.setState({ showLogs })
+  }
+
   render() {
     const { func } = this.props
     let mode = this.runtimeToMode()
@@ -116,7 +124,13 @@ export default class Editor extends Component {
   renderFooter() {
     return (
       <div className='editorFooter'>
-        {this.state.edited && <a href='#' onClick={this.save}>Save</a>}
+        <div className='editorFooterLinks'>
+          {this.state.edited && <a href='#' onClick={this.save}>Save</a>}
+          <a style={{ marginLeft: 'auto' }} href='#' onClick={this.toggleLogs}>Logs</a>
+        </div>
+        <div style={{ display: 'flex', height: this.state.showLogs ? '200px' : 0 }}>
+          <Logs visible={this.state.showLogs} />
+        </div>
       </div>
     )
   }
@@ -129,4 +143,5 @@ export default class Editor extends Component {
       </div>
     )
   }
+
 }

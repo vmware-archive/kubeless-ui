@@ -20,6 +20,7 @@ import TreeView from './TreeView'
 import type { Cluster } from 'utils/Types'
 import { funcsSelect, funcsFetch, funcsCreate } from 'store/funcs'
 import { clusterEdit } from 'store/clusters'
+import { podsFetch } from 'store/pods'
 
 const mapStateToProps = ({ funcs, clusters }) => ({
   funcs: funcs.list,
@@ -30,7 +31,10 @@ const mapStateToProps = ({ funcs, clusters }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSelect: (func) => dispatch(funcsSelect(func)),
-  onFetch: (cluster) => dispatch(funcsFetch(cluster)),
+  onFetch: (cluster) => {
+    dispatch(podsFetch(cluster))
+    dispatch(funcsFetch(cluster))
+  },
   onEditCluster: (cluster) => dispatch(clusterEdit(cluster)),
   onCreateFunc: (params: any, cluster: Cluster) => dispatch(funcsCreate(params, cluster))
 })

@@ -16,19 +16,26 @@ limitations under the License.
 
 // @flow
 import { connect } from 'react-redux'
-import Editor from './Editor'
-import { funcsSave, funcsDelete } from 'store/funcs'
+import Logs from './Logs'
+import _ from 'lodash'
+import { podsFetchLogs } from 'store/pods'
 
-const mapStateToProps = ({ funcs, clusters }) => {
+const mapStateToProps = ({ funcs, clusters, pods }) => {
+  const func = funcs.selected
+  const pod = _.find(pods.list, (p) => {
+    return p.metadata.name.indexOf(func.metadata.name) > -1
+  })
+  const logs = pod ? pods.logs[pod.metadata.uid] : ''
   return {
     func: funcs.selected,
-    cluster: clusters.cluster
+    cluster: clusters.cluster,
+    pod,
+    logs
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onSave: (func, cluster, params) => dispatch(funcsSave(func, cluster, params)),
-  onDelete: (func, cluster) => dispatch(funcsDelete(func, cluster))
+  onFetchLogs: (cluster, pod) => dispatch(podsFetchLogs(cluster, pod))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Editor)
+export default connect(mapStateToProps, mapDispatchToProps)(Logs)

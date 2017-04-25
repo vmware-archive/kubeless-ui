@@ -16,6 +16,7 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import qs from 'qs'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
@@ -64,7 +65,7 @@ export default class FuncDetail extends Component {
     const { func, cluster } = this.props
     let requestData
     try {
-      requestData = json ? JSON.parse(body) : { data: body }
+      requestData = json ? JSON.parse(body) : qs.parse(body)
     } catch (e) {
       console.log('Error executing function', e, e.message)
       this.setState({ errorMessage: e.message, running: false })
@@ -168,9 +169,13 @@ export default class FuncDetail extends Component {
   }
 
   renderResponse() {
-    const { func, response } = this.props
+    let { func, response } = this.props
     if (!func) { return }
     const { running, errorMessage } = this.state
+
+    if (response && typeof response === 'object') {
+      response = JSON.stringify(response)
+    }
     let content
     if (running) {
       content = (

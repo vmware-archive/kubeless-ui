@@ -18,12 +18,14 @@ import { combineReducers } from 'redux'
 import locationReducer from './location'
 import funcsReducer from './funcs'
 import clustersReducer from './clusters'
+import podsReducer from './pods'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     location: locationReducer,
     funcs: funcsReducer,
     clusters: clustersReducer,
+    pods: podsReducer,
     ...asyncReducers
   })
 }

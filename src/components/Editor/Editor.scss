@@ -39,15 +39,21 @@ limitations under the License.
   font-size: 1.2em;
 }
 .editorFooter {
-  height: 40px;
   display: flex;
-  padding: 0 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   a {
     color: white;
+  }
+  .editorFooterLinks {
+    flex: 1;
+    padding: 0 10px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 .editorPanel {
