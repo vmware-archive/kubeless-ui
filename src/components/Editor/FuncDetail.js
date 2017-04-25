@@ -54,7 +54,7 @@ export default class FuncDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps: any) {
-    if (this.props.response !== nextProps.response) {
+    if (this.state.running && this.props.response !== nextProps.response) {
       this.setState({ running: false })
     }
   }
@@ -65,7 +65,7 @@ export default class FuncDetail extends Component {
     const { func, cluster } = this.props
     let requestData
     try {
-      requestData = json ? JSON.parse(body) : qs.parse(body)
+      requestData = json && body ? JSON.parse(body) : qs.parse(body)
     } catch (e) {
       console.log('Error executing function', e, e.message)
       this.setState({ errorMessage: e.message, running: false })

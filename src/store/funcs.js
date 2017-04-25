@@ -107,6 +107,10 @@ export function funcsDelete(func: Func, cluster: Cluster) {
 
 export function funcsRun(func: Func, data: {}, cluster: Cluster) {
   return (dispatch: () => void) => {
+    dispatch({
+      type: FUNCS_RUN,
+      item: null
+    })
     return Api.get(`/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`,
       data, cluster, func).then(result => {
         dispatch({

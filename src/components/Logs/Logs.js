@@ -53,7 +53,7 @@ export default class Logs extends Component {
     return (
       <div className='logs'>
         <pre className='logsText'>
-          {pod && pod.metadata.name} <br /><br />
+          {pod && `Pod: ${pod.metadata.name}`} <br /><br />
           {logs}
         </pre>
       </div>

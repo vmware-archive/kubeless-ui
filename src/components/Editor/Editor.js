@@ -52,14 +52,13 @@ export default class Editor extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      showLogs: true,
       content: props.func ? props.func.spec.function : ''
     }
   }
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
     if (nextProps.func !== this.props.func) {
-      this.setState({ showLogs: false, content: nextProps.func ? nextProps.func.spec['function'] : '' })
+      this.setState({ content: nextProps.func ? nextProps.func.spec['function'] : '' })
     }
   }
 
