@@ -13,40 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-// @flow
+import createStore from './createStore'
 
-export type Cluster = {
-  url: string,
-  name: string,
-}
-
-// Redux Action Type
-export type ReduxAction = {
-  type: string,
-  list: ?Array<any>,
-  value: any,
-}
-
-export type Pod = {
-  kind: string,
-  metadata: {
-    uid: string,
-    name: string,
-    namespace: string
-  }
-}
-
-export type Func = {
-  kind: string,
-  metadata: {
-    uid: string,
-    name: string,
-    namespace: string
-  },
-  spec: {
-    function: string,
-    runtime: string,
-    handler: string,
-    type: string
-  }
-}
+// ========================================================
+// Store Instantiation
+// ========================================================
+const initialState = window.___INITIAL_STATE__
+export default createStore(initialState)

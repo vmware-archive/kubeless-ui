@@ -48,4 +48,5 @@ export default class FuncsList extends Component {
       </div>
     )
   }
+
 }

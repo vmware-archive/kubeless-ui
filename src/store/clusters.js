@@ -34,13 +34,13 @@ export const CLUSTER_EDIT = 'CLUSTER_EDIT'
 export function clusterSelect(cluster: Cluster) {
   return {
     type: CLUSTER_SELECT,
-    item: cluster
+    value: cluster
   }
 }
 export function clusterEdit(cluster: Cluster) {
   return {
     type: CLUSTER_EDIT,
-    item: cluster
+    value: cluster
   }
 }
 
@@ -59,11 +59,11 @@ export default function clusterReducer(state: State = initialState, action: Redu
   switch (action.type) {
     case CLUSTER_SELECT:
       return Object.assign({}, state, {
-        cluster: action.item
+        cluster: action.value
       })
     case CLUSTER_EDIT:
       return Object.assign({}, state, {
-        cluster: action.item
+        cluster: action.value
       })
     default:
       return state

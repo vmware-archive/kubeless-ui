@@ -31,14 +31,15 @@ export default class Editor extends Component {
   props: {
     func: Func,
     cluster: Cluster,
+    editing: boolean,
     onRun: () => void,
     onSave: () => void,
-    onDelete: () => void
+    onDelete: () => void,
+    onSetEditing: (boolean) => void
   }
 
   state: {
     content: string,
-    edited?: boolean,
     showLogs?: boolean,
   }
 
@@ -63,7 +64,8 @@ export default class Editor extends Component {
   }
 
   onTextChange = (text: string) => {
-    this.setState({ content: text, edited: true })
+    this.setState({ content: text })
+    this.props.onSetEditing(true)
   }
 
   save = () => {
@@ -73,7 +75,7 @@ export default class Editor extends Component {
       spec: { 'function': this.state.content }
     }
     this.props.onSave(func, cluster, params)
-    this.setState({ edited: false })
+    this.props.onSetEditing(false)
   }
 
   delete = () => {
@@ -124,7 +126,7 @@ export default class Editor extends Component {
     return (
       <div className='editorFooter'>
         <div className='editorFooterLinks'>
-          {this.state.edited && <a href='#' onClick={this.save}>Save</a>}
+          {this.props.editing && <a href='#' onClick={this.save}>Save</a>}
           <a style={{ marginLeft: 'auto' }} href='#' onClick={this.toggleLogs}>Logs</a>
         </div>
         <div style={{ display: 'flex', height: this.state.showLogs ? '200px' : 0 }}>

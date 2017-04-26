@@ -38,10 +38,9 @@ export function podsFetch(cluster: Cluster) {
   return (dispatch: () => void) => {
     dispatch({
       type: PODS_LOADING,
-      item: true
+      value: true
     })
     return Api.get('/pods', {}, cluster).then(result => {
-      console.log('FETCHED PODS', result.items)
       dispatch({
         type: PODS_FETCH,
         list: result.items
@@ -59,14 +58,13 @@ export function podsFetchLogs(cluster: Cluster, pod: Pod) {
   return (dispatch: () => void) => {
     dispatch({
       type: PODS_LOADING,
-      item: true
+      value: true
     })
     return Api.get(`/pods/${pod.metadata.name}/log`, {}, cluster, pod).then(result => {
-      console.log('FETCHED LOGS', result)
       dispatch({
         type: PODS_LOGS,
         list: result,
-        item: pod
+        value: pod
       })
     })
   }
@@ -90,14 +88,14 @@ export default function podsReducer(state: State = initialState, action: ReduxAc
       })
     case PODS_LOGS:
       const logs = state.logs
-      const pod = action.item
+      const pod = action.value
       logs[pod.metadata.uid] = action.list
       return Object.assign({}, state, {
         logs
       })
     case PODS_LOADING:
       return Object.assign({}, state, {
-        loading: action.item
+        loading: action.value
       })
     default:
       return state

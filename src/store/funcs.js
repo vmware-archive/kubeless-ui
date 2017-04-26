@@ -24,7 +24,8 @@ type State = {
   list: Array<Func>,
   selected?: Cluster,
   runResponse?: string,
-  loading: boolean
+  loading: boolean,
+  editing: boolean
 }
 // ------------------------------------
 // Constants
@@ -32,6 +33,7 @@ type State = {
 export const FUNCS_SELECT = 'FUNCS_SELECT'
 export const FUNCS_FETCH = 'FUNCS_FETCH'
 export const FUNCS_LOADING = 'FUNCS_LOADING'
+export const FUNCS_EDITING = 'FUNCS_EDITING'
 export const FUNCS_RUN = 'FUNCS_RUN'
 export const FUNCS_SAVE = 'FUNCS_SAVE'
 export const FUNCS_CREATE = 'FUNCS_CREATE'
@@ -43,20 +45,26 @@ export const FUNCS_DELETE = 'FUNCS_DELETE'
 export function funcsSelect(func: Func) {
   return {
     type: FUNCS_SELECT,
-    item: func
+    value: func
   }
 }
 export function funcsLoading(loading: boolean = false) {
   return {
     type: FUNCS_LOADING,
-    loading
+    value: loading
+  }
+}
+export function funcsEditing(editing: boolean = false) {
+  return {
+    type: FUNCS_EDITING,
+    value: editing
   }
 }
 export function funcsFetch(cluster: Cluster) {
   return (dispatch: () => void) => {
     dispatch({
       type: FUNCS_LOADING,
-      item: true
+      value: true
     })
     return Api.get('/functions', {}, cluster).then(result => {
       dispatch({
@@ -77,7 +85,7 @@ export function funcsSave(func: Func, cluster: Cluster, params: {}) {
     return Api.put(`/functions/${func.metadata.name}`, data, cluster, func).then(result => {
       dispatch({
         type: FUNCS_SAVE,
-        item: result
+        value: result
       })
     })
   }
@@ -89,7 +97,7 @@ export function funcsCreate(params: any, cluster: Cluster) {
     return Api.post('/functions', entity, cluster, entity).then(result => {
       dispatch({
         type: FUNCS_CREATE,
-        item: result
+        value: result
       })
     })
   }
@@ -99,7 +107,7 @@ export function funcsDelete(func: Func, cluster: Cluster) {
   return (dispatch: () => void) => {
     dispatch({
       type: FUNCS_DELETE,
-      item: func
+      value: func
     })
     return Api.delete(`/functions/${func.metadata.name}`, {}, cluster, func)
   }
@@ -109,18 +117,18 @@ export function funcsRun(func: Func, data: {}, cluster: Cluster) {
   return (dispatch: () => void) => {
     dispatch({
       type: FUNCS_RUN,
-      item: null
+      value: null
     })
     return Api.get(`/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`,
       data, cluster, func).then(result => {
         dispatch({
           type: FUNCS_RUN,
-          item: result
+          value: result
         })
       }).catch(e => {
         dispatch({
           type: FUNCS_RUN,
-          item: e.message
+          value: e.message
         })
       })
   }
@@ -146,15 +154,17 @@ const initialState = {
       }
     }
   ],
-  loading: false
+  loading: false,
+  editing: false
 }
 
 export default function funcsReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
     case FUNCS_SELECT:
       return Object.assign({}, state, {
-        selected: action.item,
-        runResponse: null
+        selected: action.value,
+        runResponse: null,
+        editing: false
       })
     case FUNCS_FETCH:
       return Object.assign({}, state, {
@@ -164,28 +174,32 @@ export default function funcsReducer(state: State = initialState, action: ReduxA
       })
     case FUNCS_LOADING:
       return Object.assign({}, state, {
-        loading: action.item
+        loading: action.value
+      })
+    case FUNCS_EDITING:
+      return Object.assign({}, state, {
+        editing: action.value
       })
     case FUNCS_SAVE:
       return Object.assign({}, state, {
-        list: EntityHelper.updateEntityInList(state.list, action.item),
-        selected: action.item
+        list: EntityHelper.updateEntityInList(state.list, action.value),
+        selected: action.value
       })
     case FUNCS_CREATE:
       const list = state.list
-      list.push(action.item)
+      list.push(action.value)
       return Object.assign({}, state, {
         list,
-        selected: action.item
+        selected: action.value
       })
     case FUNCS_DELETE:
       return Object.assign({}, state, {
-        list: EntityHelper.deleteEntityInList(state.list, action.item),
+        list: EntityHelper.deleteEntityInList(state.list, action.value),
         selected: null
       })
     case FUNCS_RUN:
       return Object.assign({}, state, {
-        runResponse: action.item
+        runResponse: action.value
       })
     default:
       return state

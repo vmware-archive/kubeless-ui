@@ -47,7 +47,6 @@ export default class Logs extends Component {
 
   render() {
     const { func, pod, logs } = this.props
-    console.log(this.props)
     if (!func) { return }
 
     return (

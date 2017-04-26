@@ -24,6 +24,7 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
+import Store from 'store/Store'
 
 export default class TreeView extends Component {
 
@@ -72,6 +73,15 @@ export default class TreeView extends Component {
     this.setState({ newFuncOpen: false })
   }
 
+  onSelect = (func: ?Func) => {
+    if (Store.getState().funcs.editing) {
+      if (!confirm('You have unsaved changes, do you still want to leave this page? All changes will be lost')) {
+        return
+      }
+    }
+    this.props.onSelect(func)
+  }
+
   render() {
     return (
       <div className='treeview'>
@@ -80,7 +90,7 @@ export default class TreeView extends Component {
         {this.props.funcs.length > 0 &&
           <FuncsList
             funcs={this.props.funcs} selectedFunc={this.props.selectedFunc}
-            onSelect={this.props.onSelect}
+            onSelect={this.onSelect}
           />
         }
         {this.renderFooter()}
@@ -145,4 +155,5 @@ export default class TreeView extends Component {
       </div>
     )
   }
+
 }

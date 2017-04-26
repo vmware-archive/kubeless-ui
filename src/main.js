@@ -15,16 +15,10 @@ limitations under the License.
 */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createStore from 'store/createStore'
+import Store from 'store/Store'
 import AppContainer from 'components/AppContainer'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
-
-// ========================================================
-// Store Instantiation
-// ========================================================
-const initialState = window.___INITIAL_STATE__
-const store = createStore(initialState)
 
 // ========================================================
 // Render Setup
@@ -32,16 +26,17 @@ const store = createStore(initialState)
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
-  const routes = require('./routes/index').default(store)
+  const routes = require('./routes/index').default(Store)
 
   ReactDOM.render(
-    <AppContainer store={store} routes={routes} />,
+    <AppContainer store={Store} routes={routes} />,
     MOUNT_NODE
   )
 }
 
 // This code is excluded from production bundle
 if (__DEV__) {
+  window.Store = Store
   if (module.hot) {
     // Development render functions
     const renderApp = render
