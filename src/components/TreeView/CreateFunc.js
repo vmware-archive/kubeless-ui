@@ -78,8 +78,8 @@ export default class CreateFunc extends Component {
 
     const runtimes = [
       <MenuItem key={1} value='javascript' primaryText='Javascript' />,
-      <MenuItem key={2} value='nodejs6.10 ' primaryText='NodeJS 6.10' />,
-      <MenuItem key={2} value='python27' primaryText='Python27' />
+      <MenuItem key={2} value='nodejs6.10' primaryText='NodeJS 6.10' />,
+      <MenuItem key={3} value='python27' primaryText='Python27' />
     ]
     const types = [
       <MenuItem key={1} value='HTTP' primaryText='HTTP' />,

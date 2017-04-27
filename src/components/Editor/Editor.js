@@ -25,6 +25,7 @@ import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
 import FuncDetail from './FuncDetailContainer'
 import Logs from 'components/Logs'
+import FlatButton from 'material-ui/FlatButton'
 
 export default class Editor extends Component {
 
@@ -126,8 +127,8 @@ export default class Editor extends Component {
     return (
       <div className='editorFooter'>
         <div className='editorFooterLinks'>
-          {this.props.editing && <a href='#' onClick={this.save}>Save</a>}
-          <a style={{ marginLeft: 'auto' }} href='#' onClick={this.toggleLogs}>Logs</a>
+          {this.props.editing && <FlatButton onClick={this.save} label='Save' style={{ minWidth: 'auto' }} />}
+          <FlatButton style={{ marginLeft: 'auto', minWidth: 'auto' }} onClick={this.toggleLogs} label='Logs' />
         </div>
         <div style={{ display: 'flex', height: this.state.showLogs ? '200px' : 0 }}>
           <Logs visible={this.state.showLogs} />

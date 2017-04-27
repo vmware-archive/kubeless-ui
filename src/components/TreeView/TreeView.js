@@ -147,7 +147,7 @@ export default class TreeView extends Component {
   renderFooter() {
     return (
       <div className='treeviewFooter'>
-        <a href='#' onClick={() => this.setState({ newFuncOpen: true })}>Add</a>
+        <FlatButton onClick={() => this.setState({ newFuncOpen: true })} label='Add' style={{ minWidth: 'auto' }} />
         <CreateFunc open={this.state.newFuncOpen}
           onDismiss={() => this.setState({ newFuncOpen: false })}
           onDone={this.createFunc}

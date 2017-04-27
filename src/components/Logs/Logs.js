@@ -36,6 +36,9 @@ export default class Logs extends Component {
     clearInterval(refreshInterval)
     if (this.props.visible) {
       refreshInterval = setInterval(() => {
+        if (!this.props.visible) {
+          return clearInterval(refreshInterval)
+        }
         this.props.onFetchLogs(this.props.cluster, this.props.pod)
       }, 1000)
     }
