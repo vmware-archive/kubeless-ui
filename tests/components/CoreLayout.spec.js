@@ -16,7 +16,6 @@ limitations under the License.
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import CoreLayout from 'components/CoreLayout/CoreLayout'
-import { expect } from 'chai'
 
 function shallowRender(component) {
   const renderer = TestUtils.createRenderer()
@@ -44,6 +43,6 @@ describe('(Layout) Core', function() {
   })
 
   it('Should render as a <div>.', function() {
-    expect(_component.type).to.equal('div')
+    expect(_component.type).toBe('div')
   })
 })

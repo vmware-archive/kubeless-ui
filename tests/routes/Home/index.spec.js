@@ -15,8 +15,6 @@ limitations under the License.
 */
 import React from 'react'
 import HomeRoute from 'routes/Home'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
 
 describe('(Route) Home', () => {
   let _component
@@ -28,10 +26,10 @@ describe('(Route) Home', () => {
   })
 
   it('Should return a route configuration object', () => {
-    expect(typeof HomeRoute).to.equal('object')
+    expect(typeof HomeRoute).toBe('object')
   })
 
   it('Should define a route component', () => {
-    expect(_wrapper.type()).to.equal('div')
+    expect(_wrapper.type()).toBe('div')
   })
 })

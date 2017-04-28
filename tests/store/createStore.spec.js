@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import createStore from 'store/createStore'
-import { expect } from 'chai'
 
 describe('(Store) createStore', () => {
   let store
@@ -24,8 +23,8 @@ describe('(Store) createStore', () => {
   })
 
   it('should have an empty asyncReducers object', () => {
-    expect(store.asyncReducers).to.be.an('object')
-    expect(store.asyncReducers).to.be.empty
+    expect(typeof store.asyncReducers).toBe('object')
+    expect(store.asyncReducers).toEqual({})
   })
 
   describe('(Location)', () => {
@@ -37,7 +36,7 @@ describe('(Store) createStore', () => {
         type    : 'LOCATION_CHANGE',
         payload : location
       })
-      expect(store.getState().location).to.deep.equal(location)
+      expect(store.getState().location).toEqual(location)
     })
   })
 })

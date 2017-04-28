@@ -28,23 +28,6 @@ Array [
 ]
 `;
 
-exports[`(Utils) EntityHelper should update entity in List 1`] = `
-Array [
-  Object {
-    "metadata": Object {
-      "name": "A",
-      "uid": "uid1",
-    },
-  },
-  Object {
-    "metadata": Object {
-      "name": "B2",
-      "uid": "uid2",
-    },
-  },
-]
-`;
-
 exports[`(Utils) EntityHelper should update entity in List based on UID 1`] = `
 Array [
   Object {

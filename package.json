@@ -134,9 +134,6 @@
     "babel-eslint": "^7.2.2",
     "babel-plugin-istanbul": "^4.1.1",
     "babel-preset-flow": "^6.23.0",
-    "chai": "^3.4.1",
-    "chai-as-promised": "^6.0.0",
-    "chai-enzyme": "^0.6.1",
     "cheerio": "^0.22.0",
     "codecov": "^2.1.0",
     "enzyme": "^2.8.2",
@@ -154,11 +151,11 @@
     "react-addons-test-utils": "^15.0.0",
     "redbox-react": "^1.2.10",
     "sinon": "^2.1.0",
-    "sinon-chai": "^2.8.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   },
   "jest": {
+    "setupFiles": ["./tests/jestsetup.js"],
     "transform": {
       ".*": "<rootDir>/node_modules/babel-jest"
     },

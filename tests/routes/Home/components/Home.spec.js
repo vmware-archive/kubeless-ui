@@ -18,7 +18,6 @@ import Home from 'routes/Home/components/Home'
 import Editor from 'components/Editor'
 import TreeView from 'components/TreeView'
 import { shallow } from 'enzyme'
-import { expect } from 'chai'
 
 describe('(View) Home', () => {
   let _wrapper
@@ -28,8 +27,8 @@ describe('(View) Home', () => {
   })
 
   it('Renders as a div', () => {
-    expect(_wrapper.contains(<Editor />)).to.equal(true)
-    expect(_wrapper.contains(<TreeView />)).to.equal(true)
+    expect(_wrapper.contains(<Editor />)).toBe(true)
+    expect(_wrapper.contains(<TreeView />)).toBe(true)
     // expect contain editor
     // expect contain treeview
   })

@@ -2,5 +2,10 @@
   "extends" : "../.eslintrc",
   "env"     : {
     "jest" : true
+  },
+  "globals" : {
+    "shallow" : false,
+    "render"  : false,
+    "mount"   : false
   }
 }
