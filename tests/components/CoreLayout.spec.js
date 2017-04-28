@@ -14,35 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
-import CoreLayout from 'components/CoreLayout/CoreLayout'
-
-function shallowRender(component) {
-  const renderer = TestUtils.createRenderer()
-
-  renderer.render(component)
-  return renderer.getRenderOutput()
-}
-
-function shallowRenderWithProps(props = {}) {
-  return shallowRender(<CoreLayout {...props} />)
-}
+import CoreLayout from 'components/CoreLayout'
 
 describe('(Layout) Core', function() {
   let _component
-  let _props
-  let _child
 
   beforeEach(function() {
-    _child = <h1 className='child'>Child</h1>
-    _props = {
-      children : _child
-    }
 
-    _component = shallowRenderWithProps(_props)
+    _component = shallow(
+      <CoreLayout>
+        <h1 className='child'>Child</h1>
+      </CoreLayout>
+    )
   })
 
   it('Should render as a <div>.', function() {
-    expect(_component.type).toBe('div')
+    expect(_component.type()).toBe('div')
   })
 })

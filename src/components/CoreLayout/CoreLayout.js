@@ -13,22 +13,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React from 'react'
+import React, { Component } from 'react'
 import Header from '../../components/Header'
 import './CoreLayout.scss'
 import '../../styles/core.scss'
 
-export const CoreLayout = ({ children }) => (
-  <div className='container text-center'>
-    <Header />
-    <div className='core-layout__viewport'>
-      {children}
-    </div>
-  </div>
-)
+export default class CoreLayout extends Component {
 
-CoreLayout.propTypes = {
-  children : React.PropTypes.element.isRequired
+  props: {
+    children: any
+  }
+
+  render() {
+    return (
+      <div className='container text-center'>
+        <Header />
+        <div className='core-layout__viewport'>
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+
 }
-
-export default CoreLayout

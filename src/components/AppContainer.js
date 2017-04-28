@@ -22,6 +22,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 export default class AppContainer extends Component {
+
   static propTypes = {
     routes : PropTypes.object.isRequired,
     store  : PropTypes.object.isRequired
@@ -44,4 +45,5 @@ export default class AppContainer extends Component {
       </Provider>
     )
   }
+
 }
