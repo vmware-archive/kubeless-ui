@@ -33,4 +33,4 @@ docker-compose up
 
 ## Snapshot
 
-[kubeless-ui-snapshot](./kubeless.png)
+![kubeless-ui-snapshot](./kubeless.png)
