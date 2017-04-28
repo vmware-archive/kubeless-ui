@@ -73,7 +73,7 @@ export function podsFetchLogs(cluster: Cluster, pod: Pod) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
+export const initialState = {
   list: [],
   logs: {},
   loading: false

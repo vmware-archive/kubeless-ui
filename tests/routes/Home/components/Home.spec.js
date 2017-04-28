@@ -26,10 +26,8 @@ describe('(View) Home', () => {
     _wrapper = shallow(<Home />)
   })
 
-  it('Renders as a div', () => {
+  it('Should render Editor and TreeView', () => {
     expect(_wrapper.contains(<Editor />)).toBe(true)
     expect(_wrapper.contains(<TreeView />)).toBe(true)
-    // expect contain editor
-    // expect contain treeview
   })
 })

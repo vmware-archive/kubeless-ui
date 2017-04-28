@@ -47,7 +47,7 @@ export function clusterEdit(cluster: Cluster) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
+export const initialState = {
   cluster: {
     id: 'id1',
     name: 'localhost',

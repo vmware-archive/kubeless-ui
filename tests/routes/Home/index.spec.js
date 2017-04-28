@@ -17,19 +17,14 @@ import React from 'react'
 import HomeRoute from 'routes/Home'
 
 describe('(Route) Home', () => {
-  let _component
-  let _wrapper
-
-  beforeEach(() => {
-    _component = HomeRoute.component
-    _wrapper = shallow(<_component />)
-  })
 
   it('Should return a route configuration object', () => {
     expect(typeof HomeRoute).toBe('object')
+    expect(HomeRoute.component).toBeDefined()
   })
 
   it('Should define a route component', () => {
-    expect(_wrapper.type()).toBe('div')
+    const wrapper = shallow(<HomeRoute.component />)
+    expect(wrapper.type()).toBe('div')
   })
 })

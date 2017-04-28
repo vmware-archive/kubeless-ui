@@ -137,7 +137,7 @@ export function funcsRun(func: Func, data: {}, cluster: Cluster) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
+export const initialState = {
   list: [
     {
       kind: 'Function',

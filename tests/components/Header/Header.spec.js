@@ -15,7 +15,6 @@ limitations under the License.
 */
 import React from 'react'
 import Header from 'components/Header/'
-import { shallow } from 'enzyme'
 
 describe('(Component) Header', () => {
   let _wrapper
