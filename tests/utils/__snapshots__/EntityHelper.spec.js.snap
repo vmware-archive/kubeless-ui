@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(Utils) EntityHelper should create Function entity from params 1`] = `
+Object {
+  "kind": "Function",
+  "metadata": Object {
+    "name": "funcName",
+    "namespace": "kubeless",
+  },
+  "spec": Object {
+    "function": "//code goes here",
+    "handler": "funcName.foo",
+    "runtime": undefined,
+    "topic": "kubeless",
+    "type": "HTTP",
+  },
+}
+`;
+
+exports[`(Utils) EntityHelper should delete entity in List based on UID 1`] = `
+Array [
+  Object {
+    "metadata": Object {
+      "name": "A",
+      "uid": "uid1",
+    },
+  },
+]
+`;
+
+exports[`(Utils) EntityHelper should update entity in List 1`] = `
+Array [
+  Object {
+    "metadata": Object {
+      "name": "A",
+      "uid": "uid1",
+    },
+  },
+  Object {
+    "metadata": Object {
+      "name": "B2",
+      "uid": "uid2",
+    },
+  },
+]
+`;
+
+exports[`(Utils) EntityHelper should update entity in List based on UID 1`] = `
+Array [
+  Object {
+    "metadata": Object {
+      "name": "A",
+      "uid": "uid1",
+    },
+  },
+  Object {
+    "metadata": Object {
+      "name": "B2",
+      "uid": "uid2",
+    },
+  },
+]
+`;
