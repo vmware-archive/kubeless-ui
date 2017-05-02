@@ -28,7 +28,7 @@ describe('(Internal Module) Location', () => {
 
   describe('(Reducer)', () => {
     it('Should be a function.', () => {
-      expect(typeof locationReducer).toBe('function')
+      expect(locationReducer).toBeInstanceOf(Function)
     })
 
     it('Should initialize with a state of null.', () => {
@@ -51,7 +51,7 @@ describe('(Internal Module) Location', () => {
 
   describe('(Action Creator) locationChange', () => {
     it('Should be exported as a function.', () => {
-      expect(typeof locationChange).toBe('function')
+      expect(locationChange).toBeInstanceOf(Function)
     })
 
     it('Should return an action with type "LOCATION_CHANGE".', () => {
@@ -85,11 +85,11 @@ describe('(Internal Module) Location', () => {
     })
 
     it('Should be exported as a function.', () => {
-      expect(typeof updateLocation).toBe('function')
+      expect(updateLocation).toBeInstanceOf(Function)
     })
 
     it('Should return a function (is a thunk).', () => {
-      expect(typeof updateLocation({ dispatch: _dispatchSpy })).toBe('function')
+      expect(updateLocation({ dispatch: _dispatchSpy })).toBeInstanceOf(Function)
     })
 
     it('Should call dispatch exactly once.', () => {

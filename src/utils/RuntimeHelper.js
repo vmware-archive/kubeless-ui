@@ -25,16 +25,17 @@ const runtimes = [
 export default class RuntimeHelper {
 
   static defaultRuntime() {
-    return runtimes[0].value
+    return runtimes[0]
   }
   static getAllRuntimes() {
     return runtimes
   }
 
   static runtimeToLanguage(runtime: ?string):string {
-    if (!runtime) { return 'python' }
+    const defaultLanguage = this.defaultRuntime().language
+    if (!runtime) { return defaultLanguage }
     const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
-    return runtimeObject ? runtimeObject.language : 'python'
+    return runtimeObject ? runtimeObject.language : defaultLanguage
   }
 
 }

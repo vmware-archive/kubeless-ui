@@ -27,7 +27,7 @@ import RuntimeHelper from 'utils/RuntimeHelper'
 const initialState = {
   name: '',
   handler: '',
-  runtime: RuntimeHelper.defaultRuntime(),
+  runtime: RuntimeHelper.defaultRuntime().value,
   type: 'HTTP'
 }
 export default class CreateFunc extends Component {
