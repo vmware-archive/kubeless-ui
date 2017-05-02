@@ -23,6 +23,7 @@ import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
 import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
+import RuntimeHelper from 'utils/RuntimeHelper'
 import FuncDetail from './FuncDetailContainer'
 import Logs from 'components/Logs'
 import FlatButton from 'material-ui/FlatButton'
@@ -86,13 +87,8 @@ export default class Editor extends Component {
 
   runtimeToMode = () => {
     const { func } = this.props
-    let mode = (func && func.spec.runtime) || 'javascript'
-    if (mode.indexOf('python') !== -1) {
-      mode = 'python'
-    } else if (mode.indexOf('node') !== -1) {
-      mode = 'javascript'
-    }
-    return mode
+    const runtime = func ? func.spec.runtime : null
+    return RuntimeHelper.runtimeToLanguage(runtime)
   }
 
   toggleLogs = () => {
