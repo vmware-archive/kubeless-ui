@@ -15,11 +15,13 @@ limitations under the License.
 */
 
 // @flow
+import _ from 'lodash'
 import type { Cluster, Pod, ReduxAction } from 'utils/Types'
 import Api from 'utils/Api'
 
 type State = {
   list: Array<Pod>,
+  selected?: Pod,
   logs: {},
   loading: boolean
 }
@@ -27,6 +29,7 @@ type State = {
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const PODS_SELECT = 'PODS_SELECT'
 export const PODS_FETCH = 'PODS_FETCH'
 export const PODS_LOADING = 'PODS_LOADING'
 export const PODS_LOGS = 'PODS_LOGS'
@@ -34,6 +37,12 @@ export const PODS_LOGS = 'PODS_LOGS'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export function podsSelect(pod: Pod) {
+  return {
+    type: PODS_SELECT,
+    value: pod
+  }
+}
 export function podsFetch(cluster: Cluster) {
   return (dispatch: () => void) => {
     dispatch({
@@ -81,10 +90,20 @@ export const initialState = {
 
 export default function podsReducer(state: State = initialState, action: ReduxAction) {
   switch (action.type) {
+    case PODS_SELECT:
+      return Object.assign({}, state, {
+        selected: action.value
+      })
     case PODS_FETCH:
+      const newPods = action.list
+      let { selected } = state
+      if (selected) {
+        selected = _.find(newPods, ['metadata.uid', selected.metadata.uid])
+      }
       return Object.assign({}, state, {
         list: action.list,
-        loading: false
+        loading: false,
+        selected
       })
     case PODS_LOGS:
       const logs = state.logs

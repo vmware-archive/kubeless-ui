@@ -53,4 +53,11 @@ export default class EntityHelper {
     }
   }
 
+  static entityStatus(e) {
+    if (e.metadata.deletionTimestamp) {
+      return 'Terminating'
+    }
+    return e.status.phase
+  }
+
 }

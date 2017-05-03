@@ -32,7 +32,11 @@ export type Pod = {
   metadata: {
     uid: string,
     name: string,
-    namespace: string
+    namespace: string,
+    labels: {string: any}
+  },
+  status: {
+    phase: string
   }
 }
 

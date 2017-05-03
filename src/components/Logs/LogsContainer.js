@@ -18,24 +18,27 @@ limitations under the License.
 import { connect } from 'react-redux'
 import Logs from './Logs'
 import _ from 'lodash'
-import { podsFetchLogs } from 'store/pods'
+import { podsSelect, podsFetchLogs, podsFetch } from 'store/pods'
 
 const mapStateToProps = ({ funcs, clusters, pods }) => {
   const func = funcs.selected
-  const pod = _.find(pods.list, (p) => {
-    return p.metadata.name.indexOf(func.metadata.name) > -1
+  const podsList = _.filter(pods.list, (p) => {
+    return p.metadata.labels['function'] === func.metadata.name
   })
-  const logs = pod ? pods.logs[pod.metadata.uid] : ''
+  const logs = pods.selected ? pods.logs[pods.selected.metadata.uid] : ''
   return {
     func: funcs.selected,
     cluster: clusters.cluster,
-    pod,
-    logs
+    pods: podsList,
+    selectedPod: pods.selected,
+    logs: logs
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchLogs: (cluster, pod) => dispatch(podsFetchLogs(cluster, pod))
+  onSelectPod: (pod) => dispatch(podsSelect(pod)),
+  onFetchLogs: (cluster, pod) => dispatch(podsFetchLogs(cluster, pod)),
+  onFetchPods: (cluster) => dispatch(podsFetch(cluster))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Logs)
