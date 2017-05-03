@@ -21,6 +21,8 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
 import Button from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import CreateFunc from 'components/TreeView/CreateFunc'
 import type { Func, Cluster } from 'utils/Types'
 
@@ -38,6 +40,7 @@ export default class FuncDetail extends Component {
   state: {
     body: string,
     json?: boolean,
+    method: string,
     running?: boolean,
     editing?: boolean,
     confirmDelete: boolean,
@@ -49,6 +52,7 @@ export default class FuncDetail extends Component {
     this.state = {
       body: '',
       json: true,
+      method: 'get',
       confirmDelete: false
     }
   }
@@ -61,19 +65,21 @@ export default class FuncDetail extends Component {
 
   run = () => {
     if (this.state.running) { return }
-    const { body, json } = this.state
+    const { body, json, method } = this.state
     const { func, cluster } = this.props
     let requestData
-    try {
-      requestData = json && body ? JSON.parse(body) : qs.parse(body)
-    } catch (e) {
-      console.log('Error executing function', e, e.message)
-      this.setState({ errorMessage: e.message, running: false })
-      return
+    if (body) {
+      try {
+        requestData = json ? JSON.parse(body) : qs.parse(body)
+      } catch (e) {
+        console.log('Error executing function', e, e.message)
+        this.setState({ errorMessage: e.message, running: false })
+        return
+      }
     }
     console.log('Executing function with body: ', requestData)
     this.setState({ running: true, errorMessage: null })
-    this.props.onRun(func, requestData, cluster)
+    this.props.onRun(func, requestData, cluster, method)
   }
 
   delete = () => {
@@ -147,11 +153,16 @@ export default class FuncDetail extends Component {
   }
 
   renderRun() {
-    const { body, json } = this.state
+    const { body, json, method } = this.state
+
+    const methods = [
+      <MenuItem key={1} value='get' primaryText='GET' />,
+      <MenuItem key={2} value='post' primaryText='POST' />
+    ]
     return (
       <div className='functionRun'>
         <h5>Request</h5>
-        <textarea className='body' placeholder='Request data...'
+        <textarea className='body' placeholder={json ? '{ "hello": "world" }' : 'hello=world'}
           value={body} onChange={(e) => this.setState({ body: e.target.value })} />
         <br /><br />
         <RadioButtonGroup name='bodyFormat'
@@ -163,7 +174,19 @@ export default class FuncDetail extends Component {
             className='radioButton' />
         </RadioButtonGroup>
         <br />
-        <Button label='Run function' primary onClick={this.run} />
+        <div className='methodContainer'>
+          <SelectField
+            value={method}
+            fullWidth
+            style={{ paddingLeft: 10, marginTop: -5 }}
+            underlineStyle={{ border: 0 }}
+            labelStyle={{ color: 'rgb(48, 48, 48)' }}
+            onChange={(e, i, method) => this.setState({ method })}
+          >
+            {methods}
+          </SelectField>
+        </div>
+        <Button className='runButton' label='Run function' primary onClick={this.run} />
       </div>
     )
   }

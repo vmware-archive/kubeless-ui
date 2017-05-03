@@ -113,14 +113,18 @@ export function funcsDelete(func: Func, cluster: Cluster) {
   }
 }
 
-export function funcsRun(func: Func, data: {}, cluster: Cluster) {
+export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?string = 'get') {
   return (dispatch: () => void) => {
     dispatch({
       type: FUNCS_RUN,
       value: null
     })
-    return Api.get(`/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`,
-      data, cluster, func).then(result => {
+    let _call = Api.get
+    if (method === 'post') {
+      _call = Api.post
+    }
+    return _call(`/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`,
+      data || {}, cluster, func).then(result => {
         dispatch({
           type: FUNCS_RUN,
           value: result

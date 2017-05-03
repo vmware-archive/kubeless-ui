@@ -102,4 +102,25 @@ limitations under the License.
     resize: vertical;
     outline: none;
   }
+
+  .methodContainer {
+    background: #FF3876;
+    width: 75px;
+    height: 36px;
+    display: inline-block;
+    overflow: hidden;
+    box-sizing: border-box;
+    vertical-align: bottom;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    button { // tick
+      right: -10px !important;
+      fill: rgba(0, 0, 0, 0.3) !important;
+    }
+  }
+
+  .runButton, .runButton button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
 }

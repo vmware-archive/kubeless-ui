@@ -72,27 +72,27 @@ export default class Api {
   }
 
   static handleError(error) {
-    return Promise.reject({ status: Api.getStatus(error), message: error.message })
+    return Promise.reject(new Error(error.message))
   }
 
   static post(url, body = {}, cluster, entity) {
-    return this.apiFetch({ method: 'post', url, body, cluster, entity })
+    return Api.apiFetch({ method: 'post', url, body, cluster, entity })
   }
 
   static get(url, dataUrl, cluster, entity) {
-    return this.apiFetch({ method: 'get', url, dataUrl, cluster, entity })
+    return Api.apiFetch({ method: 'get', url, dataUrl, cluster, entity })
   }
 
   static put(url, body, cluster, entity) {
-    return this.apiFetch({ method: 'put', url, body, cluster, entity })
+    return Api.apiFetch({ method: 'put', url, body, cluster, entity })
   }
 
   static patch(url, body, cluster, entity) {
-    return this.apiFetch({ method: 'patch', url, body, cluster, entity })
+    return Api.apiFetch({ method: 'patch', url, body, cluster, entity })
   }
 
   static delete(url, body, cluster, entity) {
-    return this.apiFetch({ method: 'delete', url, body, cluster, entity })
+    return Api.apiFetch({ method: 'delete', url, body, cluster, entity })
   }
 
   static getStatus(response = {}) {
