@@ -46,13 +46,26 @@ limitations under the License.
     padding: 0 10px;
     background: #002B35;
   }
-  .folder-title {
+  .folderTitle {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 1.2em;
     margin: 0 10px;
   }
-  .folder-icon {
+  .folderIcon {
     width: 20px;
   }
+  .editIcon {
+    display: none !important;
+    cursor: pointer;
+  }
+  .treeviewHeader:hover .editIcon {
+    display: block !important;
+  }
+
+
 
   .funcs {
     flex: 1;
@@ -81,7 +94,7 @@ limitations under the License.
 
   .treeviewFooter {
     height: 40px;
-    padding: 0 10px;
+    padding: 0;
     background: rgba(255, 255, 255, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;

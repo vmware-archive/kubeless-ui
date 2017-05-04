@@ -16,6 +16,8 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
 import './Header.scss'
 
 export default class Header extends Component {
@@ -24,10 +26,13 @@ export default class Header extends Component {
     return (
       <div className='header'>
         <h1>Kubeless editor</h1>
-        <a href='https://github.com/bitnami/kubeless'>
-          Github
+        <a href='https://github.com/bitnami/kubeless' target='_blank'>
+          <IconButton tooltip='Github'>
+            <FontIcon className='fa fa-github' />
+          </IconButton>
         </a>
       </div>
     )
   }
+
 }

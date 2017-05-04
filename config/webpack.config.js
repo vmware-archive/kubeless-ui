@@ -216,7 +216,6 @@ webpackConfig.module.rules.push(
     options : {
       prefix : 'fonts/',
       name     : '[path][name].[ext]',
-      limit    : '10000',
       mimetype : 'application/font-woff'
     }
   },
@@ -226,7 +225,6 @@ webpackConfig.module.rules.push(
     options : {
       prefix   : 'fonts/',
       name     : '[path][name].[ext]',
-      limit    : '10000',
       mimetype : 'application/font-woff2'
     }
   },
@@ -236,7 +234,6 @@ webpackConfig.module.rules.push(
     options : {
       prefix   : 'fonts/',
       name     : '[path][name].[ext]',
-      limit    : '10000',
       mimetype : 'font/opentype'
     }
   },
@@ -246,7 +243,6 @@ webpackConfig.module.rules.push(
     options : {
       prefix   : 'fonts/',
       name     : '[path][name].[ext]',
-      limit    : '10000',
       mimetype : 'application/octet-stream'
     }
   },
@@ -264,7 +260,6 @@ webpackConfig.module.rules.push(
     options : {
       prefix   : 'fonts/',
       name     : '[path][name].[ext]',
-      limit    : '10000',
       mimetype : 'image/svg+xml'
     }
   },

@@ -22,6 +22,8 @@ import CreateFunc from './CreateFunc'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
 import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
 import Store from 'store/Store'
@@ -112,8 +114,9 @@ export default class TreeView extends Component {
     ]
     return (
       <div className='treeviewHeader' onClick={this.headerPressed}>
-        <img className='folder-icon' src={cubeIcon} />
-        <h3 className='folder-title'>{cluster.url}</h3>
+        <img className='folderIcon' src={cubeIcon} />
+        <h3 className='folderTitle'>{cluster.url}</h3>
+        <FontIcon className='material-icons editIcon'>create</FontIcon>
         <Dialog
           title='Cluster info' modal={false} actions={dialogActions}
           open={this.state.editClusterOpen}
@@ -137,7 +140,11 @@ export default class TreeView extends Component {
     } else if (this.props.funcs.length === 0) {
       content = (
         <p>{'No function found'}<br />
-          <a href='#' onClick={this.refresh}>Refresh</a>
+          <FlatButton
+            label='Refresh'
+            onClick={this.refresh}
+            icon={<FontIcon className='material-icons'>replay</FontIcon>}
+          />
         </p>
       )
     } else { return }
@@ -147,7 +154,14 @@ export default class TreeView extends Component {
   renderFooter() {
     return (
       <div className='treeviewFooter'>
-        <FlatButton onClick={() => this.setState({ newFuncOpen: true })} label='Add' style={{ minWidth: 'auto' }} />
+        <IconButton tooltip='New Function' tooltipPosition='top-right'
+          onClick={() => this.setState({ newFuncOpen: true })}>
+          <FontIcon className='material-icons'>add</FontIcon>
+        </IconButton>
+        <IconButton tooltip='Refresh Functions' tooltipPosition='top-left'
+          onClick={this.refresh} style={{ marginLeft: 'auto' }}>
+          <FontIcon className='material-icons'>replay</FontIcon>
+        </IconButton>
         <CreateFunc open={this.state.newFuncOpen}
           onDismiss={() => this.setState({ newFuncOpen: false })}
           onDone={this.createFunc}
