@@ -26,7 +26,8 @@ import type { Func, Cluster } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import FuncDetail from './FuncDetailContainer'
 import Logs from 'components/Logs'
-import FlatButton from 'material-ui/FlatButton'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
 
 export default class Editor extends Component {
 
@@ -49,6 +50,10 @@ export default class Editor extends Component {
     { name: 'save',
       bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
       exec: () => this.save()
+    },
+    { name: 'logs',
+      bindKey: { win: 'Ctrl-P', mac: 'Command-P' },
+      exec: () => this.toggleLogs()
     }
   ]
 
@@ -120,11 +125,21 @@ export default class Editor extends Component {
   }
 
   renderFooter() {
+    const isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
+    const saveButton = (
+      <IconButton
+        onClick={this.save} tooltip={`Save (${isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-center'>
+        <FontIcon className='fa fa-cloud-upload' />
+      </IconButton>
+    )
     return (
       <div className='editorFooter'>
         <div className='editorFooterLinks'>
-          {this.props.editing && <FlatButton onClick={this.save} label='Save' style={{ minWidth: 'auto' }} />}
-          <FlatButton style={{ marginLeft: 'auto', minWidth: 'auto' }} onClick={this.toggleLogs} label='Logs' />
+          {this.props.editing && saveButton}
+          <IconButton style={{ marginLeft: 'auto' }}
+            onClick={this.toggleLogs} tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`} tooltipPosition='top-center'>
+            <FontIcon className='fa fa-terminal' />
+          </IconButton>
         </div>
         <div style={{ display: 'flex', height: this.state.showLogs ? '200px' : 0 }}>
           <Logs visible={this.state.showLogs} />

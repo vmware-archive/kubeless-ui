@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// @flow
+// @flowoo
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './Logs.scss'
@@ -42,13 +42,14 @@ export default class Logs extends Component {
   }
 
   shouldScrollBottom = false
+  logsContainerRef: Element
 
   componentWillUpdate(nextProps: any) {
     if (!this.props.visible && nextProps.visible) {
       this.shouldScrollBottom = true
       this.selectFirstPod()
     } else if (nextProps.logs.length > this.props.logs.length) {
-      const logsContainer = ReactDOM.findDOMNode(this.refs.logsContainer)
+      const logsContainer = ReactDOM.findDOMNode(this.refs.logsContainerRef)
       if (logsContainer) {
         this.shouldScrollBottom = logsContainer.scrollTop + logsContainer.offsetHeight === logsContainer.scrollHeight;
       }
@@ -114,13 +115,14 @@ export default class Logs extends Component {
       return (
         <div className='selectedPod' onClick={() => this.setState({ showPods: true })}>
           {selectedPod && `Pod: ${selectedPod.metadata.name}`}
+          <i className='fa fa-caret-left' style={{ marginLeft: 10 }} />
         </div>
       )
     }
     return (
       <div className='podsList'>
         <div className='selectedPod' onClick={() => this.setState({ showPods: false })}>
-          x
+          <i className='fa fa-close' />
         </div>
         {pods.map(pod => this.renderPod(pod))}
       </div>
