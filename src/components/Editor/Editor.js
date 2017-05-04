@@ -61,7 +61,7 @@ export default class Editor extends Component {
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
     if (nextProps.func !== this.props.func) {
-      this.setState({ content: nextProps.func ? nextProps.func.spec['function'] : '' })
+      this.setState({ showLogs: false, content: nextProps.func ? nextProps.func.spec['function'] : '' })
     }
   }
 

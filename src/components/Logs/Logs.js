@@ -16,6 +16,7 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import './Logs.scss'
 import EntityHelper from 'utils/EntityHelper'
 import type { Func, Cluster, Pod } from 'utils/Types'
@@ -29,16 +30,25 @@ export default class Logs extends Component {
     func: Func,
     pods: Array<Pod>,
     selectedPod: ?Pod,
-    logs: ?string,
+    logs: string,
     visible: ?boolean,
     onFetchLogs: (cluster: Cluster, pod: Pod) => void,
     onFetchPods: (cluster: Cluster) => void,
-    onSelectPod: (pod: Pod) => void,
+    onSelectPod: (pod: ?Pod) => void,
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  shouldScrollBottom = false
+
+  componentWillUpdate(nextProps: any) {
+
     if (!this.props.visible && nextProps.visible) {
+      this.shouldScrollBottom = true
       this.selectFirstPod()
+    } else if (nextProps.logs.length > this.props.logs.length) {
+      const logsContainer = ReactDOM.findDOMNode(this.refs.logsContainer)
+      if (logsContainer) {
+        this.shouldScrollBottom = logsContainer.scrollTop + logsContainer.offsetHeight === logsContainer.scrollHeight;
+      }
     }
   }
 
@@ -57,6 +67,10 @@ export default class Logs extends Component {
         this.props.onFetchPods(this.props.cluster)
       }, 2000)
     }
+
+    if (this.shouldScrollBottom) {
+      this.scrollToBottom()
+    }
   }
 
   componentWillUnmount() {
@@ -64,9 +78,13 @@ export default class Logs extends Component {
   }
 
   selectFirstPod() {
-    if (this.props.pods.length > 0) {
-      this.props.onSelectPod(this.props.pods[0])
-    }
+    this.props.onSelectPod(this.props.pods.length > 0 ? this.props.pods[0] : null)
+  }
+
+  scrollToBottom() {
+    const logsContainer = ReactDOM.findDOMNode(this.refs.logsContainer)
+    logsContainer.scrollTop = logsContainer.scrollHeight
+    this.shouldScrollBottom = false
   }
 
   render() {
@@ -76,9 +94,11 @@ export default class Logs extends Component {
     return (
       <div className='logs'>
         {this.renderPods()}
-        <pre className='logsText'>
-          {logs}
-        </pre>
+        <div ref='logsContainer' className='logsContainer'>
+          <pre>
+            {logs}
+          </pre>
+        </div>
       </div>
     )
   }
@@ -94,13 +114,12 @@ export default class Logs extends Component {
 
   renderPod(pod: Pod) {
     const { selectedPod } = this.props
+    const isActive = selectedPod && selectedPod.metadata.uid === pod.metadata.uid
     return (
-      <div className='podItem' key={pod.metadata.uid} onClick={() => this.props.onSelectPod(pod)}>
-        <p>
-          {selectedPod && selectedPod.metadata.uid === pod.metadata.uid && '-> '}
+      <div key={pod.metadata.uid} className={`podItem ${isActive ? 'active' : ''}`}
+        onClick={() => this.props.onSelectPod(pod)}>
           {`${pod.metadata.name} `}
           <small>{`(${EntityHelper.entityStatus(pod)})`}</small>
-        </p>
       </div>
     )
   }

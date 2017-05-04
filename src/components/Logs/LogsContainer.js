@@ -31,7 +31,7 @@ const mapStateToProps = ({ funcs, clusters, pods }) => {
     cluster: clusters.cluster,
     pods: podsList,
     selectedPod: pods.selected,
-    logs: logs
+    logs: logs || ''
   }
 }
 

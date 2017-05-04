@@ -18,18 +18,27 @@ limitations under the License.
   background: black;
   color: white;
   text-align: left;
-  padding: 10px;
-  overflow: auto;
   display: flex;
   .podsList {
     flex: 1;
     max-width: 200px;
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    .podItem {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      &.active {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
   }
-  pre {
+  .logsContainer {
     flex: 1;
-    color: white;
-    background: black;
-    border: 0;
+    overflow: auto;
+    pre {
+      padding: 0 10px;
+      color: white;
+      background: black;
+      border: 0;
+    }
   }
 }
