@@ -14,15 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .logs {
+  position: relative;
   flex: 1;
   background: black;
   color: white;
   text-align: left;
   display: flex;
+  .selectedPod {
+    position: absolute;
+    right: 0;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-bottom-left-radius: 3px;
+    cursor: pointer;
+  }
   .podsList {
     flex: 1;
     max-width: 200px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
     .podItem {
       padding: 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);

@@ -37,10 +37,13 @@ export default class Logs extends Component {
     onSelectPod: (pod: ?Pod) => void,
   }
 
+  state = {
+    showPods: false
+  }
+
   shouldScrollBottom = false
 
   componentWillUpdate(nextProps: any) {
-
     if (!this.props.visible && nextProps.visible) {
       this.shouldScrollBottom = true
       this.selectFirstPod()
@@ -93,20 +96,32 @@ export default class Logs extends Component {
 
     return (
       <div className='logs'>
-        {this.renderPods()}
         <div ref='logsContainer' className='logsContainer'>
+          <br />
           <pre>
             {logs}
           </pre>
         </div>
+        {this.renderPods()}
       </div>
     )
   }
 
   renderPods() {
-    const { pods } = this.props
+    const { pods, selectedPod } = this.props
+
+    if (!this.state.showPods) {
+      return (
+        <div className='selectedPod' onClick={() => this.setState({ showPods: true })}>
+          {selectedPod && `Pod: ${selectedPod.metadata.name}`}
+        </div>
+      )
+    }
     return (
       <div className='podsList'>
+        <div className='selectedPod' onClick={() => this.setState({ showPods: false })}>
+          x
+        </div>
         {pods.map(pod => this.renderPod(pod))}
       </div>
     )
