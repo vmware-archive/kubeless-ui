@@ -51,7 +51,8 @@ export default class Logs extends Component {
     } else if (nextProps.logs.length > this.props.logs.length) {
       const logsContainer = ReactDOM.findDOMNode(this.refs.logsContainerRef)
       if (logsContainer) {
-        this.shouldScrollBottom = logsContainer.scrollTop + logsContainer.offsetHeight === logsContainer.scrollHeight;
+        // $FlowIgnore: scrollTop/scrollHeight not found
+        this.shouldScrollBottom = logsContainer.scrollTop + logsContainer.offsetHeight === logsContainer.scrollHeight
       }
     }
   }
@@ -87,6 +88,7 @@ export default class Logs extends Component {
 
   scrollToBottom() {
     const logsContainer = ReactDOM.findDOMNode(this.refs.logsContainer)
+    // $FlowIgnore: scrollTop/scrollHeight not found
     logsContainer.scrollTop = logsContainer.scrollHeight
     this.shouldScrollBottom = false
   }
@@ -135,8 +137,8 @@ export default class Logs extends Component {
     return (
       <div key={pod.metadata.uid} className={`podItem ${isActive ? 'active' : ''}`}
         onClick={() => this.props.onSelectPod(pod)}>
-          {`${pod.metadata.name} `}
-          <small>{`(${EntityHelper.entityStatus(pod)})`}</small>
+        {`${pod.metadata.name} `}
+        <small>{`(${EntityHelper.entityStatus(pod)})`}</small>
       </div>
     )
   }

@@ -29,6 +29,8 @@ import Logs from 'components/Logs'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
+const LOGS_DEFAULT_HEIGHT = 200
+
 export default class Editor extends Component {
 
   props: {
@@ -43,7 +45,8 @@ export default class Editor extends Component {
 
   state: {
     content: string,
-    showLogs?: boolean,
+    // showLogs?: boolean,
+    logsHeight: number
   }
 
   hotkeysMap = [
@@ -60,13 +63,14 @@ export default class Editor extends Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      content: props.func ? props.func.spec.function : ''
+      content: props.func ? props.func.spec['function'] : '',
+      logsHeight: 0
     }
   }
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
     if (nextProps.func !== this.props.func) {
-      this.setState({ showLogs: false, content: nextProps.func ? nextProps.func.spec['function'] : '' })
+      this.setState({ logsHeight: 0, content: nextProps.func ? nextProps.func.spec['function'] : '' })
     }
   }
 
@@ -97,15 +101,37 @@ export default class Editor extends Component {
   }
 
   toggleLogs = () => {
-    const showLogs = !this.state.showLogs
-    this.setState({ showLogs })
+    const newHeight = this.state.logsHeight === 0 ? LOGS_DEFAULT_HEIGHT : 0
+    this.setState({ logsHeight: newHeight })
+  }
+
+  mouseDown: boolean
+  dragStart: number
+  heightAtStart: number
+  onMouseDown = (e:any) => {
+    if (this.state.logsHeight > 0 && e.target === this.refs.footerBar) {
+      this.mouseDown = true
+      this.dragStart = e.pageY
+      this.heightAtStart = this.state.logsHeight
+    }
+  }
+  onMouseUp = () => {
+    this.mouseDown = false
+  }
+  onMouseMove = (e:any) => {
+    if (this.mouseDown) {
+      const newHeight = Math.max(0, this.heightAtStart - (e.pageY - this.dragStart))
+      this.setState({ logsHeight: newHeight })
+    }
   }
 
   render() {
     const { func } = this.props
     let mode = this.runtimeToMode()
     return (
-      <div className='editor'>
+      <div className='editor'
+        onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} onMouseLeave={this.onMouseUp}
+        onMouseMove={this.onMouseMove}>
         <div className='editorInnerContainer'>
           {!func && this.renderEmptyView()}
           {func && <AceEditor
@@ -134,15 +160,16 @@ export default class Editor extends Component {
     )
     return (
       <div className='editorFooter'>
-        <div className='editorFooterLinks'>
+        <div className='editorFooterLinks' ref='footerBar'
+          style={{ cursor: this.state.logsHeight > 0 ? 'row-resize' : 'default' }}>
           {this.props.editing && saveButton}
           <IconButton style={{ marginLeft: 'auto' }}
             onClick={this.toggleLogs} tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`} tooltipPosition='top-center'>
             <FontIcon className='fa fa-terminal' />
           </IconButton>
         </div>
-        <div style={{ display: 'flex', height: this.state.showLogs ? '200px' : 0 }}>
-          <Logs visible={this.state.showLogs} />
+        <div style={{ display: 'flex', height: this.state.logsHeight }}>
+          <Logs visible={this.state.logsHeight > 0} />
         </div>
       </div>
     )
