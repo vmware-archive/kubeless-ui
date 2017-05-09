@@ -13,10 +13,13 @@
     "browser" : true
   },
   "globals": {
-    "__DEV__"      : false,
-    "__TEST__"     : false,
-    "__PROD__"     : false,
-    "__COVERAGE__" : false
+    "__DEV__"             : false,
+    "__TEST__"            : false,
+    "__PROD__"            : false,
+    "__COVERAGE__"        : false,
+    "__SERVER_HOST__"     : false,
+    "__SERVER_PORT__"     : false,
+    "__CORS_PROXY_PORT__" : false
   },
   "rules": {
     "key-spacing"                 : 0,

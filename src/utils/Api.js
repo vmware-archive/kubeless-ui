@@ -17,17 +17,21 @@ limitations under the License.
 import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
 import _ from 'lodash'
-const CONFIG = { // TODO: take that from config
-  server_host: 'http://localhost',
-  cors_proxy_port: '3001'
+const CONFIG = {
+  server_host: __SERVER_HOST__,
+  cors_proxy_port: __CORS_PROXY_PORT__
 }
-
 export default class Api {
 
   static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
-    const { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
-    const proxiedURL = `${CONFIG.server_host}:${CONFIG.cors_proxy_port}/${encodeURI(URL)}`
-    return fetch(proxiedURL, {
+    let { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
+
+    URL = encodeURI(URL)
+    if (__DEV__) {
+      URL = `${'http://'}${CONFIG.server_host}:${CONFIG.cors_proxy_port}/${URL}` // proxied url for CORS
+    }
+
+    return fetch(URL, {
       method,
       headers,
       body: _.isEmpty(body) ? undefined : JSON.stringify(body)

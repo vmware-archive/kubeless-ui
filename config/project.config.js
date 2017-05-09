@@ -78,12 +78,15 @@ config.globals = {
   'process.env'  : {
     'NODE_ENV' : JSON.stringify(config.env)
   },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  'NODE_ENV'            : config.env,
+  '__DEV__'             : config.env === 'development',
+  '__PROD__'            : config.env === 'production',
+  '__TEST__'            : config.env === 'test',
+  '__COVERAGE__'        : !argv.watch && config.env === 'test',
+  '__BASENAME__'        : JSON.stringify(process.env.BASENAME || ''),
+  '__SERVER_HOST__'     : JSON.stringify(config.server_host),
+  '__SERVER_PORT__'     : config.server_port,
+  '__CORS_PROXY_PORT__' : config.cors_proxy_port
 }
 
 // ------------------------------------

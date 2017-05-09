@@ -30,7 +30,7 @@
       }
     },
     "dev": {
-      "command": "nodemon bin/dev-server --ignore dist --ignore coverage --ignore tests --ignore src",
+      "command": "nodemon bin/server --ignore dist --ignore coverage --ignore tests --ignore src",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
@@ -57,7 +57,7 @@
       }
     },
     "start": {
-      "command": "node bin/dev-server",
+      "command": "node bin/server",
       "env": {
         "DEBUG": "app:*"
       }
@@ -84,6 +84,7 @@
     "babel-plugin-module-alias": "^1.6.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.14.0",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^6.11.6",
@@ -134,7 +135,6 @@
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-plugin-istanbul": "^4.1.1",
-    "babel-preset-flow": "^6.23.0",
     "cheerio": "^0.22.0",
     "codecov": "^2.1.0",
     "enzyme": "^2.8.2",
