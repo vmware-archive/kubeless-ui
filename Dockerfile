@@ -1,7 +1,21 @@
-FROM bitnami/node
+FROM bitnami/node:7
 
-RUN install_packages apt-transport-https
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN install_packages yarn
-RUN yarn cache clean && npm cache clean && rm -rf /tmp/*
+MAINTAINER Bitnami <containers@bitnami.com>
+
+ENV NODE_ENV=production
+
+RUN npm install yarn eslint  --global
+
+COPY . /app
+
+WORKDIR /app
+
+RUN yarn install
+
+RUN npm rebuild node-sass
+
+RUN yarn run compile
+
+ENTRYPOINT ["yarn","run","start"]
+
+
