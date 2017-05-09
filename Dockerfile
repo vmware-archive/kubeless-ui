@@ -10,11 +10,9 @@ COPY . /app
 
 WORKDIR /app
 
-RUN yarn install
-
-RUN npm rebuild node-sass
-
-RUN yarn run compile
+RUN yarn install && \
+    npm rebuild node-sass && \
+    yarn run compile
 
 ENTRYPOINT ["yarn","run","start"]
 
