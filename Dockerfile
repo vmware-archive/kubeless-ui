@@ -4,7 +4,7 @@ MAINTAINER Bitnami <containers@bitnami.com>
 
 ENV NODE_ENV=production
 
-RUN npm install yarn eslint  --global
+RUN npm install yarn --global
 
 COPY . /app
 
