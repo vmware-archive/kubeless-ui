@@ -16,6 +16,7 @@ limitations under the License.
 
 import { combineReducers } from 'redux'
 import locationReducer from './location'
+import alertReducer from './alert'
 import funcsReducer from './funcs'
 import clustersReducer from './clusters'
 import podsReducer from './pods'
@@ -23,6 +24,7 @@ import podsReducer from './pods'
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     location: locationReducer,
+    alert: alertReducer,
     funcs: funcsReducer,
     clusters: clustersReducer,
     pods: podsReducer,

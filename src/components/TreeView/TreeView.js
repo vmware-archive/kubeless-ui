@@ -76,7 +76,8 @@ export default class TreeView extends Component {
   }
 
   onSelect = (func: ?Func) => {
-    if (Store.getState().funcs.editing) {
+    const { funcs: FuncsStore } = Store.getState()
+    if (FuncsStore.editing && FuncsStore.selected) {
       if (!confirm('You have unsaved changes, do you still want to leave this page? All changes will be lost')) {
         return
       }

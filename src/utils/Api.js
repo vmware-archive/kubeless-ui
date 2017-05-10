@@ -43,14 +43,10 @@ export default class Api {
           resolve(t)
         })
       }
-      if (!response.ok) {
+      if (!response.ok || response.status === 404) {
         return response.text().then(t => {
-          return this.handleError(Api.parseJSON(t))
+          return this.handleError(Api.parseJSON(t) || { message: t }, URL)
         })
-      }
-      // avoid error when the server doesn't return json
-      if (response.status === 404) {
-        return {}
       }
       return response.text()
     }).then((text) => {
@@ -63,7 +59,7 @@ export default class Api {
     }).then((json) => {
       return json
     }).catch((error) => {
-      return this.handleError(error, url)
+      return this.handleError(error, URL)
     })
   }
 
@@ -75,7 +71,7 @@ export default class Api {
     }
   }
 
-  static handleError(error) {
+  static handleError(error, url) {
     return Promise.reject(new Error(error.message))
   }
 

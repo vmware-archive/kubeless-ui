@@ -18,6 +18,7 @@ limitations under the License.
 import _ from 'lodash'
 import Api from 'utils/Api'
 import EntityHelper from 'utils/EntityHelper'
+import { alertUpdate } from 'store/alert'
 import type { Func, Cluster, ReduxAction } from 'utils/Types'
 
 type State = {
@@ -87,6 +88,8 @@ export function funcsSave(func: Func, cluster: Cluster, params: {}) {
         type: FUNCS_SAVE,
         value: result
       })
+    }).catch(e => {
+      dispatch(alertUpdate(e.message))
     })
   }
 }
@@ -99,6 +102,8 @@ export function funcsCreate(params: any, cluster: Cluster) {
         type: FUNCS_CREATE,
         value: result
       })
+    }).catch(e => {
+      dispatch(alertUpdate(e.message))
     })
   }
 }
@@ -109,7 +114,9 @@ export function funcsDelete(func: Func, cluster: Cluster) {
       type: FUNCS_DELETE,
       value: func
     })
-    return Api.delete(`/functions/${func.metadata.name}`, {}, cluster, func)
+    return Api.delete(`/functions/${func.metadata.name}`, {}, cluster, func).catch(e => {
+      dispatch(alertUpdate(e.message))
+    })
   }
 }
 

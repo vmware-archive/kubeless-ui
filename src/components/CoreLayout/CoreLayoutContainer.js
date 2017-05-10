@@ -13,6 +13,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import CoreLayoutContainer from './CoreLayoutContainer'
+// @flow
+import { connect } from 'react-redux'
+import CoreLayout from './CoreLayout'
+import { alertUpdate } from 'store/alert'
 
-export default CoreLayoutContainer
+const mapStateToProps = ({ alert }) => {
+  return {
+    alertMessage: alert.message
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  onCloseAlert: () => dispatch(alertUpdate(null))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoreLayout)

@@ -13,7 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+// @flow
 import React, { Component } from 'react'
+import Snackbar from 'material-ui/Snackbar'
+import _ from 'lodash'
 import Header from '../../components/Header'
 import './CoreLayout.scss'
 import '../../styles/core.scss'
@@ -21,16 +25,29 @@ import '../../styles/core.scss'
 export default class CoreLayout extends Component {
 
   props: {
-    children: any
+    children: any,
+    alertMessage: string,
+    onCloseAlert: () => {}
+  }
+
+  alertRequestClose = () => {
+    this.props.onCloseAlert()
   }
 
   render() {
+    const { alertMessage } = this.props
     return (
       <div className='container text-center'>
         <Header />
         <div className='core-layout__viewport'>
           {this.props.children}
         </div>
+        <Snackbar
+          open={!!alertMessage}
+          message={_.capitalize(alertMessage || '')}
+          autoHideDuration={4000}
+          onRequestClose={this.alertRequestClose}
+        />
       </div>
     )
   }
