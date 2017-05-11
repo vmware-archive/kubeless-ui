@@ -58,6 +58,15 @@ describe('(Utils) EntityHelper', () => {
       status: { phase: 'Running' }
     }
     expect(EntityHelper.entityStatus(podTerminating)).toEqual('Terminating')
+    const podContainerCreating = {
+      metadata: {},
+      status: { containerStatuses: [{
+        state: {
+          waiting: { reason: 'ContainerCreating' }
+        }
+      }] }
+    }
+    expect(EntityHelper.entityStatus(podContainerCreating)).toEqual('ContainerCreating')
   })
 
 })

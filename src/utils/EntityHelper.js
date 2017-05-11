@@ -57,6 +57,12 @@ export default class EntityHelper {
     if (e.metadata.deletionTimestamp) {
       return 'Terminating'
     }
+    if (e.status.containerStatuses && e.status.containerStatuses.length > 0) {
+      const containerStatus = e.status.containerStatuses[0]
+      if (containerStatus.state && containerStatus.state.waiting) {
+        return containerStatus.state.waiting.reason
+      }
+    }
     return e.status.phase
   }
 

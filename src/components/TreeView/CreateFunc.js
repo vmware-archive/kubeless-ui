@@ -89,35 +89,43 @@ export default class CreateFunc extends Component {
         title={title} modal={false} actions={dialogActions}
         open={this.props.open}
         onRequestClose={this.props.onDismiss}
-        contentStyle={{ width: '310px' }}
+        contentStyle={{ maxWidth: '600px' }}
         autoScrollBodyContent
       >
         <div className='createFunc'>
-          <TextField
-            floatingLabelText='Function name'
-            hintText='Test Func'
-            disabled={!!this.props.func}
-            value={this.state.name}
-            onChange={(e, value) => this.setState({ name: value })}
-          /><br />
-          <TextField
-            floatingLabelText='Handler'
-            hintText='test.foobar'
-            value={this.state.handler}
-            onChange={(e, value) => this.setState({ handler: value })}
-          /><br />
-          <SelectField
-            value={this.state.type}
-            onChange={(e, i, value) => this.setState({ type: value })}
-          >
-            {types}
-          </SelectField><br />
-          <SelectField
-            value={this.state.runtime}
-            onChange={(e, i, value) => this.setState({ runtime: value })}
-          >
-            {runtimes}
-          </SelectField><br /><br />
+          <div className='inputGroup'>
+            <TextField
+              floatingLabelText='Function name'
+              floatingLabelFixed
+              hintText='hello'
+              disabled={!!this.props.func}
+              value={this.state.name}
+              onChange={(e, value) => this.setState({ name: value })}
+            /><br />
+            <TextField
+              floatingLabelText='Handler'
+              floatingLabelFixed
+              hintText='hello.word'
+              value={this.state.handler}
+              onChange={(e, value) => this.setState({ handler: value })}
+            />
+          </div>
+          <div className='inputGroup'>
+            <SelectField
+              floatingLabelText='Type'
+              value={this.state.type}
+              onChange={(e, i, value) => this.setState({ type: value })}
+            >
+              {types}
+            </SelectField><br />
+            <SelectField
+              floatingLabelText='Runtime'
+              value={this.state.runtime}
+              onChange={(e, i, value) => this.setState({ runtime: value })}
+            >
+              {runtimes}
+            </SelectField><br />
+          </div>
         </div>
       </Dialog>
     )

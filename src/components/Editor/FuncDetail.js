@@ -72,12 +72,10 @@ export default class FuncDetail extends Component {
       try {
         requestData = json ? JSON.parse(body) : qs.parse(body)
       } catch (e) {
-        console.log('Error executing function', e, e.message)
         this.setState({ errorMessage: e.message, running: false })
         return
       }
     }
-    console.log('Executing function with body: ', requestData)
     this.setState({ running: true, errorMessage: null })
     this.props.onRun(func, requestData, cluster, method)
   }

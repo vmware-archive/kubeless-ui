@@ -18,8 +18,8 @@ import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
 import _ from 'lodash'
 const CONFIG = {
-  server_host: __SERVER_HOST__,
-  cors_proxy_port: __CORS_PROXY_PORT__
+  server_host: window.__SERVER_HOST__,
+  cors_proxy_port: window.__CORS_PROXY_PORT__
 }
 export default class Api {
 
@@ -36,7 +36,9 @@ export default class Api {
       headers,
       body: _.isEmpty(body) ? undefined : JSON.stringify(body)
     }).then((response = {}) => {
-      console.log(`[Api] - ${URL}`, response)
+      if (__DEV__) {
+        console.log(`[Api] - ${URL}`, response)
+      }
       if (typeof response.text !== 'function') {
         const t = response.text
         response.text = () => new Promise(resolve => {

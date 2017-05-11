@@ -26,7 +26,7 @@ export default class CoreLayout extends Component {
 
   props: {
     children: any,
-    alertMessage: string,
+    alertMessage: ?string,
     onCloseAlert: () => {}
   }
 

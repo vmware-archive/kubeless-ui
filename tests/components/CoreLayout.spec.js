@@ -14,21 +14,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import CoreLayout from 'components/CoreLayout'
+import store from 'store/Store'
+import { initialState } from 'store/alert'
+import CoreLayoutContainer from 'components/CoreLayout/CoreLayoutContainer'
+import CoreLayout from 'components/CoreLayout/CoreLayout'
 
-describe('(Layout) Core', function() {
+describe('(Component) CoreLayout', () => {
   let _component
+  let _container
 
-  beforeEach(function() {
-
+  beforeEach(() => {
+    _container = shallow(
+      <CoreLayoutContainer store={store}>
+        <h1 className='child'>Child</h1>
+      </CoreLayoutContainer>
+    )
     _component = shallow(
-      <CoreLayout>
+      <CoreLayout onCloseAlert={() => {}}>
         <h1 className='child'>Child</h1>
       </CoreLayout>
     )
   })
 
-  it('Should render as a <div>.', function() {
+  it('Should render as a <div>.', () => {
     expect(_component.type()).toBe('div')
+  })
+
+  it('Container should have required props', () => {
+    expect(_container.prop('alertMessage')).toBe(initialState.message)
+    expect(_container.prop('onCloseAlert')).toBeInstanceOf(Function)
   })
 })
