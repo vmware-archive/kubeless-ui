@@ -30,6 +30,9 @@ Work in progress... (missing hmr)
 ```bash
 docker-compose up
 ```
+## Docker image
+Exists and automated build that you can find on DockerHub, Quay.io and Gcloud Registry
+by his name:  bitnami/kubeless-ui
 
 ## Snapshot
 
