@@ -25,7 +25,6 @@ export default class Api {
 
   static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
     let { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
-    console.log('CONFIG', CONFIG)
     URL = encodeURI(URL)
     if (__DEV__) {
       URL = `${'http://'}${CONFIG.server_host}:${CONFIG.cors_proxy_port}/${URL}` // proxied url for CORS

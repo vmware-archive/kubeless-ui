@@ -45,7 +45,6 @@ export default class Editor extends Component {
 
   state: {
     content: string,
-    // showLogs?: boolean,
     logsHeight: number
   }
 
@@ -70,7 +69,12 @@ export default class Editor extends Component {
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
     if (nextProps.func !== this.props.func) {
-      this.setState({ logsHeight: 0, content: nextProps.func ? nextProps.func.spec['function'] : '' })
+      const closeLogs = !nextProps.func ||
+        (this.props.func && nextProps.func.metadata.uid !== this.props.func.metadata.uid)
+      this.setState({
+        logsHeight: closeLogs ? 0 : this.state.logsHeight,
+        content: nextProps.func ? nextProps.func.spec['function'] : ''
+      })
     }
   }
 

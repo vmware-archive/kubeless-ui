@@ -16,12 +16,8 @@ limitations under the License.
 
 // @flow
 import _ from 'lodash'
+import runtimes from './runtimes'
 
-const runtimes = [
-  { value: 'nodejs6.10', label: 'NodeJS (6.10)', language: 'javascript' },
-  { value: 'ruby2.4', label: 'Ruby (2.4)', language: 'ruby' },
-  { value: 'python27', label: 'Python (27)', language: 'python' }
-]
 export default class RuntimeHelper {
 
   static defaultRuntime() {
@@ -36,6 +32,14 @@ export default class RuntimeHelper {
     if (!runtime) { return defaultLanguage }
     const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
     return runtimeObject ? runtimeObject.language : defaultLanguage
+  }
+
+  static defaultFunction(runtime: string, handler: string):string {
+    const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
+    if (!runtimeObject) { return '' }
+    handler = handler.split('.').length > 0 ? handler.split('.')[1] : 'handler'
+    const defaultFunction = runtimeObject.defaultFunction.replace('<<HANDLER>>', handler)
+    return defaultFunction
   }
 
 }
