@@ -1,6 +1,6 @@
 FROM bitnami/node:7
 
-MAINTAINER Bitnami <containers@bitnami.com>
+LABEL Bitnami <containers@bitnami.com>
 
 ENV NODE_ENV=production
 
