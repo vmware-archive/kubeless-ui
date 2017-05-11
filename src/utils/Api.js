@@ -18,14 +18,14 @@ import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
 import _ from 'lodash'
 const CONFIG = {
-  server_host: window.__SERVER_HOST__,
-  cors_proxy_port: window.__CORS_PROXY_PORT__
+  server_host: __SERVER_HOST__,
+  cors_proxy_port: __CORS_PROXY_PORT__
 }
 export default class Api {
 
   static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
     let { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
-
+    console.log('CONFIG', CONFIG)
     URL = encodeURI(URL)
     if (__DEV__) {
       URL = `${'http://'}${CONFIG.server_host}:${CONFIG.cors_proxy_port}/${URL}` // proxied url for CORS
