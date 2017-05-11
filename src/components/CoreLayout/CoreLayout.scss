@@ -13,6 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-.core-layout__viewport {
-  // padding-top: 50px;
+.coreLayout {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.coreLayoutContainer {
+  flex: 1;
+  display: flex;
 }

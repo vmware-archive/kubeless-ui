@@ -15,7 +15,6 @@ limitations under the License.
 */
 .editor {
   flex: 1;
-  height: 100%;
   position: relative;
   background: #002B35;
   display: flex;
@@ -28,6 +27,7 @@ limitations under the License.
 .ace_editor {
   flex: 1;
   height: auto !important;
+  width: auto !important;
 }
 .editorEmpty {
   flex: 1;

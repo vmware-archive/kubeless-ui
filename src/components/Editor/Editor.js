@@ -139,7 +139,7 @@ export default class Editor extends Component {
             theme='solarized_dark'
             onChange={this.onTextChange}
             value={this.state.content}
-            name='UNIQUE_ID_OF_DIV'
+            name='ACE_EDITOR_01'
             commands={this.hotkeysMap}
             enableBasicAutocompletion
           />}

@@ -37,9 +37,9 @@ export default class CoreLayout extends Component {
   render() {
     const { alertMessage } = this.props
     return (
-      <div className='container text-center'>
+      <div className='coreLayout text-center'>
         <Header />
-        <div className='core-layout__viewport'>
+        <div className='coreLayoutContainer'>
           {this.props.children}
         </div>
         <Snackbar

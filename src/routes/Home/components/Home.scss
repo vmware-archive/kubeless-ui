@@ -14,11 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .home {
-  position: fixed;
+  position: relative;
   padding-top: 50px;
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  left: 0px;
+  flex: 1;
   display: flex;
 }
