@@ -43,7 +43,7 @@ export const FUNCS_DELETE = 'FUNCS_DELETE'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function funcsSelect(func: Func) {
+export function funcsSelect(func: ?Func) {
   return {
     type: FUNCS_SELECT,
     value: func

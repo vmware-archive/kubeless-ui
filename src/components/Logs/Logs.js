@@ -37,15 +37,11 @@ export default class Logs extends Component {
     onSelectPod: (pod: ?Pod) => void,
   }
 
-  state = {
-    showPods: false
-  }
-
   shouldScrollBottom = false
   logsContainerRef: Element
 
   componentWillUpdate(nextProps: any) {
-    if (!this.props.visible && nextProps.visible) {
+    if ((!this.props.visible && nextProps.visible)) {
       this.shouldScrollBottom = true
       this.selectFirstPod()
     } else if (nextProps.logs.length > this.props.logs.length) {
@@ -60,14 +56,15 @@ export default class Logs extends Component {
   componentDidUpdate() {
     clearInterval(refreshInterval)
     if (this.props.visible) {
+      if (!this.props.selectedPod) {
+        this.selectFirstPod()
+      }
       refreshInterval = setInterval(() => {
         if (!this.props.visible) {
           return clearInterval(refreshInterval)
         }
         if (this.props.selectedPod) {
           this.props.onFetchLogs(this.props.cluster, this.props.selectedPod)
-        } else {
-          this.selectFirstPod()
         }
         this.props.onFetchPods(this.props.cluster)
       }, 2000)
@@ -94,38 +91,27 @@ export default class Logs extends Component {
   }
 
   render() {
-    const { func, logs } = this.props
+    const { func, logs, pods } = this.props
     if (!func) { return }
 
     return (
       <div className='logs'>
+        {pods.length === 0 && <div className='emptyPods'>{'Loading Pods...'}</div>}
+        {this.renderPods()}
         <div ref='logsContainer' className='logsContainer'>
           <br />
           <pre>
             {logs}
           </pre>
         </div>
-        {this.renderPods()}
       </div>
     )
   }
 
   renderPods() {
-    const { pods, selectedPod } = this.props
-
-    if (!this.state.showPods) {
-      return (
-        <div className='selectedPod' onClick={() => this.setState({ showPods: true })}>
-          {selectedPod && `Pod: ${selectedPod.metadata.name}`}
-          <i className='fa fa-caret-left' style={{ marginLeft: 10 }} />
-        </div>
-      )
-    }
+    const { pods } = this.props
     return (
       <div className='podsList'>
-        <div className='selectedPod' onClick={() => this.setState({ showPods: false })}>
-          <i className='fa fa-close' />
-        </div>
         {pods.map(pod => this.renderPod(pod))}
       </div>
     )
@@ -134,11 +120,12 @@ export default class Logs extends Component {
   renderPod(pod: Pod) {
     const { selectedPod } = this.props
     const isActive = selectedPod && selectedPod.metadata.uid === pod.metadata.uid
+    const status = EntityHelper.entityStatus(pod)
     return (
       <div key={pod.metadata.uid} className={`podItem ${isActive ? 'active' : ''}`}
         onClick={() => this.props.onSelectPod(pod)}>
-        {`${pod.metadata.name} `}
-        <small>{`(${EntityHelper.entityStatus(pod)})`}</small>
+        <div className={`statusIcon ${status}`} />
+        {`${pod.metadata.name}`}
       </div>
     )
   }

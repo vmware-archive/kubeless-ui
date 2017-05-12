@@ -20,6 +20,14 @@ limitations under the License.
   color: white;
   text-align: left;
   display: flex;
+  .emptyPods {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    font-size: 20px;
+  }
   .selectedPod {
     position: absolute;
     right: 0;
@@ -32,12 +40,30 @@ limitations under the License.
   .podsList {
     flex: 1;
     max-width: 200px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
     .podItem {
       padding: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       &.active {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .statusIcon {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 6px;
+        position: relative;
+        top: 1px;
+        border-radius: 10px;
+        background: #2980b9;
+        &.Running {
+          background: #27ae60;
+        }
+        &.Pending, &.ContainerCreating {
+          background: #f1c40f;
+        }
+        &.Terminating {
+          background: #e74c3c;
+        }
       }
     }
   }

@@ -37,7 +37,7 @@ export const PODS_LOGS = 'PODS_LOGS'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function podsSelect(pod: Pod) {
+export function podsSelect(pod: ?Pod) {
   return {
     type: PODS_SELECT,
     value: pod
