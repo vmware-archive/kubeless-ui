@@ -19,6 +19,7 @@ import React, { Component } from 'react'
 import AceEditor from 'react-ace'
 import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
+import 'brace/mode/ruby'
 import 'brace/mode/javascript'
 import 'brace/theme/solarized_dark'
 import './Editor.scss'
