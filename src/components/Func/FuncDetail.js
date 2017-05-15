@@ -23,8 +23,9 @@ import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import CreateFunc from 'components/TreeView/CreateFunc'
+import FuncEdit from 'components/Func/FuncEdit'
 import type { Func, Cluster } from 'utils/Types'
+import './FuncDetail.scss'
 
 export default class FuncDetail extends Component {
 
@@ -115,7 +116,7 @@ export default class FuncDetail extends Component {
     ]
 
     return (
-      <div className='editorPanel'>
+      <div className='funcDetail'>
         <div className='functionTitle'>
           <h3>{func.metadata.name}</h3>
           <p>
@@ -128,7 +129,7 @@ export default class FuncDetail extends Component {
             <Button className='button' label='Delete' secondary
               onClick={() => this.setState({ confirmDelete: true })} />
           </div>
-          <CreateFunc open={!!this.state.editing} func={func}
+          <FuncEdit open={!!this.state.editing} func={func}
             onDismiss={() => this.setState({ editing: false })}
             onDone={(params) => this.doneEditing(params)}
           />

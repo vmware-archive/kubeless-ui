@@ -18,7 +18,7 @@ limitations under the License.
 import React, { Component } from 'react'
 import type { Func, Cluster } from 'utils/Types'
 import FuncsList from './FuncsList'
-import CreateFunc from './CreateFunc'
+import FuncCreate from 'components/Func/FuncCreate'
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
@@ -163,7 +163,7 @@ export default class TreeView extends Component {
           onClick={this.refresh} style={{ marginLeft: 'auto' }}>
           <FontIcon className='material-icons'>replay</FontIcon>
         </IconButton>
-        <CreateFunc open={this.state.newFuncOpen}
+        <FuncCreate open={this.state.newFuncOpen}
           onDismiss={() => this.setState({ newFuncOpen: false })}
           onDone={this.createFunc}
         />

@@ -105,14 +105,3 @@ limitations under the License.
     }
   }
 }
-
-.createFunc {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  .inputGroup {
-    flex: 1;
-    min-width: 250px;
-  }
-}
