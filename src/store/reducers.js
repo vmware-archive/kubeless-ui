@@ -20,6 +20,7 @@ import alertReducer from './alert'
 import funcsReducer from './funcs'
 import clustersReducer from './clusters'
 import podsReducer from './pods'
+import templatesReducer from './templates'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
@@ -28,6 +29,7 @@ export const makeRootReducer = (asyncReducers) => {
     funcs: funcsReducer,
     clusters: clustersReducer,
     pods: podsReducer,
+    templates: templatesReducer,
     ...asyncReducers
   })
 }

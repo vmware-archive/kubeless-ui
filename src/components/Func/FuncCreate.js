@@ -20,6 +20,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import type { Func } from 'utils/Types'
 import FuncParams from './FuncParams'
+import Templates from 'components/Templates'
 import './FuncParams.scss'
 
 export default class FuncCreate extends Component {
@@ -41,7 +42,7 @@ export default class FuncCreate extends Component {
 
     const dialogActions = [
       <FlatButton
-        label='Cancel' primary
+        label='Cancel'
         onClick={onDismiss}
       />,
       <FlatButton
@@ -59,6 +60,8 @@ export default class FuncCreate extends Component {
         autoScrollBodyContent
       >
         <div className='funcCreate'>
+          <Templates />
+          <h4>Create Manually</h4>
           <FuncParams ref='funcParams' func={func} />
         </div>
       </Dialog>

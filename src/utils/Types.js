@@ -40,6 +40,12 @@ export type Pod = {
   }
 }
 
+export type Template = {
+  id: string,
+  name: string,
+  description: string,
+}
+
 export type Func = {
   kind: string,
   metadata: {
