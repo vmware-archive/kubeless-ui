@@ -42,9 +42,16 @@ limitations under the License.
     max-width: 200px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     .podItem {
-      padding: 10px;
+      cursor: pointer;
+      padding: 12px 10px;
       &.active {
         background: rgba(255, 255, 255, 0.12);
+      }
+      .statusIconContainer > div > div:not(.statusIcon) {
+        transform: translate(-16px, 0px) !important;
+      }
+      .statusIconContainer:hover > div > div:not(.statusIcon) {
+        transform: translate(-16px, -16px) !important;
       }
       .statusIcon {
         display: inline-block;

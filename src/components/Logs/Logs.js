@@ -20,6 +20,7 @@ import ReactDOM from 'react-dom'
 import './Logs.scss'
 import EntityHelper from 'utils/EntityHelper'
 import type { Func, Cluster, Pod } from 'utils/Types'
+import IconButton from 'material-ui/IconButton'
 
 let refreshInterval
 
@@ -124,7 +125,10 @@ export default class Logs extends Component {
     return (
       <div key={pod.metadata.uid} className={`podItem ${isActive ? 'active' : ''}`}
         onClick={() => this.props.onSelectPod(pod)}>
-        <div className={`statusIcon ${status}`} />
+        <IconButton className='statusIconContainer'
+          style={{ width: 18, height: 12, padding: 0 }} tooltip={status}>
+          <div className={`statusIcon ${status}`} />
+        </IconButton>
         {`${pod.metadata.name}`}
       </div>
     )
