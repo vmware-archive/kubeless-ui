@@ -40,7 +40,6 @@ export function templatesFetch() {
       value: true
     })
     return GithubApi.fetchTemplates().then(result => {
-      console.log('-', result)
       dispatch({
         type: TEMPLATES_FETCH,
         list: result
@@ -54,17 +53,18 @@ export function templatesFetch() {
   }
 }
 
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export const initialState = {
   list: [
-    { id: '1', name: 'Template A', description: 'Description A', files: [] },
-    { id: '2', name: 'Template B', description: 'Description B', files: [] },
-    { id: '3', name: 'Template C', description: 'Description C', files: [] },
-    { id: '4', name: 'Template D', description: 'Description D', files: [] },
-    { id: '5', name: 'Template E', description: 'Description E', files: [] },
-    { id: '6', name: 'Template F', description: 'Description F', files: [] }
+    // { id: '1', name: 'Template A', description: 'Description A', files: [] },
+    // { id: '2', name: 'Template B', description: 'Description B', files: [] },
+    // { id: '3', name: 'Template C', description: 'Description C', files: [] },
+    // { id: '4', name: 'Template D', description: 'Description D', files: [] },
+    // { id: '5', name: 'Template E', description: 'Description E', files: [] },
+    // { id: '6', name: 'Template F', description: 'Description F', files: [] }
   ],
   loading: false
 }

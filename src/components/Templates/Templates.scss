@@ -19,7 +19,7 @@ limitations under the License.
 
   .list {
     width: auto;
-    height: 95px;
+    height: 115px;
     padding-bottom: 15px;
     padding-top: 10px;
     padding-left: 24px;
@@ -35,13 +35,15 @@ limitations under the License.
   }
   .templateItem {
     display: inline-flex;
-    width: 120px;
-    height: 70px;
+    width: 150px;
+    height: 90px;
     background: #00A2FF;
     border-radius: 10px;
     margin-right: 20px;
-    align-items: center;
-    justify-content: center;
+    padding: 5px 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     cursor: pointer;
     transition: all 0.3s ease;
     &:hover {
@@ -51,10 +53,12 @@ limitations under the License.
       transform: scale(0.97);
     }
     .title {
-      font-size: 18px;
+      font-size: 20px;
     }
     .description {
-      font-size: 10px;
+      white-space: normal;
+      flex: 1;
+      font-size: 14px;
     }
   }
 }

@@ -46,9 +46,11 @@ export default class Templates extends Component {
   }
 
   renderTemplate(template: Template) {
+    console.log('RENDER', template.description)
     return (
       <div key={template.id} className='templateItem'>
-        <span className='title'>{template.name}</span>
+        <p className='title'>{template.name}</p>
+        <p className='description'>{template.description}</p>
       </div>
     )
   }
