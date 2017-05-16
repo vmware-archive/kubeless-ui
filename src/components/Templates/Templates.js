@@ -37,8 +37,8 @@ export default class Templates extends Component {
     return (
       <div className='templates'>
         <h4>Browse templates</h4>
-        <div className='templatesList'>
-          {loading && 'Loading...'}
+        <div className='list'>
+          {loading && templates.length === 0 && <div className='loading'>Loading...</div>}
           {templates.map(t => this.renderTemplate(t))}
         </div>
       </div>
