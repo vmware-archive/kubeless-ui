@@ -21,7 +21,8 @@ import { templatesFetch } from 'store/templates'
 
 const mapStateToProps = ({ templates }) => {
   return {
-    templates: templates.list
+    templates: templates.list,
+    loading: templates.loading
   }
 }
 

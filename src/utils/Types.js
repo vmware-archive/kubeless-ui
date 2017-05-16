@@ -43,7 +43,9 @@ export type Pod = {
 export type Template = {
   id: string,
   name: string,
-  description: string,
+  description: ?string,
+  readme?: string,
+  files: []
 }
 
 export type Func = {

@@ -22,17 +22,23 @@ import type { Template } from 'utils/Types'
 export default class Templates extends Component {
 
   props: {
-    templates: Array<Template>
-    // onFetchTemplates: () => void
+    templates: Array<Template>,
+    loading: boolean,
+    onFetchTemplates: () => void
+  }
+
+  componentDidMount() {
+    this.props.onFetchTemplates()
   }
 
   render() {
-    const { templates } = this.props
+    const { templates, loading } = this.props
 
     return (
       <div className='templates'>
         <h4>Browse templates</h4>
         <div className='templatesList'>
+          {loading && 'Loading...'}
           {templates.map(t => this.renderTemplate(t))}
         </div>
       </div>

@@ -16,7 +16,7 @@ limitations under the License.
 
 // @flow
 import type { Template, ReduxAction } from 'utils/Types'
-import Api from 'utils/Api'
+import GithubApi from 'utils/GithubApi'
 
 type State = {
   list: Array<Template>,
@@ -39,10 +39,11 @@ export function templatesFetch() {
       type: TEMPLATES_LOADING,
       value: true
     })
-    return Api.get('???', {}).then(result => {
+    return GithubApi.fetchTemplates().then(result => {
+      console.log('-', result)
       dispatch({
         type: TEMPLATES_FETCH,
-        list: result.items
+        list: result
       })
     }).catch(e => {
       dispatch({
@@ -58,12 +59,12 @@ export function templatesFetch() {
 // ------------------------------------
 export const initialState = {
   list: [
-    { id: '1', name: 'Template A', description: 'Description A' },
-    { id: '2', name: 'Template B', description: 'Description B' },
-    { id: '3', name: 'Template C', description: 'Description C' },
-    { id: '4', name: 'Template D', description: 'Description D' },
-    { id: '5', name: 'Template E', description: 'Description E' },
-    { id: '6', name: 'Template F', description: 'Description F' }
+    { id: '1', name: 'Template A', description: 'Description A', files: [] },
+    { id: '2', name: 'Template B', description: 'Description B', files: [] },
+    { id: '3', name: 'Template C', description: 'Description C', files: [] },
+    { id: '4', name: 'Template D', description: 'Description D', files: [] },
+    { id: '5', name: 'Template E', description: 'Description E', files: [] },
+    { id: '6', name: 'Template F', description: 'Description F', files: [] }
   ],
   loading: false
 }
