@@ -45,12 +45,15 @@ app.post('/proxy', function(req, res) {
     if (typeof response.text !== 'function') {
       return Promise.reject(new Error('Error - Not ok'))
     }
+    if (!response.ok) {
+      return response.text().then(t => Promise.reject(new Error(t)))
+    }
     return response.text()
   }).then(function(text) {
     res.send(text)
   }).catch(function(e) {
-    debug(e)
-    res.end('Error')
+    debug('Error: ' + e.message)
+    res.status(500).send({ error: e.message })
   })
 })
 // ------------------------------------
