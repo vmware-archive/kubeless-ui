@@ -8,6 +8,7 @@ services:
     command: bash -c "yarn install && npm rebuild node-sass && yarn run dev"
     environment:
       NODE_ENV: development
+      PORT: 3000
     volumes:
       - .:/app
     ports:

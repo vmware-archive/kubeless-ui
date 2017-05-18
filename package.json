@@ -104,7 +104,6 @@
     "fs-extra": "^2.1.2",
     "html-webpack-plugin": "^2.22.0",
     "imports-loader": "^0.7.0",
-    "ip": "^1.1.2",
     "jest": "^19.0.2",
     "jest-css-modules": "^1.1.0",
     "jest-static-stubs": "^0.0.1",
