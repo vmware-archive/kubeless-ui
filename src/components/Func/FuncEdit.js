@@ -40,7 +40,7 @@ export default class FuncEdit extends Component {
 
     const dialogActions = [
       <FlatButton
-        label='Cancel' primary
+        label='Cancel'
         onClick={onDismiss}
       />,
       <FlatButton

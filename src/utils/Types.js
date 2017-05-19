@@ -23,7 +23,7 @@ export type Cluster = {
 // Redux Action Type
 export type ReduxAction = {
   type: string,
-  list: ?Array<any>,
+  list: Array<any> | [],
   value: any,
 }
 
@@ -38,6 +38,17 @@ export type Pod = {
   status: {
     phase: string
   }
+}
+
+export type Template = {
+  id: string,
+  name: string,
+  path: string,
+  description: ?string,
+  runtime: string,
+  readme?: string | null,
+  config?: string | null,
+  files: Array<any>
 }
 
 export type Func = {

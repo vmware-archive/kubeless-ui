@@ -20,10 +20,11 @@ import RuntimeHelper from 'utils/RuntimeHelper'
 
 export default class EntityHelper {
 
-  static updateEntityInList(list: Array<any>, entity: any): Array<any> {
+  static updateEntityInList(list: Array<any>, entity: any, key: ?string): Array<any> {
     for (let i = 0; i < list.length; i++) {
       const e = list[i]
-      if (e.metadata.uid === entity.metadata.uid) {
+      if ((key && e[key] === entity[key]) ||
+        (!key && e.metadata.uid === entity.metadata.uid)) {
         list[i] = entity
         break
       }
