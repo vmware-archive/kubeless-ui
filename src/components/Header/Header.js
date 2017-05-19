@@ -26,7 +26,7 @@ export default class Header extends Component {
     return (
       <div className='header'>
         <h1>Kubeless editor</h1>
-        <a href='https://github.com/bitnami/kubeless' target='_blank'>
+        <a href='https://github.com/kubeless/kubeless-ui' target='_blank'>
           <IconButton tooltip='Github'>
             <FontIcon className='fa fa-github' />
           </IconButton>

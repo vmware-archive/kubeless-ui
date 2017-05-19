@@ -18,26 +18,27 @@ limitations under the License.
 import React, { Component } from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import type { Func } from 'utils/Types'
+import type { Cluster } from 'utils/Types'
 import FuncParams from './FuncParams'
 import './FuncParams.scss'
 
 export default class FuncCreate extends Component {
 
   props: {
-    func?: Func,
+    cluster: Cluster,
     open: boolean,
     onDismiss: () => void,
-    onDone: ({}) => void
+    onCreate: (params: any, cluster: Cluster) => void
   }
 
   donePressed = () => {
     const params = this.refs.funcParams.getParams()
-    this.props.onDone(params)
+    this.props.onCreate(params, this.props.cluster)
+    this.props.onDismiss()
   }
 
   render() {
-    const { func, open, onDismiss } = this.props
+    const { open, onDismiss } = this.props
 
     const dialogActions = [
       <FlatButton
@@ -59,7 +60,7 @@ export default class FuncCreate extends Component {
         autoScrollBodyContent
       >
         <div className='funcCreate'>
-          <FuncParams ref='funcParams' func={func} />
+          <FuncParams ref='funcParams' />
         </div>
       </Dialog>
     )

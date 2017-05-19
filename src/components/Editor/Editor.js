@@ -26,7 +26,9 @@ import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import FuncDetail from 'components/Func/FuncDetailContainer'
+import FuncCreateContainer from 'components/Func/FuncCreateContainer'
 import Logs from 'components/Logs'
+import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
@@ -46,7 +48,8 @@ export default class Editor extends Component {
 
   state: {
     content: string,
-    logsHeight: number
+    logsHeight: number,
+    newFuncOpen?: boolean,
   }
 
   hotkeysMap = [
@@ -179,9 +182,18 @@ export default class Editor extends Component {
   renderEmptyView() {
     return (
       <div className='editorEmpty'>
-        <p>{':)'}<br />
-          {'Choose a function or create a new one'}
+        <p>
+          {'Choose a function on the list'}
+          <br />{'or create a new one'}
         </p>
+        <FlatButton
+          label='create'
+          onClick={() => this.setState({ newFuncOpen: true })}
+          icon={<FontIcon className='material-icons'>add</FontIcon>}
+        />
+        <FuncCreateContainer open={this.state.newFuncOpen}
+          onDismiss={() => this.setState({ newFuncOpen: false })}
+        />
       </div>
     )
   }

@@ -16,28 +16,16 @@ limitations under the License.
 
 // @flow
 import { connect } from 'react-redux'
-import TreeView from './TreeView'
-import { funcsSelect, funcsFetch } from 'store/funcs'
-import { clusterEdit } from 'store/clusters'
-import { podsSelect, podsFetch } from 'store/pods'
+import FuncCreate from './FuncCreate'
+import { funcsCreate } from 'store/funcs'
+import type { Cluster } from 'utils/Types'
 
-const mapStateToProps = ({ funcs, clusters }) => ({
-  funcs: funcs.list,
-  selectedFunc: funcs.selected,
-  loading: funcs.loading,
+const mapStateToProps = ({ clusters }) => ({
   cluster: clusters.cluster
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelect: (func) => {
-    dispatch(funcsSelect(func))
-    dispatch(podsSelect())
-  },
-  onFetch: (cluster) => {
-    dispatch(podsFetch(cluster))
-    dispatch(funcsFetch(cluster))
-  },
-  onEditCluster: (cluster) => dispatch(clusterEdit(cluster))
+  onCreate: (params: any, cluster: Cluster) => dispatch(funcsCreate(params, cluster))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TreeView)
+export default connect(mapStateToProps, mapDispatchToProps)(FuncCreate)
