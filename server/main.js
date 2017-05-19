@@ -30,7 +30,7 @@ app.use(bodyParser.json({ limit: '100kb' }))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Api proxy to prevent CORS issues.
-app.post('/proxy', function(req, res) {
+app.post('/proxier', function(req, res) {
   var url = req.body.url
   var method = req.body.method
   var json = req.body.json

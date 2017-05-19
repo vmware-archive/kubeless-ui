@@ -12,8 +12,6 @@ WORKDIR /app
 
 RUN yarn install && \
     npm rebuild node-sass && \
-    yarn run compile
+    yarn run build
 
 ENTRYPOINT ["yarn","run","start"]
-
-

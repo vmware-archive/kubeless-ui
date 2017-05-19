@@ -10,25 +10,15 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "compile": "better-npm-run compile",
+    "compile": "node bin/compile",
     "lint": "eslint bin build config server src tests",
-    "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
-    "test": "better-npm-run test",
-    "test:dev": "npm run test -- --watch",
-    "deploy": "better-npm-run deploy",
-    "deploy:dev": "better-npm-run deploy:dev",
-    "deploy:prod": "better-npm-run deploy:prod",
+    "test": "jest",
+    "build": "better-npm-run build",
     "codecov": "cat coverage/*/lcov.info | codecov"
   },
   "betterScripts": {
-    "compile": {
-      "command": "node bin/compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
     "dev": {
       "command": "nodemon bin/server --ignore dist --ignore coverage --ignore tests --ignore src",
       "env": {
@@ -36,21 +26,8 @@
         "DEBUG": "app:*"
       }
     },
-    "deploy": {
+    "build": {
       "command": "npm run lint && npm run test && npm run clean && npm run compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:dev": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
@@ -59,13 +36,6 @@
     "start": {
       "command": "node bin/server",
       "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "test": {
-      "command": "jest",
-      "env": {
-        "NODE_ENV": "test",
         "DEBUG": "app:*"
       }
     }
