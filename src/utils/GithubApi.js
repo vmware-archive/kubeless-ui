@@ -20,7 +20,7 @@ import YAML from 'js-yaml'
 import type { Template } from 'utils/Types'
 
 const gh = new GitHub()
-const repo = gh.getRepo('bitnami', 'functions')
+const repo = gh.getRepo('kubeless', 'functions')
 
 export default class GithubApi {
 
