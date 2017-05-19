@@ -18,6 +18,7 @@ limitations under the License.
 import React, { Component } from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import FontIcon from 'material-ui/FontIcon'
 import type { Func } from 'utils/Types'
 import FuncParams from './FuncParams'
 import Templates from 'components/Templates'
@@ -32,6 +33,10 @@ export default class FuncCreate extends Component {
     onDone: ({}) => void
   }
 
+  state = {
+    templatesOpen: true
+  }
+
   donePressed = () => {
     const params = this.refs.funcParams.getParams()
     this.props.onDone(params)
@@ -39,6 +44,7 @@ export default class FuncCreate extends Component {
 
   render() {
     const { func, open, onDismiss } = this.props
+    const { templatesOpen } = this.state
 
     const dialogActions = [
       <FlatButton
@@ -51,6 +57,8 @@ export default class FuncCreate extends Component {
       />
     ]
 
+    const tickOpen = <FontIcon className='fa fa-sm fa-chevron-down' />
+    const tickClosed = <FontIcon className='fa fa-sm fa-chevron-right' />
     return (
       <Dialog
         title='New Function' modal={false} actions={dialogActions}
@@ -60,9 +68,16 @@ export default class FuncCreate extends Component {
         autoScrollBodyContent
       >
         <div className='funcCreate'>
-          <Templates />
-          <h4>Create Manually</h4>
-          <FuncParams ref='funcParams' func={func} />
+          <div className={`containers ${templatesOpen ? 'open' : ''}`}
+            onClick={() => this.setState({ templatesOpen: true })}>
+            <h4>Browse templates {templatesOpen ? tickOpen : tickClosed}</h4>
+            <Templates />
+          </div>
+          <div className={`containers last ${templatesOpen ? '' : 'open'}`}
+            onClick={() => this.setState({ templatesOpen: false })}>
+            <h4>Create Manually {templatesOpen ? tickClosed : tickOpen}</h4>
+            <FuncParams ref='funcParams' func={func} />
+          </div>
         </div>
       </Dialog>
     )

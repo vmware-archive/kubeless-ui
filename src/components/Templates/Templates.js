@@ -31,12 +31,15 @@ export default class Templates extends Component {
     this.props.onFetchTemplates()
   }
 
+  selectTemplate(template: Template) {
+    alert('Create from template not supported yet.')
+  }
+
   render() {
     const { templates, loading } = this.props
 
     return (
       <div className='templates'>
-        <h4>Browse templates</h4>
         <div className='list'>
           {loading && templates.length === 0 && <div className='loading'>Loading...</div>}
           {templates.map(t => this.renderTemplate(t))}
@@ -46,9 +49,9 @@ export default class Templates extends Component {
   }
 
   renderTemplate(template: Template) {
-    console.log('RENDER', template.description)
     return (
-      <div key={template.id} className='templateItem'>
+      <div key={template.id} className={`templateItem ${template.name[0]}`}
+        onClick={() => this.selectTemplate(template)}>
         <p className='title'>{template.name}</p>
         <p className='description'>{template.description}</p>
       </div>

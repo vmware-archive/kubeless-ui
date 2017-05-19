@@ -14,9 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .templates {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
   margin-bottom: 20px;
-
   .list {
     width: auto;
     height: 115px;
@@ -60,5 +59,21 @@ limitations under the License.
       flex: 1;
       font-size: 14px;
     }
+    &.a, &.q { background: #1abc9c; }
+    &.b, &.r { background: #2ecc71; }
+    &.c, &.s { background: #3498db; }
+    &.d, &.t { background: #9b59b6; }
+    &.e, &.u { background: #34495e; }
+    &.f, &.v { background: #16a085; }
+    &.g, &.w { background: #27ae60; }
+    &.h, &.x { background: #2980b9; }
+    &.i, &.y { background: #8e44ad; }
+    &.j, &.z { background: #2c3e50; }
+    &.k      { background: #f1c40f; }
+    &.l      { background: #e67e22; }
+    &.m      { background: #e74c3c; }
+    &.n      { background: #f39c12; }
+    &.o      { background: #d35400; }
+    &.p      { background: #c0392b; }
   }
 }
