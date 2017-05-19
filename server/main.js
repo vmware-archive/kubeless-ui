@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const express = require('express')
+const nodeFetch = require('node-fetch')
+const bodyParser = require('body-parser')
 const debug = require('debug')('app:server')
 const path = require('path')
 const webpack = require('webpack')
@@ -23,9 +25,37 @@ const compress = require('compression')
 
 const app = express()
 
-// Apply gzip compression
 app.use(compress())
+app.use(bodyParser.json({ limit: '100kb' }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
+// Api proxy to prevent CORS issues.
+app.post('/proxy', function(req, res) {
+  var url = req.body.url
+  var method = req.body.method
+  var json = req.body.json
+
+  nodeFetch(url, {
+    method: method,
+    body: json,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function(response) {
+    if (typeof response.text !== 'function') {
+      return Promise.reject(new Error('Error - Not ok'))
+    }
+    if (!response.ok) {
+      return response.text().then(t => Promise.reject(new Error(t)))
+    }
+    return response.text()
+  }).then(function(text) {
+    res.send(text)
+  }).catch(function(e) {
+    debug('Error: ' + e.message)
+    res.status(500).send({ error: e.message })
+  })
+})
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
@@ -67,13 +97,6 @@ if (project.env === 'development') {
     })
   })
 } else {
-  debug(
-    'Server is being run outside of live development mode, meaning it will ' +
-    'only serve the compiled application bundle in ~/dist. Generally you ' +
-    'do not need an application server for this and can instead use a web ' +
-    'server such as nginx to serve your static files. See the "deployment" ' +
-    'section in the README for more information on deployment strategies.'
-  )
 
   // Serving ~/dist by default. Ideally these files should be served by
   // the web server and not the app server, but this helps to demo the

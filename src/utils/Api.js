@@ -17,23 +17,19 @@ limitations under the License.
 import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
 import _ from 'lodash'
-const CONFIG = {
-  server_host: __SERVER_HOST__,
-  cors_proxy_port: __CORS_PROXY_PORT__
-}
 export default class Api {
 
   static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
     let { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
-    URL = encodeURI(URL)
-    if (__DEV__) {
-      URL = `${'http://'}${CONFIG.server_host}:${CONFIG.cors_proxy_port}/${URL}` // proxied url for CORS
+    const json = _.isEmpty(body) ? undefined : JSON.stringify(body)
+    const forwardBody = {
+      url: URL, method, json
     }
 
-    return fetch(URL, {
-      method,
+    return fetch('/proxy', {
+      method: 'post',
       headers,
-      body: _.isEmpty(body) ? undefined : JSON.stringify(body)
+      body: JSON.stringify(forwardBody)
     }).then((response = {}) => {
       if (__DEV__) {
         console.log(`[Api] - ${URL}`, response)
@@ -152,7 +148,7 @@ export default class Api {
       const params = Qs.stringify(dataUrl, { arrayFormat: 'repeat' })
       url = `${url}?${params}`
     }
-    return { url, headers }
+    return { url: encodeURI(url), headers }
   }
 
 }

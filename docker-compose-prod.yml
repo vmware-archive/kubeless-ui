@@ -9,9 +9,9 @@ services:
     command: bash -c "yarn install && npm rebuild node-sass && yarn run compile && yarn run start"
     environment:
       NODE_ENV: production
-      PORT: 8000
+      PORT: 3000
     volumes:
       - .:/var/www/kubeless-ui/src
       - /var/www/kubeless-ui/src/node_modules
     ports:
-      - "8000:8000"
+      - "3000:3000"
