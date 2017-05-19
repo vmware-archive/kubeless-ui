@@ -17,6 +17,7 @@ limitations under the License.
 import StatusCodes from 'utils/StatusCodes'
 import Qs from 'qs'
 import _ from 'lodash'
+
 export default class Api {
 
   static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
