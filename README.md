@@ -1,5 +1,7 @@
 # kubeless-ui
 
+[![CircleCI](https://circleci.com/gh/kubeless/kubeless-ui/tree/master.svg?style=svg)](https://circleci.com/gh/kubeless/kubeless-ui/tree/master)
+
 Graphical User Interface for [Kubeless](https://github.com/bitnami/kubeless), a serverless framework for Kubernetes.
 
 
