@@ -77,7 +77,7 @@ export default class FuncParams extends Component {
           <TextField
             floatingLabelText='Handler'
             floatingLabelFixed
-            hintText='hello.word'
+            hintText='hello.world'
             value={this.state.handler}
             onChange={(e, value) => this.setState({ handler: value })}
           />
