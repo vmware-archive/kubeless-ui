@@ -165,6 +165,7 @@ export const initialState = {
         namespace: 'default'
       },
       spec: {
+        deps: 'kubernetes',
         'function': '',
         runtime: 'javascript',
         handler: 'test1.handler',

@@ -42,4 +42,10 @@ export default class RuntimeHelper {
     return defaultFunction
   }
 
+  static runtimeSupportDeps(runtime: ?string):boolean {
+    if (!runtime) { return false }
+    const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
+    return runtimeObject ? runtimeObject.supportDeps : false
+  }
+
 }

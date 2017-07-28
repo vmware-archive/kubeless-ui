@@ -27,7 +27,8 @@ const initialState = {
   name: '',
   handler: '',
   runtime: RuntimeHelper.defaultRuntime().value,
-  type: 'HTTP'
+  type: 'HTTP',
+  deps: ''
 }
 export default class FuncParams extends Component {
 
@@ -44,7 +45,8 @@ export default class FuncParams extends Component {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
-        type: func.spec.type
+        type: func.spec.type,
+        deps: func.spec.deps
       })
     } else {
       this.setState(initialState)
@@ -98,6 +100,27 @@ export default class FuncParams extends Component {
             {runtimes}
           </SelectField><br />
         </div>
+        {this.renderDependencies()}
+      </div>
+    )
+  }
+
+  renderDependencies() {
+    if (!RuntimeHelper.runtimeSupportDeps(this.state.runtime)) {
+      return false
+    }
+    return (
+      <div className='inputGroup'>
+        <TextField
+          floatingLabelText='Dependencies'
+          floatingLabelFixed
+          hintText='dependency-name'
+          multiLine
+          rows={(this.state.deps.match(/\n/g) || []).length + 1}
+          rowsMax={4}
+          value={this.state.deps}
+          onChange={(e, value) => this.setState({ deps: value })}
+        />
       </div>
     )
   }
