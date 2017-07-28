@@ -24,16 +24,19 @@ export default [
   { value: 'nodejs6.10',
     label: 'NodeJS (6.10)',
     language: 'javascript',
+    supportDeps: false,
     defaultFunction: nodeFunction
   },
   { value: 'ruby2.4',
     label: 'Ruby (2.4)',
     language: 'ruby',
+    supportDeps: false,
     defaultFunction: rubyFunction
   },
   { value: 'python27',
     label: 'Python (27)',
     language: 'python',
+    supportDeps: true,
     defaultFunction: pythonFunction
   }
 ]

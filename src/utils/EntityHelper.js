@@ -45,6 +45,7 @@ export default class EntityHelper {
         namespace: params.namespace || 'default'
       },
       spec: {
+        deps: params.deps || '',
         'function': params['function'] || RuntimeHelper.defaultFunction(params.runtime, params.handler),
         handler: params.handler,
         runtime: params.runtime,
