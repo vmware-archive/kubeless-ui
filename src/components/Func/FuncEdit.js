@@ -25,7 +25,7 @@ export default class FuncEdit extends Component {
 
   props: {
     func?: Func,
-    open: boolean,
+    open?: boolean,
     onDismiss: () => void,
     onDone: ({}) => void
   }
@@ -39,20 +39,16 @@ export default class FuncEdit extends Component {
     const { func, open, onDismiss } = this.props
 
     const dialogActions = [
-      <FlatButton
-        label='Cancel' primary
-        onClick={onDismiss}
-      />,
-      <FlatButton
-        label='Save' primary
-        onClick={this.donePressed}
-      />
+      <FlatButton label='Cancel' primary onClick={onDismiss} />,
+      <FlatButton label='Save' primary onClick={this.donePressed} />
     ]
 
     return (
       <Dialog
-        title='Edit Function' modal={false} actions={dialogActions}
-        open={open}
+        title='Edit Function'
+        modal={false}
+        actions={dialogActions}
+        open={!!open}
         onRequestClose={onDismiss}
         contentStyle={{ maxWidth: '600px' }}
         autoScrollBodyContent

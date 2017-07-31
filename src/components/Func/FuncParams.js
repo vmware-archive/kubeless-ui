@@ -16,9 +16,12 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import _ from 'lodash'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import TagsInput from 'react-tagsinput'
+import 'react-tagsinput/react-tagsinput.css'
 import type { Func } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import './FuncParams.scss'
@@ -33,7 +36,7 @@ const initialState = {
 export default class FuncParams extends Component {
 
   props: {
-    func?: Func,
+    func?: Func
   }
 
   state = initialState
@@ -53,7 +56,7 @@ export default class FuncParams extends Component {
     }
   }
 
-  getParams(): {[string]: string} {
+  getParams(): { [string]: string } {
     return this.state
   }
 
@@ -75,7 +78,8 @@ export default class FuncParams extends Component {
             disabled={!!this.props.func}
             value={this.state.name}
             onChange={(e, value) => this.setState({ name: value })}
-          /><br />
+          />
+          <br />
           <TextField
             floatingLabelText='Handler'
             floatingLabelFixed
@@ -91,14 +95,16 @@ export default class FuncParams extends Component {
             onChange={(e, i, value) => this.setState({ type: value })}
           >
             {types}
-          </SelectField><br />
+          </SelectField>
+          <br />
           <SelectField
             floatingLabelText='Runtime'
             value={this.state.runtime}
             onChange={(e, i, value) => this.setState({ runtime: value })}
           >
             {runtimes}
-          </SelectField><br />
+          </SelectField>
+          <br />
         </div>
         {this.renderDependencies()}
       </div>
@@ -111,15 +117,11 @@ export default class FuncParams extends Component {
     }
     return (
       <div className='inputGroup'>
-        <TextField
-          floatingLabelText='Dependencies'
-          floatingLabelFixed
-          hintText='dependency-name'
-          multiLine
-          rows={(this.state.deps.match(/\n/g) || []).length + 1}
-          rowsMax={4}
-          value={this.state.deps}
-          onChange={(e, value) => this.setState({ deps: value })}
+        <label className='inputLabel'>Dependencies</label>
+        <TagsInput
+          value={_.words(this.state.deps, /[^,\n ]+/g)}
+          inputProps={{ placeholder: 'Add a dependency' }}
+          onChange={deps => this.setState({ deps: deps.join('\n') })}
         />
       </div>
     )

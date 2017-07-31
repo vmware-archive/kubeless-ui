@@ -26,7 +26,7 @@ export default class FuncCreate extends Component {
 
   props: {
     cluster: Cluster,
-    open: boolean,
+    open?: boolean,
     onDismiss: () => void,
     onCreate: (params: any, cluster: Cluster) => void
   }
@@ -41,20 +41,16 @@ export default class FuncCreate extends Component {
     const { open, onDismiss } = this.props
 
     const dialogActions = [
-      <FlatButton
-        label='Cancel' primary
-        onClick={onDismiss}
-      />,
-      <FlatButton
-        label='Create' primary
-        onClick={this.donePressed}
-      />
+      <FlatButton label='Cancel' primary onClick={onDismiss} />,
+      <FlatButton label='Create' primary onClick={this.donePressed} />
     ]
 
     return (
       <Dialog
-        title='New Function' modal={false} actions={dialogActions}
-        open={open}
+        title='New Function'
+        modal={false}
+        actions={dialogActions}
+        open={!!open}
         onRequestClose={onDismiss}
         contentStyle={{ maxWidth: '600px' }}
         autoScrollBodyContent
