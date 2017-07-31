@@ -132,7 +132,7 @@
     },
     "moduleNameMapper": {
       ".(jpg|jpeg|gif|png|mp4|mkv|avi|webm|swf|wav|mid)$": "jest-static-stubs/$1",
-      ".scss$": "jest-css-modules"
+      ".(css|scss)$": "jest-css-modules"
     },
     "unmockedModulePathPatterns": [
       "node_modules/react/",

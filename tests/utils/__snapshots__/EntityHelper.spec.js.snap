@@ -19,6 +19,7 @@ Object {
     "namespace": "kubeless",
   },
   "spec": Object {
+    "deps": "",
     "function": "//code goes here",
     "handler": "funcName.foo",
     "runtime": undefined,
