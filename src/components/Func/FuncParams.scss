@@ -32,6 +32,18 @@ limitations under the License.
       margin-top: 16px;
     }
   }
+  .editorContainer {
+    height: 200px;
+    margin-bottom: 20px;
+    .ace_editor {
+      background: rgba(0, 0, 0, 0.1);
+      height: 100% !important;
+      width: 100% !important;
+      .ace_content {
+        padding-top: 5px;
+      }
+    }
+  }
   .react-tagsinput {
     background: none;
     border: 0;

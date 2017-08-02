@@ -48,4 +48,9 @@ export default class RuntimeHelper {
     return runtimeObject ? runtimeObject.supportDeps : false
   }
 
+  static runtimeDepsFilename(runtime):string {
+    const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
+    return runtimeObject ? runtimeObject.depsFilename : ''
+  }
+
 }

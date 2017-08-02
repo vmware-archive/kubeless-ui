@@ -17,6 +17,12 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import _ from 'lodash'
+import AceEditor from 'react-ace'
+import brace from 'brace' // eslint-disable-line
+import 'brace/mode/python'
+import 'brace/mode/ruby'
+import 'brace/mode/javascript'
+import 'brace/theme/solarized_dark'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -100,7 +106,7 @@ export default class FuncParams extends Component {
           <SelectField
             floatingLabelText='Runtime'
             value={this.state.runtime}
-            onChange={(e, i, value) => this.setState({ runtime: value })}
+            onChange={(e, i, value) => this.setState({ runtime: value, deps: '' })}
           >
             {runtimes}
           </SelectField>
@@ -115,13 +121,28 @@ export default class FuncParams extends Component {
     if (!RuntimeHelper.runtimeSupportDeps(this.state.runtime)) {
       return false
     }
+    if (this.state.runtime.indexOf('python') !== -1) {
+      return (
+        <div className='inputGroup'>
+          <label className='inputLabel'>Dependencies</label>
+          <TagsInput
+            value={_.words(this.state.deps, /[^,\n ]+/g)}
+            inputProps={{ placeholder: 'Add a dependency' }}
+            onChange={deps => this.setState({ deps: deps.join('\n') })}
+          />
+        </div>
+      )
+    }
     return (
-      <div className='inputGroup'>
-        <label className='inputLabel'>Dependencies</label>
-        <TagsInput
-          value={_.words(this.state.deps, /[^,\n ]+/g)}
-          inputProps={{ placeholder: 'Add a dependency' }}
-          onChange={deps => this.setState({ deps: deps.join('\n') })}
+      <div className='inputGroup editorContainer'>
+        <label className='inputLabel'>Dependencies ({RuntimeHelper.runtimeDepsFilename(this.state.runtime)})</label>
+        <AceEditor
+          mode={RuntimeHelper.runtimeToLanguage(this.state.runtime)}
+          theme='solarized_dark'
+          onChange={(value) => this.setState({ deps: value })}
+          value={this.state.deps}
+          name='ACE_EDITOR_DEPS'
+          showGutter={false}
         />
       </div>
     )
