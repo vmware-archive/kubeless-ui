@@ -5161,6 +5161,10 @@ react-router@^3.0.0:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
+react-tagsinput@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/react-tagsinput/-/react-tagsinput-3.17.0.tgz#d699bc7ff3be3492d5a3d2a57f6976908774fba3"
+
 react-tap-event-plugin@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-tap-event-plugin/-/react-tap-event-plugin-2.0.1.tgz#316beb3bc6556e29ec869a7293e89c826a9074d2"

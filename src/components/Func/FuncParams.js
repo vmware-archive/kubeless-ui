@@ -16,9 +16,12 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import _ from 'lodash'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import TagsInput from 'react-tagsinput'
+import 'react-tagsinput/react-tagsinput.css'
 import type { Func } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import './FuncParams.scss'
@@ -27,12 +30,13 @@ const initialState = {
   name: '',
   handler: '',
   runtime: RuntimeHelper.defaultRuntime().value,
-  type: 'HTTP'
+  type: 'HTTP',
+  deps: ''
 }
 export default class FuncParams extends Component {
 
   props: {
-    func?: Func,
+    func?: Func
   }
 
   state = initialState
@@ -44,14 +48,15 @@ export default class FuncParams extends Component {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
-        type: func.spec.type
+        type: func.spec.type,
+        deps: func.spec.deps
       })
     } else {
       this.setState(initialState)
     }
   }
 
-  getParams(): {[string]: string} {
+  getParams(): { [string]: string } {
     return this.state
   }
 
@@ -73,7 +78,8 @@ export default class FuncParams extends Component {
             disabled={!!this.props.func}
             value={this.state.name}
             onChange={(e, value) => this.setState({ name: value })}
-          /><br />
+          />
+          <br />
           <TextField
             floatingLabelText='Handler'
             floatingLabelFixed
@@ -89,15 +95,34 @@ export default class FuncParams extends Component {
             onChange={(e, i, value) => this.setState({ type: value })}
           >
             {types}
-          </SelectField><br />
+          </SelectField>
+          <br />
           <SelectField
             floatingLabelText='Runtime'
             value={this.state.runtime}
             onChange={(e, i, value) => this.setState({ runtime: value })}
           >
             {runtimes}
-          </SelectField><br />
+          </SelectField>
+          <br />
         </div>
+        {this.renderDependencies()}
+      </div>
+    )
+  }
+
+  renderDependencies() {
+    if (!RuntimeHelper.runtimeSupportDeps(this.state.runtime)) {
+      return false
+    }
+    return (
+      <div className='inputGroup'>
+        <label className='inputLabel'>Dependencies</label>
+        <TagsInput
+          value={_.words(this.state.deps, /[^,\n ]+/g)}
+          inputProps={{ placeholder: 'Add a dependency' }}
+          onChange={deps => this.setState({ deps: deps.join('\n') })}
+        />
       </div>
     )
   }

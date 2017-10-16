@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+@import '../../styles/_variables';
+
 .funcParams {
   display: flex;
   flex-direction: row;
@@ -22,6 +24,37 @@ limitations under the License.
   .inputGroup {
     flex: 1;
     min-width: 250px;
+    font-family: Roboto, sans-serif;
+    .inputLabel {
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 700;
+      font-size: 12px;
+      margin-top: 16px;
+    }
+  }
+  .react-tagsinput {
+    background: none;
+    border: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    input {
+      margin: 0;
+      padding: 0px 0 6px 0;
+      font-size: 16px;
+      width: auto;
+      color: white;
+      @include placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+    &-tag {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.6);
+        color: white;
+        a {
+          color: inherit;
+        }
+    }
   }
 }
 
