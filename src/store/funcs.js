@@ -130,18 +130,25 @@ export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?stri
     if (method === 'post') {
       _call = Api.post
     }
-    return _call(`/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`,
-      data || {}, cluster, func).then(result => {
-        dispatch({
-          type: FUNCS_RUN,
-          value: result
-        })
-      }).catch(e => {
-        dispatch({
-          type: FUNCS_RUN,
-          value: e.message
-        })
+    return Api.get(`/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`, {}, cluster).then(service => {
+      let port
+      if (service.spec.ports.length > 0) {
+        port = service.spec.ports[0].port
+      }
+      return _call(
+        `/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}${port ? ':' + port : ''}`,
+        data || {}, cluster, func)
+    }).then(result => {
+      dispatch({
+        type: FUNCS_RUN,
+        value: result
       })
+    }).catch(e => {
+      dispatch({
+        type: FUNCS_RUN,
+        value: e.message
+      })
+    })
   }
 }
 

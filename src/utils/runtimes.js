@@ -21,8 +21,8 @@ end
 `
 
 export default [
-  { value: 'nodejs6.10',
-    label: 'NodeJS (6.10)',
+  { value: 'nodejs6',
+    label: 'NodeJS (6)',
     language: 'javascript',
     defaultFunction: nodeFunction
   },
@@ -31,8 +31,8 @@ export default [
     language: 'ruby',
     defaultFunction: rubyFunction
   },
-  { value: 'python27',
-    label: 'Python (27)',
+  { value: 'python2.7',
+    label: 'Python (2.7)',
     language: 'python',
     defaultFunction: pythonFunction
   }
