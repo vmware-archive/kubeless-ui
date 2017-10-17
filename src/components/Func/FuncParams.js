@@ -118,24 +118,22 @@ export default class FuncParams extends Component {
   }
 
   renderDependencies() {
-    if (!RuntimeHelper.runtimeSupportDeps(this.state.runtime)) {
-      return false
-    }
     if (this.state.runtime.indexOf('python') !== -1) {
       return (
         <div className='inputGroup'>
           <label className='inputLabel'>Dependencies</label>
           <TagsInput
             value={_.words(this.state.deps, /[^,\n ]+/g)}
-            inputProps={{ placeholder: 'Add a dependency' }}
+            inputProps={{ placeholder: 'Add dependencies' }}
             onChange={deps => this.setState({ deps: deps.join('\n') })}
           />
         </div>
       )
     }
+    const depFileName = RuntimeHelper.runtimeDepsFilename(this.state.runtime)
     return (
       <div className='inputGroup editorContainer'>
-        <label className='inputLabel'>Dependencies ({RuntimeHelper.runtimeDepsFilename(this.state.runtime)})</label>
+        <label className='inputLabel'>Dependencies ({depFileName})</label>
         <AceEditor
           mode={RuntimeHelper.runtimeToLanguage(this.state.runtime)}
           theme='solarized_dark'
