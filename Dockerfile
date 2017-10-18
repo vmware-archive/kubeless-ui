@@ -1,4 +1,4 @@
-FROM bitnami/node:7
+FROM bitnami/node:8
 
 LABEL maintainer "Bitnami Team <containers@bitnami.com>"
 
