@@ -42,4 +42,9 @@ export default class RuntimeHelper {
     return defaultFunction
   }
 
+  static runtimeDepsFilename(runtime):string {
+    const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
+    return runtimeObject ? runtimeObject.depsFilename : ''
+  }
+
 }

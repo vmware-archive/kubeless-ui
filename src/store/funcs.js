@@ -130,7 +130,8 @@ export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?stri
     if (method === 'post') {
       _call = Api.post
     }
-    return Api.get(`/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`, {}, cluster).then(service => {
+    return Api.get(`/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`, {}, cluster)
+    .then(service => {
       let port
       if (service.spec.ports.length > 0) {
         port = service.spec.ports[0].port
@@ -165,6 +166,7 @@ export const initialState = {
         namespace: 'default'
       },
       spec: {
+        deps: 'kubernetes',
         'function': '',
         runtime: 'javascript',
         handler: 'test1.handler',

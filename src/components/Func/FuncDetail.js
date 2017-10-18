@@ -91,6 +91,7 @@ export default class FuncDetail extends Component {
     const data = {
       metadata: { name: params.name },
       spec: {
+        deps: params.deps,
         handler: params.handler,
         runtime: params.runtime,
         type: params.type

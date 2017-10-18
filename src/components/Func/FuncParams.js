@@ -16,9 +16,18 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import _ from 'lodash'
+import AceEditor from 'react-ace'
+import brace from 'brace' // eslint-disable-line
+import 'brace/mode/python'
+import 'brace/mode/ruby'
+import 'brace/mode/javascript'
+import 'brace/theme/solarized_dark'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import TagsInput from 'react-tagsinput'
+import 'react-tagsinput/react-tagsinput.css'
 import type { Func } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import './FuncParams.scss'
@@ -27,12 +36,13 @@ const initialState = {
   name: '',
   handler: '',
   runtime: RuntimeHelper.defaultRuntime().value,
-  type: 'HTTP'
+  type: 'HTTP',
+  deps: ''
 }
 export default class FuncParams extends Component {
 
   props: {
-    func?: Func,
+    func?: Func
   }
 
   state = initialState
@@ -44,14 +54,15 @@ export default class FuncParams extends Component {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
-        type: func.spec.type
+        type: func.spec.type,
+        deps: func.spec.deps
       })
     } else {
       this.setState(initialState)
     }
   }
 
-  getParams(): {[string]: string} {
+  getParams(): { [string]: string } {
     return this.state
   }
 
@@ -73,7 +84,8 @@ export default class FuncParams extends Component {
             disabled={!!this.props.func}
             value={this.state.name}
             onChange={(e, value) => this.setState({ name: value })}
-          /><br />
+          />
+          <br />
           <TextField
             floatingLabelText='Handler'
             floatingLabelFixed
@@ -89,15 +101,47 @@ export default class FuncParams extends Component {
             onChange={(e, i, value) => this.setState({ type: value })}
           >
             {types}
-          </SelectField><br />
+          </SelectField>
+          <br />
           <SelectField
             floatingLabelText='Runtime'
             value={this.state.runtime}
-            onChange={(e, i, value) => this.setState({ runtime: value })}
+            onChange={(e, i, value) => this.setState({ runtime: value, deps: '' })}
           >
             {runtimes}
-          </SelectField><br />
+          </SelectField>
+          <br />
         </div>
+        {this.renderDependencies()}
+      </div>
+    )
+  }
+
+  renderDependencies() {
+    if (this.state.runtime.indexOf('python') !== -1) {
+      return (
+        <div className='inputGroup'>
+          <label className='inputLabel'>Dependencies</label>
+          <TagsInput
+            value={_.words(this.state.deps, /[^,\n ]+/g)}
+            inputProps={{ placeholder: 'Add dependencies' }}
+            onChange={deps => this.setState({ deps: deps.join('\n') })}
+          />
+        </div>
+      )
+    }
+    const depFileName = RuntimeHelper.runtimeDepsFilename(this.state.runtime)
+    return (
+      <div className='inputGroup editorContainer'>
+        <label className='inputLabel'>Dependencies ({depFileName})</label>
+        <AceEditor
+          mode={RuntimeHelper.runtimeToLanguage(this.state.runtime)}
+          theme='solarized_dark'
+          onChange={(value) => this.setState({ deps: value })}
+          value={this.state.deps}
+          name='ACE_EDITOR_DEPS'
+          showGutter={false}
+        />
       </div>
     )
   }

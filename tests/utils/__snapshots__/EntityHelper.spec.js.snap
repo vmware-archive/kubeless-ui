@@ -13,12 +13,14 @@ Array [
 
 exports[`(Utils) EntityHelper functionFromParams - should create Function entity from params 1`] = `
 Object {
+  "apiVersion": "k8s.io/v1",
   "kind": "Function",
   "metadata": Object {
     "name": "funcName",
     "namespace": "kubeless",
   },
   "spec": Object {
+    "deps": "",
     "function": "//code goes here",
     "handler": "funcName.foo",
     "runtime": undefined,

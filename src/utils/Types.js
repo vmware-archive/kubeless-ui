@@ -48,9 +48,10 @@ export type Func = {
     namespace: string
   },
   spec: {
-    function: string,
     runtime: string,
     handler: string,
-    type: string
+    type: string,
+    deps: string,
+    function: string
   }
 }
