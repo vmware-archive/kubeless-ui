@@ -5,6 +5,15 @@
 
 Graphical User Interface for [Kubeless](https://github.com/kubeless/kubeless), a serverless framework for Kubernetes.
 
+## In-Cluster Installation
+
+To run the UI inside your Kubernetes cluster as a Deployment and Service you can run the following:
+
+```bash
+kubectl create -f https://raw.githubusercontent.com/kubeless/kubeless-ui/master/k8s.yaml
+```
+
+These are known to work on minikube, they may need a few tweaks if you have RBAC turned on (docs coming soon).
 
 ## Development
 
@@ -32,17 +41,6 @@ yarn run build
 ```
 
 Now you just have to serve the `dist/` folder with node (`yarn run start`) or with an nginx.
-
-## In Cluster
-
-To run the UI inside your Kubernetes cluster as a Deployment and Service you can run the following:
-
-```bash
-kubectl create -f https://raw.githubusercontent.com/kubeless/kubeless/master/manifests/ui/ui-deployment.yaml
-kubectl create -f https://raw.githubusercontent.com/kubeless/kubeless/master/manifests/ui/ui-svc.yaml
-```
-
-These are known to work on minikube, they may need a few tweaks if you have RBAC turned on (docs coming soon).
 
 ## Docker image
 Exists and automated build that you can find on DockerHub, Quay.io and Gcloud Registry

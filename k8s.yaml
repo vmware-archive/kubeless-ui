@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+   controller: ui
+  namespace: kubeless
+  name: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     controller: ui
+  template:
+    metadata:
+      labels:
+        controller: ui
+    spec:
+      containers:
+      - name: ui
+        image: bitnami/kubeless-ui:development
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+      - name: proxy
+        image: kelseyhightower/kubectl:1.4.0
+        args:
+        - proxy
+        - "-p"
+        - "8080"
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    controller: ui
+  name: ui
+  namespace: kubeless
+spec:
+  ports:
+  - name: ui-port
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    controller: ui
+  sessionAffinity: None
+  type: LoadBalancer
