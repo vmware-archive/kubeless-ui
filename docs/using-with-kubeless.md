@@ -31,7 +31,7 @@ kubectl create -f https://raw.githubusercontent.com/kubeless/kubeless-ui/master/
 To see the UI come up in minikube
 
 ```bash
-minikube service kubeless ui
+minikube service ui -n kubeless
 ```
 Alternatively,
 ```bash
