@@ -25,7 +25,7 @@ export default class Header extends Component {
   render() {
     return (
       <div className='header'>
-        <h1>Kubeless editor</h1>
+        <h1>Kubeless UI</h1>
         <a href='https://github.com/kubeless/kubeless-ui' target='_blank'>
           <IconButton tooltip='Github'>
             <FontIcon className='fa fa-github' />

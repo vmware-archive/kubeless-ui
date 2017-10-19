@@ -43,8 +43,7 @@ yarn run build
 Now you just have to serve the `dist/` folder with node (`yarn run start`) or with an nginx.
 
 ## Docker image
-Exists and automated build that you can find on DockerHub, Quay.io and Gcloud Registry
-by his name:  bitnami/kubeless-ui
+Exists and automated build that you can find on DockerHub, Quay.io and Gcloud Registry by this name:  bitnami/kubeless-ui
 
 ## Snapshot
 

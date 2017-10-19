@@ -26,6 +26,6 @@ describe('(Component) Header', () => {
   it('Renders app title', () => {
     const welcome = _wrapper.find('h1')
     expect(welcome.length).toBe(1)
-    expect(welcome.text()).toBe('Kubeless editor')
+    expect(welcome.text()).toBe('Kubeless UI')
   })
 })
