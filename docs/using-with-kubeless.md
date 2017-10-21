@@ -16,8 +16,8 @@ These are known to work on minikube, they may need a few tweaks if you have RBAC
 - Delete the existing services and deployments of Kubeless UI
 
 ```bash
-kubectl delete deployment ui
-kubectl delete svc ui
+kubectl delete deployment ui -n kubeless
+kubectl delete svc ui -n kubeless
 ```
 
 - Install latest version of Kubeless UI
