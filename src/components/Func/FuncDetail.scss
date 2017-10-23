@@ -14,34 +14,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+@import '../../styles/variables';
+
 .funcDetail {
   width: 300px;
-  color: white;
-  background: #00313E;
+  color: $dark-blue;
+  background: white;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
-  padding: 0 10px 20px 10px;
   overflow: auto;
+  border-left: 1px solid $light-gray;
 
   .functionTitle {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 20px;
+    padding: 0 20px 20px 20px;
   }
   .functionRun {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 20px;
+    padding: 0 20px 20px 20px;
+    margin-bottom: 20px;
+  }
+  .functionResult {
+    padding: 0 20px 20px 20px;
     margin-bottom: 20px;
   }
   .actionsButtons {
     text-align: right;
-    .button:nth-child(1), .button:nth-child(1) button {
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
+    .button:nth-child(1),
+    .button:nth-child(1) button {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
     }
-    .button:nth-child(2), .button:nth-child(2) button {
+    .button:nth-child(2),
+    .button:nth-child(2) button {
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
     }
+  }
+  .radioButtonGroup {
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 20px;
   }
   .radioButton {
     width: auto !important;
@@ -54,31 +68,35 @@ limitations under the License.
   .body {
     width: 100%;
     border: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid $light-gray;
+    border-radius: 2px;
     padding: 5px;
     resize: vertical;
     outline: none;
   }
 
+  .runButton,
+  .runButton * {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
   .methodContainer {
-    background: #FF3876;
+    background: $red;
     width: 75px;
     height: 36px;
     display: inline-block;
     overflow: hidden;
     box-sizing: border-box;
     vertical-align: bottom;
+    text-align: right;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
-    button { // tick
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+    button {
+      // tick
       right: -10px !important;
-      fill: rgba(0, 0, 0, 0.3) !important;
+      fill: white !important;
     }
-  }
-
-  .runButton, .runButton button {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
   }
 }

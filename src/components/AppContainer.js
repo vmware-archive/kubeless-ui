@@ -19,14 +19,23 @@ import React, { Component } from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
+const muiTheme = getMuiTheme({
+  ...lightBaseTheme,
+  palette: {
+    textColor: '#38383f',
+    primary1Color: '#3371e3',
+    accent1Color: '#e53935'
+  }
+})
 
 export default class AppContainer extends Component {
 
   props: {
     routes: {},
-    store: {},
+    store: {}
   }
 
   shouldComponentUpdate() {
@@ -37,7 +46,7 @@ export default class AppContainer extends Component {
     const { routes, store } = this.props
     return (
       <Provider store={store}>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider muiTheme={muiTheme}>
           <div style={{ height: '100%' }}>
             <Router history={browserHistory} children={routes} />
           </div>

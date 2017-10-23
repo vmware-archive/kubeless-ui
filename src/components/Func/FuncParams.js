@@ -22,7 +22,7 @@ import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/ruby'
 import 'brace/mode/javascript'
-import 'brace/theme/solarized_dark'
+import 'brace/theme/tomorrow_night_bright'
 import TextField from 'material-ui/TextField'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -137,7 +137,7 @@ export default class FuncParams extends Component {
         <AceEditor
           mode={RuntimeHelper.runtimeToLanguage(this.state.runtime)}
           theme='solarized_dark'
-          onChange={(value) => this.setState({ deps: value })}
+          onChange={value => this.setState({ deps: value })}
           value={this.state.deps}
           name='ACE_EDITOR_DEPS'
           showGutter={false}

@@ -19,12 +19,9 @@ import React, { Component } from 'react'
 import type { Func, Cluster } from 'utils/Types'
 import FuncsList from './FuncsList'
 import FuncCreateContainer from 'components/Func/FuncCreateContainer'
-import Dialog from 'material-ui/Dialog'
-import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
-import cubeIcon from './assets/cube.png'
 import './TreeView.scss'
 import Store from 'store/Store'
 
@@ -36,14 +33,11 @@ export default class TreeView extends Component {
     selectedFunc?: Func,
     loading: boolean,
     onSelect: (?Func) => void,
-    onFetch: (Cluster) => void,
-    onEditCluster: (Cluster) => void,
+    onFetch: Cluster => void,
     onCreateFunc: ({}, Cluster) => void
   }
 
   state = {
-    editClusterOpen: false,
-    editedClusterUrl: '',
     newFuncOpen: false
   }
 
@@ -53,20 +47,6 @@ export default class TreeView extends Component {
 
   refresh = () => {
     const cluster = this.props.cluster
-    this.props.onFetch(cluster)
-  }
-
-  headerPressed = () => {
-    this.props.onSelect(null)
-    this.setState({ editClusterOpen: true })
-  }
-
-  doneEditCluster = () => {
-    this.setState({ editClusterOpen: false })
-    if (!this.state.editedClusterUrl) { return }
-    const { cluster } = this.props
-    cluster.url = this.state.editedClusterUrl
-    this.props.onEditCluster(cluster)
     this.props.onFetch(cluster)
   }
 
@@ -88,48 +68,11 @@ export default class TreeView extends Component {
   render() {
     return (
       <div className='treeview'>
-        {this.renderHeader()}
         {this.renderLoader()}
-        {this.props.funcs.length > 0 &&
-          <FuncsList
-            funcs={this.props.funcs} selectedFunc={this.props.selectedFunc}
-            onSelect={this.onSelect}
-          />
-        }
+        {this.props.funcs.length > 0 && (
+          <FuncsList funcs={this.props.funcs} selectedFunc={this.props.selectedFunc} onSelect={this.onSelect} />
+        )}
         {this.renderFooter()}
-      </div>
-    )
-  }
-
-  renderHeader() {
-    const cluster = this.props.cluster
-    const dialogActions = [
-      <FlatButton
-        label='Cancel' primary
-        onClick={() => this.setState({ editClusterOpen: false })}
-      />,
-      <FlatButton
-        label='Done' primary
-        onClick={this.doneEditCluster}
-      />
-    ]
-    return (
-      <div className='treeviewHeader' onClick={this.headerPressed}>
-        <img className='folderIcon' src={cubeIcon} />
-        <h3 className='folderTitle'>{cluster.url}</h3>
-        <FontIcon className='material-icons editIcon'>create</FontIcon>
-        <Dialog
-          title='Cluster info' modal={false} actions={dialogActions}
-          open={this.state.editClusterOpen}
-          onRequestClose={() => this.setState({ editClusterOpen: false })}
-        >
-          <TextField
-            floatingLabelText='Cluster url'
-            defaultValue={cluster.url}
-            onChange={(e) => this.setState({ editedClusterUrl: e.target.value })}
-          />
-          <br />
-        </Dialog>
       </div>
     )
   }
@@ -137,10 +80,12 @@ export default class TreeView extends Component {
   renderLoader() {
     let content
     if (this.props.loading) {
-      content = (<p>{'...Loading functions...'}</p>)
+      content = <p>{'...Loading functions...'}</p>
     } else if (this.props.funcs.length === 0) {
       content = (
-        <p>{'No function found'}<br />
+        <p>
+          {'No function found'}
+          <br />
           <FlatButton
             label='Refresh'
             onClick={this.refresh}
@@ -148,24 +93,31 @@ export default class TreeView extends Component {
           />
         </p>
       )
-    } else { return }
+    } else {
+      return
+    }
     return <div className='centerMessage'>{content}</div>
   }
 
   renderFooter() {
     return (
       <div className='treeviewFooter'>
-        <IconButton tooltip='New Function' tooltipPosition='top-right'
-          onClick={() => this.setState({ newFuncOpen: true })}>
+        <IconButton
+          tooltip='New Function'
+          tooltipPosition='top-right'
+          onClick={() => this.setState({ newFuncOpen: true })}
+        >
           <FontIcon className='material-icons'>add</FontIcon>
         </IconButton>
-        <IconButton tooltip='Refresh Functions' tooltipPosition='top-left'
-          onClick={this.refresh} style={{ marginLeft: 'auto' }}>
+        <IconButton
+          tooltip='Refresh Functions'
+          tooltipPosition='top-left'
+          onClick={this.refresh}
+          style={{ marginLeft: 'auto' }}
+        >
           <FontIcon className='material-icons'>replay</FontIcon>
         </IconButton>
-        <FuncCreateContainer open={this.state.newFuncOpen}
-          onDismiss={() => this.setState({ newFuncOpen: false })}
-        />
+        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
       </div>
     )
   }

@@ -13,22 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+import Home from './Home'
 
-// @flow
-import React, { Component } from 'react'
-import Editor from 'components/Editor'
-import TreeView from 'components/TreeView'
-import './Home.scss'
-
-export default class Home extends Component {
-
-  render() {
-    return (
-      <div className='home'>
-        <TreeView />
-        <Editor />
-      </div>
-    )
-  }
-
+// Sync route definition
+export default {
+  component: Home
 }

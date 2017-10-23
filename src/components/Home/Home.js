@@ -14,23 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-$background-gradient: linear-gradient(to left, #303030, #142d5b);
-$blue: #3371e3;
-$dark-blue: #38383f;
-$light-gray: #d7d9dd;
-$red: #e53935;
+// @flow
+import React, { Component } from 'react'
+import Editor from 'components/Editor'
+import Cluster from 'components/Cluster'
+import TreeView from 'components/TreeView'
+import './Home.scss'
 
-@mixin placeholder {
-  &::-webkit-input-placeholder {
-    @content;
+export default class Home extends Component {
+
+  render() {
+    return (
+      <div className='home'>
+        <Cluster />
+        <div className='content'>
+          <TreeView />
+          <Editor />
+        </div>
+      </div>
+    )
   }
-  &:-moz-placeholder {
-    @content;
-  }
-  &::-moz-placeholder {
-    @content;
-  }
-  &:-ms-input-placeholder {
-    @content;
-  }
+
 }

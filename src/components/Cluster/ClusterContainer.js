@@ -13,10 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-.home {
-  position: relative;
-  padding-top: 50px;
-  box-sizing: border-box;
-  flex: 1;
-  display: flex;
-}
+
+// @flow
+import { connect } from 'react-redux'
+import Cluster from './Cluster'
+import { clusterEdit } from 'store/clusters'
+
+const mapStateToProps = ({ clusters }) => ({
+  cluster: clusters.cluster
+})
+
+const mapDispatchToProps = dispatch => ({
+  onEditCluster: cluster => dispatch(clusterEdit(cluster))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cluster)

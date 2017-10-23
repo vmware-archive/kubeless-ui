@@ -13,20 +13,28 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+@import '../../styles/variables';
+
 .header {
   position: fixed;
-  height: 50px;
-  width: 100%;
   top: 0px;
   left: 0px;
-  background: #00313E;
+  width: 100%;
+  height: 70px;
+  background: $background-gradient;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
   padding: 0px 20px;
   z-index: 10;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);  
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  h1 {
+    font-size: 25px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+  }
   a {
     color: white;
   }

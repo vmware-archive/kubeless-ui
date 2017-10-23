@@ -17,7 +17,7 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import type { Func } from 'utils/Types'
-import funcIcon from './assets/file.png'
+import FontIcon from 'material-ui/FontIcon'
 import './TreeView.scss'
 
 export default class FuncsList extends Component {
@@ -25,12 +25,13 @@ export default class FuncsList extends Component {
   props: {
     funcs: Array<Func>,
     selectedFunc?: Func,
-    onSelect: (?Func) => void,
+    onSelect: (?Func) => void
   }
 
   render() {
     return (
       <div className='funcs'>
+        <h3 className='funcsTitle'>Functions</h3>
         {this.props.funcs.map(func => this.renderFunc(func))}
       </div>
     )
@@ -40,11 +41,9 @@ export default class FuncsList extends Component {
     const { selectedFunc, onSelect } = this.props
     const isActive = selectedFunc && func.metadata.uid === selectedFunc.metadata.uid
     return (
-      <div key={func.metadata.uid}
-        onClick={() => onSelect(func)}
-        className={`func ${isActive ? 'active' : ''}`}>
-        <img src={funcIcon} />
-        <h4 className='title'>{func.metadata.name}</h4>
+      <div key={func.metadata.uid} onClick={() => onSelect(func)} className={`func ${isActive ? 'active' : ''}`}>
+        <FontIcon className='fa fa-file-code-o' />
+        {func.metadata.name}
       </div>
     )
   }

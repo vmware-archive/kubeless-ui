@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-@import '../../styles/_variables';
+@import '../../styles/variables';
 
 .funcParams {
   display: flex;
@@ -24,9 +24,8 @@ limitations under the License.
   .inputGroup {
     flex: 1;
     min-width: 250px;
-    font-family: Roboto, sans-serif;
     .inputLabel {
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(0, 0, 0, 0.3);
       font-weight: 700;
       font-size: 12px;
       margin-top: 16px;
@@ -36,7 +35,9 @@ limitations under the License.
     height: 200px;
     margin-bottom: 20px;
     .ace_editor {
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0, 0, 0, 0.05);
+      border-top: 1px solid $light-gray;
+      border-bottom: 1px solid $light-gray;
       height: 100% !important;
       width: 100% !important;
       .ace_content {
@@ -48,32 +49,30 @@ limitations under the License.
     background: none;
     border: 0;
     padding: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid $light-gray;
     input {
       margin: 0;
       padding: 0px 0 6px 0;
       font-size: 16px;
       width: auto;
-      color: white;
+      color: black;
       @include placeholder {
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(0, 0, 0, 0.3);
       }
     }
     &-tag {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.6);
-        color: white;
-        a {
-          color: inherit;
-        }
+      background: rgba(0, 0, 0, 0.2);
+      border-color: rgba(0, 0, 0, 0.3);
+      color: black;
+      a {
+        color: inherit;
+      }
     }
   }
 }
 
 .funcCreate {
-
 }
 
 .funcEdit {
-
 }
