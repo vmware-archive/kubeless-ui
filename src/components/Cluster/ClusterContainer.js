@@ -18,13 +18,19 @@ limitations under the License.
 import { connect } from 'react-redux'
 import Cluster from './Cluster'
 import { clusterEdit } from 'store/clusters'
+import { podsFetch } from 'store/pods'
+import { funcsFetch } from 'store/funcs'
 
 const mapStateToProps = ({ clusters }) => ({
   cluster: clusters.cluster
 })
 
 const mapDispatchToProps = dispatch => ({
-  onEditCluster: cluster => dispatch(clusterEdit(cluster))
+  onEditCluster: cluster => {
+    dispatch(clusterEdit(cluster))
+    dispatch(podsFetch(cluster))
+    dispatch(funcsFetch(cluster))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cluster)

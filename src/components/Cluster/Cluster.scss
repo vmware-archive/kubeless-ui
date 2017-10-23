@@ -20,14 +20,11 @@ limitations under the License.
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 2em;
-  .clusterTitle {
-    font-size: 1.6em;
-    text-align: left;
-    margin: 0;
-    cursor: pointer;
-    .clusterIcon {
-      margin-right: 10px;
-    }
+  padding: 1em 2em;
+  .clusterIcon {
+    margin-right: 10px;
+  }
+  .clusterField {
+    font-size: 1.4em !important;
   }
 }

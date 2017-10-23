@@ -16,10 +16,9 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
+import keycode from 'keycode'
 import type { Cluster } from 'utils/Types'
-import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 import './Cluster.scss'
 
@@ -30,51 +29,33 @@ export default class ClusterComponent extends Component {
     onEditCluster: Cluster => void
   }
 
-  state = {
-    editClusterOpen: false,
-    editedClusterUrl: ''
+  onKeyDown = (e: any) => {
+    if (keycode(e) === 'enter') {
+      this.submitEditCluster(e.target.value)
+    }
   }
 
-  onPress = () => {
-    this.setState({ editClusterOpen: true })
-  }
-
-  doneEditCluster = () => {
-    this.setState({ editClusterOpen: false })
-    if (!this.state.editedClusterUrl) {
+  submitEditCluster = (value: string) => {
+    if (!value) {
       return
     }
     const { cluster } = this.props
-    cluster.url = this.state.editedClusterUrl
+    cluster.url = value
     this.props.onEditCluster(cluster)
   }
 
   render() {
-    const cluster = this.props.cluster
-    const dialogActions = [
-      <FlatButton label='Cancel' primary onClick={() => this.setState({ editClusterOpen: false })} />,
-      <FlatButton label='Done' primary onClick={this.doneEditCluster} />
-    ]
+    const { cluster } = this.props
     return (
-      <div className='cluster' onClick={this.onPress}>
-        <h3 className='clusterTitle'>
-          <FontIcon className='clusterIcon fa fa-cube' />
-          {cluster.url}
-        </h3>
-        <Dialog
-          title='Cluster info'
-          modal={false}
-          actions={dialogActions}
-          open={this.state.editClusterOpen}
-          onRequestClose={() => this.setState({ editClusterOpen: false })}
-        >
-          <TextField
-            floatingLabelText='Cluster url'
-            defaultValue={cluster.url}
-            onChange={e => this.setState({ editedClusterUrl: e.target.value })}
-          />
-          <br />
-        </Dialog>
+      <div className='cluster'>
+        <FontIcon className='clusterIcon fa fa-cube' />
+        <TextField
+          className='clusterField'
+          floatingLabelText='Cluster url'
+          defaultValue={cluster.url}
+          underlineShow={false}
+          onKeyDown={this.onKeyDown}
+        />
       </div>
     )
   }
