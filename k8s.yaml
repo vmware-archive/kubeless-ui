@@ -24,6 +24,7 @@ spec:
           protocol: TCP
       - name: proxy
         image: kelseyhightower/kubectl:1.4.0
+        imagePullPolicy: IfNotPresent
         args:
         - proxy
         - "-p"
