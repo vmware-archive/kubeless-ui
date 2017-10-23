@@ -19,7 +19,7 @@ import Home from 'components/Home'
 export const createRoutes = store => ({
   path: '/',
   component: CoreLayout,
-  indexRoute: Home,
+  indexRoute: { component: Home },
   childRoutes: []
 })
 

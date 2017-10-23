@@ -14,17 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import HomeRoute from 'routes/Home'
+import Home from 'components/Home'
+import Editor from 'components/Editor'
+import TreeView from 'components/TreeView'
+import Cluster from 'components/Cluster'
+import { shallow } from 'enzyme'
 
-describe('(Route) Home', () => {
+describe('(View) Home', () => {
+  let _wrapper
 
-  it('Should return a route configuration object', () => {
-    expect(typeof HomeRoute).toBe('object')
-    expect(HomeRoute.component).toBeDefined()
+  beforeEach(() => {
+    _wrapper = shallow(<Home />)
   })
 
-  it('Should define a route component', () => {
-    const wrapper = shallow(<HomeRoute.component />)
-    expect(wrapper.type()).toBe('div')
+  it('Should render Cluster, Editor and TreeView children', () => {
+    expect(_wrapper.contains(<Cluster />)).toBe(true)
+    expect(_wrapper.contains(<Editor />)).toBe(true)
+    expect(_wrapper.contains(<TreeView />)).toBe(true)
   })
 })
