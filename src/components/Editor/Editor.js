@@ -21,7 +21,7 @@ import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/ruby'
 import 'brace/mode/javascript'
-import 'brace/theme/solarized_dark'
+import 'brace/theme/tomorrow_night_bright'
 import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
@@ -43,21 +43,23 @@ export default class Editor extends Component {
     onRun: () => void,
     onSave: () => void,
     onDelete: () => void,
-    onSetEditing: (boolean) => void
+    onSetEditing: boolean => void
   }
 
   state: {
     content: string,
     logsHeight: number,
-    newFuncOpen?: boolean,
+    newFuncOpen?: boolean
   }
 
   hotkeysMap = [
-    { name: 'save',
+    {
+      name: 'save',
       bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
       exec: () => this.save()
     },
-    { name: 'logs',
+    {
+      name: 'logs',
       bindKey: { win: 'Ctrl-P', mac: 'Command-P' },
       exec: () => this.toggleLogs()
     }
@@ -88,7 +90,7 @@ export default class Editor extends Component {
     const { func, cluster } = this.props
     const params = {
       ...func,
-      spec: { 'function': this.state.content }
+      spec: { function: this.state.content }
     }
     this.props.onSave(func, cluster, params)
     this.props.onSetEditing(false)
@@ -113,7 +115,7 @@ export default class Editor extends Component {
   mouseDown: boolean
   dragStart: number
   heightAtStart: number
-  onMouseDown = (e:any) => {
+  onMouseDown = (e: any) => {
     if (this.state.logsHeight > 0 && e.target === this.refs.footerBar) {
       this.mouseDown = true
       this.dragStart = e.pageY
@@ -123,7 +125,7 @@ export default class Editor extends Component {
   onMouseUp = () => {
     this.mouseDown = false
   }
-  onMouseMove = (e:any) => {
+  onMouseMove = (e: any) => {
     if (this.mouseDown) {
       const newHeight = Math.max(0, this.heightAtStart - (e.pageY - this.dragStart))
       this.setState({ logsHeight: newHeight })
@@ -134,20 +136,27 @@ export default class Editor extends Component {
     const { func } = this.props
     let mode = this.runtimeToMode()
     return (
-      <div className='editor'
-        onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp} onMouseLeave={this.onMouseUp}
-        onMouseMove={this.onMouseMove}>
+      <div
+        className='editor'
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onMouseLeave={this.onMouseUp}
+        onMouseMove={this.onMouseMove}
+      >
         <div className='editorInnerContainer'>
           {!func && this.renderEmptyView()}
-          {func && <AceEditor
-            mode={mode}
-            theme='solarized_dark'
-            onChange={this.onTextChange}
-            value={this.state.content}
-            name='ACE_EDITOR_01'
-            commands={this.hotkeysMap}
-            enableBasicAutocompletion
-          />}
+          {func && this.renderHeader()}
+          {func && (
+            <AceEditor
+              mode={mode}
+              theme='monokai'
+              onChange={this.onTextChange}
+              value={this.state.content}
+              name='ACE_EDITOR_01'
+              commands={this.hotkeysMap}
+              enableBasicAutocompletion
+            />
+          )}
           {func && this.renderFooter()}
         </div>
         {func && <FuncDetail />}
@@ -155,22 +164,38 @@ export default class Editor extends Component {
     )
   }
 
+  renderHeader() {
+    const { func, editing } = this.props
+    return (
+      <div className='editorHeader'>
+        <h5 className='title'>{func.metadata.name}</h5>
+        {editing && <div className='editingFlag' />}
+      </div>
+    )
+  }
+
   renderFooter() {
     const isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
     const saveButton = (
-      <IconButton
-        onClick={this.save} tooltip={`Save (${isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-center'>
-        <FontIcon className='fa fa-cloud-upload' />
+      <IconButton onClick={this.save} tooltip={`Save (${isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-center'>
+        <FontIcon className='fa fa-cloud-upload' color='black' />
       </IconButton>
     )
     return (
       <div className='editorFooter'>
-        <div className='editorFooterLinks' ref='footerBar'
-          style={{ cursor: this.state.logsHeight > 0 ? 'row-resize' : 'default' }}>
+        <div
+          className='editorFooterLinks'
+          ref='footerBar'
+          style={{ cursor: this.state.logsHeight > 0 ? 'row-resize' : 'default' }}
+        >
           {this.props.editing && saveButton}
-          <IconButton style={{ marginLeft: 'auto' }}
-            onClick={this.toggleLogs} tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`} tooltipPosition='top-center'>
-            <FontIcon className='fa fa-terminal' />
+          <IconButton
+            style={{ marginLeft: 'auto' }}
+            onClick={this.toggleLogs}
+            tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`}
+            tooltipPosition='top-center'
+          >
+            <FontIcon className='fa fa-terminal' color='black' />
           </IconButton>
         </div>
         <div style={{ display: 'flex', height: this.state.logsHeight }}>
@@ -184,16 +209,15 @@ export default class Editor extends Component {
       <div className='editorEmpty'>
         <p>
           {'Choose a function on the list'}
-          <br />{'or create a new one'}
+          <br />
+          {'or create a new one'}
         </p>
         <FlatButton
           label='create'
           onClick={() => this.setState({ newFuncOpen: true })}
           icon={<FontIcon className='material-icons'>add</FontIcon>}
         />
-        <FuncCreateContainer open={this.state.newFuncOpen}
-          onDismiss={() => this.setState({ newFuncOpen: false })}
-        />
+        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
       </div>
     )
   }

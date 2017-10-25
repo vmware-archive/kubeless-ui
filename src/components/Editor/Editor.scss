@@ -13,58 +13,79 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+@import '../../styles/variables';
+
 .editor {
   flex: 1;
   position: relative;
-  background: #002B35;
+  background: white;
   display: flex;
-}
-.editorInnerContainer {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.ace_editor {
-  flex: 1;
-  height: auto !important;
-  width: auto !important;
-}
-.editorEmpty {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.2);
-  font-size: 1.2em;
-}
-.editorFooter {
-  display: flex;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: #00313E;
-  flex-direction: column;
-  z-index: 10;
-  a {
-    color: white;
-  }
-  .editorFooterLinks {
+
+  .editorInnerContainer {
     flex: 1;
-    padding: 0 10px;
-    height: 39px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+  }
+  .ace_editor {
+    flex: 1;
+    height: auto !important;
+    width: auto !important;
+  }
+  .editorEmpty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+    color: $dark-blue;
+    font-size: 1.2em;
+  }
+  .editorHeader {
+    text-align: left;
+    padding: 0 1em;
+    border-bottom: 1px solid $light-gray;
+    .title {
+      display: inline-block;
+      font-size: 1.2em;
+      opacity: 0.5;
+    }
+    .editingFlag {
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      background: $blue;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+  .editorFooter {
+    display: flex;
+    border-top: 1px solid $light-gray;
+    flex-direction: column;
+    z-index: 10;
+    a {
+      color: $dark-blue;
+    }
+    .editorFooterLinks {
+      flex: 1;
+      padding: 0;
+      height: 39px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
 .editorPanel {
   width: 300px;
-  color: white;
-  background: #00313E;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  color: $dark-blue;
+  background: $background-gradient;
+  border-left: 1px solid $light-gray;
   text-align: left;
-  padding: 0 10px 20px 10px;
+  padding: 0 2em 4em 2em;
   overflow: auto;
 
   .functionTitle {
@@ -78,11 +99,13 @@ limitations under the License.
   }
   .actionsButtons {
     text-align: right;
-    .button:nth-child(1), .button:nth-child(1) button {
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
+    .button:nth-child(1),
+    .button:nth-child(1) button {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
     }
-    .button:nth-child(2), .button:nth-child(2) button {
+    .button:nth-child(2),
+    .button:nth-child(2) button {
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
     }
@@ -106,7 +129,7 @@ limitations under the License.
   }
 
   .methodContainer {
-    background: #FF3876;
+    background: $dark-blue;
     width: 75px;
     height: 36px;
     display: inline-block;
@@ -115,13 +138,15 @@ limitations under the License.
     vertical-align: bottom;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
-    button { // tick
+    button {
+      // tick
       right: -10px !important;
       fill: rgba(0, 0, 0, 0.3) !important;
     }
   }
 
-  .runButton, .runButton button {
+  .runButton,
+  .runButton button {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
   }

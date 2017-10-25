@@ -23,9 +23,8 @@ describe('(Component) Header', () => {
     _wrapper = shallow(<Header />)
   })
 
-  it('Renders app title', () => {
-    const welcome = _wrapper.find('h1')
+  it('Renders app logo', () => {
+    const welcome = _wrapper.find('img')
     expect(welcome.length).toBe(1)
-    expect(welcome.text()).toBe('Kubeless editor')
   })
 })

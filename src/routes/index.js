@@ -14,15 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import CoreLayout from 'components/CoreLayout'
-import Home from 'routes/Home'
+import Home from 'components/Home'
 
-export const createRoutes = (store) => ({
-  path        : '/',
-  component   : CoreLayout,
-  indexRoute  : Home,
-  childRoutes : [
-    // CounterRoute(store)
-  ]
+export const createRoutes = store => ({
+  path: '/',
+  component: CoreLayout,
+  indexRoute: { component: Home },
+  childRoutes: []
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically

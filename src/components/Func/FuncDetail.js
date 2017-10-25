@@ -65,7 +65,9 @@ export default class FuncDetail extends Component {
   }
 
   run = () => {
-    if (this.state.running) { return }
+    if (this.state.running) {
+      return
+    }
     const { body, json, method } = this.state
     const { func, cluster } = this.props
     let requestData
@@ -103,36 +105,42 @@ export default class FuncDetail extends Component {
 
   render() {
     const { func } = this.props
-    if (!func) { return }
+    if (!func) {
+      return
+    }
 
     const deleteActions = [
-      <FlatButton
-        label='Cancel' primary
-        onTouchTap={() => this.setState({ confirmDelete: false })}
-      />,
-      <FlatButton
-        label='Yes, delete it!' secondary
-        onTouchTap={this.delete}
-      />
+      <FlatButton label='Cancel' primary onTouchTap={() => this.setState({ confirmDelete: false })} />,
+      <FlatButton label='Yes, delete it!' secondary onTouchTap={this.delete} />
     ]
 
     return (
       <div className='funcDetail'>
         <div className='functionTitle'>
-          <h3>{func.metadata.name}</h3>
           <p>
-            <b>Handler: </b>{func.spec.handler}<br />
-            <b>Runtime: </b>{func.spec.runtime}<br />
-            <b>Type: </b>{func.spec.type}
+            <b>Handler: </b>
+            {func.spec.handler}
+            <br />
+            <b>Runtime: </b>
+            {func.spec.runtime}
+            <br />
+            <b>Type: </b>
+            {func.spec.type}
           </p>
           <div className='actionsButtons'>
             <Button className='button' label='Edit' primary onClick={() => this.setState({ editing: true })} />
-            <Button className='button' label='Delete' secondary
-              onClick={() => this.setState({ confirmDelete: true })} />
+            <Button
+              className='button'
+              label='Delete'
+              secondary
+              onClick={() => this.setState({ confirmDelete: true })}
+            />
           </div>
-          <FuncEdit open={!!this.state.editing} func={func}
+          <FuncEdit
+            open={!!this.state.editing}
+            func={func}
             onDismiss={() => this.setState({ editing: false })}
-            onDone={(params) => this.doneEditing(params)}
+            onDone={params => this.doneEditing(params)}
           />
           <Dialog
             actions={deleteActions}
@@ -143,8 +151,6 @@ export default class FuncDetail extends Component {
           >
             {`Delete ${func.metadata.name} function from Kubeless? This cannot be undone`}
           </Dialog>
-          <br />
-          <br />
         </div>
         {this.renderRun()}
         {this.renderResponse()}
@@ -162,17 +168,21 @@ export default class FuncDetail extends Component {
     return (
       <div className='functionRun'>
         <h5>Request</h5>
-        <textarea className='body' placeholder={json ? '{ "hello": "world" }' : 'hello=world'}
-          value={body} onChange={(e) => this.setState({ body: e.target.value })} />
-        <br /><br />
-        <RadioButtonGroup name='bodyFormat'
+        <RadioButtonGroup
+          name='bodyFormat'
           valueSelected={json ? 'json' : 'text'}
-          onChange={(o, v) => this.setState({ json: v === 'json' })}>
-          <RadioButton value='json' label='JSON'
-            className='radioButton' />
-          <RadioButton value='text' label='Text'
-            className='radioButton' />
+          onChange={(o, v) => this.setState({ json: v === 'json' })}
+        >
+          <RadioButton value='json' label='JSON' className='radioButton' />
+          <RadioButton value='text' label='Text' className='radioButton' />
         </RadioButtonGroup>
+        <textarea
+          className='body'
+          placeholder={json ? '{ "hello": "world" }' : 'hello=world'}
+          value={body}
+          onChange={e => this.setState({ body: e.target.value })}
+        />
+        <br />
         <br />
         <div className='methodContainer'>
           <SelectField
@@ -180,7 +190,7 @@ export default class FuncDetail extends Component {
             fullWidth
             style={{ paddingLeft: 10, marginTop: -5 }}
             underlineStyle={{ border: 0 }}
-            labelStyle={{ color: 'rgb(48, 48, 48)' }}
+            labelStyle={{ color: 'white' }}
             onChange={(e, i, method) => this.setState({ method })}
           >
             {methods}
@@ -193,7 +203,9 @@ export default class FuncDetail extends Component {
 
   renderResponse() {
     let { func, response } = this.props
-    if (!func) { return }
+    if (!func) {
+      return
+    }
     const { running, errorMessage } = this.state
 
     if (response && typeof response === 'object') {
@@ -201,33 +213,23 @@ export default class FuncDetail extends Component {
     }
     let content
     if (running) {
-      content = (
-        <p>{`Running ${func.metadata.name}...`}</p>
-      )
+      content = <p>{`Running ${func.metadata.name}...`}</p>
     } else if (errorMessage) {
       content = (
         <div>
           <h5>Error</h5>
-          <p className='body'>
-            {errorMessage}
-          </p>
+          <p className='body'>{errorMessage}</p>
         </div>
       )
     } else if (response) {
       content = (
         <div>
           <h5>Response</h5>
-          <p className='body'>
-            {response}
-          </p>
+          <p className='body'>{response}</p>
         </div>
       )
     }
-    return (
-      <div className='functionResult'>
-        {content}
-      </div>
-    )
+    return <div className='functionResult'>{content}</div>
   }
 
 }

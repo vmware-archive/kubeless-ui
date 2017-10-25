@@ -18,6 +18,7 @@ limitations under the License.
 import React, { Component } from 'react'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
+import logo from './assets/kubeless-dark-text.png'
 import './Header.scss'
 
 export default class Header extends Component {
@@ -25,12 +26,16 @@ export default class Header extends Component {
   render() {
     return (
       <div className='header'>
-        <h1>Kubeless editor</h1>
-        <a href='https://github.com/kubeless/kubeless-ui' target='_blank'>
-          <IconButton tooltip='Github'>
-            <FontIcon className='fa fa-github' />
-          </IconButton>
-        </a>
+        <div className='left'>
+          <img className='logo' src={logo} />
+        </div>
+        <div className='right'>
+          <a href='https://github.com/kubeless/kubeless-ui' target='_blank'>
+            <IconButton tooltip='Github'>
+              <FontIcon className='fa fa-github' color='white' />
+            </IconButton>
+          </a>
+        </div>
       </div>
     )
   }

@@ -13,13 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
+@import '../../styles/variables';
+
 .treeview {
   position: relative;
   flex: 1;
   max-width: 250px;
-  background: #00313E;
-  color: white;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: $dark-blue;
+  border-right: 1px solid $light-gray;
   display: flex;
   flex-direction: column;
 
@@ -31,64 +33,36 @@ limitations under the License.
     text-align: center;
     box-sizing: border-box;
     font-size: 1.2em;
-    color: rgba(255, 255, 255, 0.5);
+    p,
     a {
-      color: white;
+      color: $dark-blue;
     }
   }
-
-  .treeviewHeader {
-    display: flex;
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    align-items: center;
-    padding: 0 10px;
-    background: #002B35;
-  }
-  .folderTitle {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 1.2em;
-    text-align: left;
-    margin: 0 10px;
-  }
-  .folderIcon {
-    width: 20px;
-  }
-  .editIcon {
-    display: none !important;
-    cursor: pointer;
-  }
-  .treeviewHeader:hover .editIcon {
-    display: block !important;
-  }
-
-
 
   .funcs {
     flex: 1;
     text-align: left;
-    padding: 10px 0 0 0;
-    cursor: default;
+    padding: 0.5em 2em 0 2em;
+    .funcsTitle {
+      margin-top: 0;
+    }
     .func {
       display: flex;
       align-items: center;
       height: 30px;
-      padding: 0 10px;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: normal;
+      color: $dark-blue;
+      opacity: 0.5;
+      .fa {
+        color: inherit !important;
+        margin-right: 8px;
+        font-size: 0.9em !important;
+      }
       &.active {
-        background: rgba(255, 255, 255, 0.05);
-      }
-      .title {
-        font-size: 0.9em;
-        font-weight: normal;
-      }
-      img {
-        width: 15px;
-        margin-right: 5px;
-        margin-bottom: 2px;
+        opacity: 1;
+        color: $blue;
       }
     }
   }
@@ -96,13 +70,12 @@ limitations under the License.
   .treeviewFooter {
     height: 40px;
     padding: 0;
-    background: #00313E;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid $light-gray;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     a {
-      color: white;
+      color: $dark-blue;
     }
   }
 }

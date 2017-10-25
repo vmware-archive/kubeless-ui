@@ -14,9 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react'
-import Home from 'routes/Home/components/Home'
+import Home from 'components/Home'
 import Editor from 'components/Editor'
 import TreeView from 'components/TreeView'
+import Cluster from 'components/Cluster'
 import { shallow } from 'enzyme'
 
 describe('(View) Home', () => {
@@ -26,7 +27,8 @@ describe('(View) Home', () => {
     _wrapper = shallow(<Home />)
   })
 
-  it('Should render Editor and TreeView', () => {
+  it('Should render Cluster, Editor and TreeView children', () => {
+    expect(_wrapper.contains(<Cluster />)).toBe(true)
     expect(_wrapper.contains(<Editor />)).toBe(true)
     expect(_wrapper.contains(<TreeView />)).toBe(true)
   })

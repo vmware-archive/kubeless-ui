@@ -13,18 +13,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React from 'react'
-import HomeRoute from 'routes/Home'
 
-describe('(Route) Home', () => {
+// @flow
+import { connect } from 'react-redux'
+import Cluster from './Cluster'
+import { clusterEdit } from 'store/clusters'
+import { podsFetch } from 'store/pods'
+import { funcsFetch } from 'store/funcs'
 
-  it('Should return a route configuration object', () => {
-    expect(typeof HomeRoute).toBe('object')
-    expect(HomeRoute.component).toBeDefined()
-  })
-
-  it('Should define a route component', () => {
-    const wrapper = shallow(<HomeRoute.component />)
-    expect(wrapper.type()).toBe('div')
-  })
+const mapStateToProps = ({ clusters }) => ({
+  cluster: clusters.cluster
 })
+
+const mapDispatchToProps = dispatch => ({
+  onEditCluster: cluster => {
+    dispatch(clusterEdit(cluster))
+    dispatch(podsFetch(cluster))
+    dispatch(funcsFetch(cluster))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cluster)

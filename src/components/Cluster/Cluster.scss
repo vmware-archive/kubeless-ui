@@ -13,9 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import Home from './components/Home'
 
-// Sync route definition
-export default {
-  component : Home
+@import '../../styles/variables';
+
+.cluster {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 1em 2em;
+  .clusterIcon {
+    margin-right: 10px;
+  }
+  .clusterField {
+    font-size: 1.4em !important;
+  }
 }

@@ -15,8 +15,15 @@ limitations under the License.
 */
 .home {
   position: relative;
-  padding-top: 50px;
+  padding-top: 70px;
   box-sizing: border-box;
   flex: 1;
   display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  }
 }

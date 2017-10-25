@@ -13,24 +13,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
-$background-gradient: linear-gradient(to left, #303030, #142d5b);
-$blue: #3371e3;
-$dark-blue: #38383f;
-$light-gray: #d7d9dd;
-$red: #e53935;
-
-@mixin placeholder {
-  &::-webkit-input-placeholder {
-    @content;
-  }
-  &:-moz-placeholder {
-    @content;
-  }
-  &::-moz-placeholder {
-    @content;
-  }
-  &:-ms-input-placeholder {
-    @content;
-  }
-}
+import ClusterContainer from './ClusterContainer'
+export default ClusterContainer

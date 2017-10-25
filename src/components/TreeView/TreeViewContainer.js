@@ -18,7 +18,6 @@ limitations under the License.
 import { connect } from 'react-redux'
 import TreeView from './TreeView'
 import { funcsSelect, funcsFetch } from 'store/funcs'
-import { clusterEdit } from 'store/clusters'
 import { podsSelect, podsFetch } from 'store/pods'
 
 const mapStateToProps = ({ funcs, clusters }) => ({
@@ -28,16 +27,15 @@ const mapStateToProps = ({ funcs, clusters }) => ({
   cluster: clusters.cluster
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onSelect: (func) => {
+const mapDispatchToProps = dispatch => ({
+  onSelect: func => {
     dispatch(funcsSelect(func))
     dispatch(podsSelect())
   },
-  onFetch: (cluster) => {
+  onFetch: cluster => {
     dispatch(podsFetch(cluster))
     dispatch(funcsFetch(cluster))
-  },
-  onEditCluster: (cluster) => dispatch(clusterEdit(cluster))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TreeView)
