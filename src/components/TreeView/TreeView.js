@@ -19,7 +19,6 @@ import React, { Component } from 'react'
 import type { Func, Cluster } from 'utils/Types'
 import FuncsList from './FuncsList'
 import FuncCreateContainer from 'components/Func/FuncCreateContainer'
-import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 import './TreeView.scss'
@@ -69,9 +68,10 @@ export default class TreeView extends Component {
     return (
       <div className='treeview'>
         {this.renderLoader()}
-        {this.props.funcs.length > 0 && (
-          <FuncsList funcs={this.props.funcs} selectedFunc={this.props.selectedFunc} onSelect={this.onSelect} />
-        )}
+        {!this.props.loading &&
+          this.props.funcs.length > 0 && (
+            <FuncsList funcs={this.props.funcs} selectedFunc={this.props.selectedFunc} onSelect={this.onSelect} />
+          )}
         {this.renderFooter()}
       </div>
     )
@@ -80,18 +80,15 @@ export default class TreeView extends Component {
   renderLoader() {
     let content
     if (this.props.loading) {
-      content = <p>{'...Loading functions...'}</p>
+      content = <p>{'Loading functions...'}</p>
     } else if (this.props.funcs.length === 0) {
       content = (
-        <p>
-          {'No function found'}
-          <br />
-          <FlatButton
-            label='Refresh'
-            onClick={this.refresh}
-            icon={<FontIcon className='material-icons'>replay</FontIcon>}
-          />
-        </p>
+        <div>
+          <p> {'No function found'}</p>
+          <a className='button button-primary' onClick={this.refresh}>
+            Refresh
+          </a>
+        </div>
       )
     } else {
       return
@@ -107,7 +104,7 @@ export default class TreeView extends Component {
           tooltipPosition='top-right'
           onClick={() => this.setState({ newFuncOpen: true })}
         >
-          <FontIcon className='material-icons'>add</FontIcon>
+          <FontIcon className='fa fa-plus' />
         </IconButton>
         <IconButton
           tooltip='Refresh Functions'
@@ -115,7 +112,7 @@ export default class TreeView extends Component {
           onClick={this.refresh}
           style={{ marginLeft: 'auto' }}
         >
-          <FontIcon className='material-icons'>replay</FontIcon>
+          <FontIcon className='fa fa-refresh' />
         </IconButton>
         <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
       </div>

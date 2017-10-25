@@ -31,7 +31,7 @@ export default class FuncsList extends Component {
   render() {
     return (
       <div className='funcs'>
-        <h3 className='funcsTitle'>Functions</h3>
+        <h4 className='funcsTitle'>Functions</h4>
         {this.props.funcs.map(func => this.renderFunc(func))}
       </div>
     )

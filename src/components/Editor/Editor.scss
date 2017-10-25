@@ -39,34 +39,29 @@ limitations under the License.
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: $dark-blue;
+    color: $bitnami-text;
     font-size: 1.2em;
   }
   .editorHeader {
     text-align: left;
     padding: 0 1em;
-    border-bottom: 1px solid $light-gray;
-    .title {
-      display: inline-block;
-      font-size: 1.2em;
-      opacity: 0.5;
-    }
+    border-bottom: 1px solid $bitnami-light;
     .editingFlag {
       width: 10px;
       height: 10px;
       border-radius: 5px;
-      background: $blue;
+      background: $bitnami-accent;
       display: inline-block;
       margin-left: 5px;
     }
   }
   .editorFooter {
     display: flex;
-    border-top: 1px solid $light-gray;
+    border-top: 1px solid $bitnami-light;
     flex-direction: column;
     z-index: 10;
     a {
-      color: $dark-blue;
+      color: $bitnami-text;
     }
     .editorFooterLinks {
       flex: 1;
@@ -81,19 +76,18 @@ limitations under the License.
 }
 .editorPanel {
   width: 300px;
-  color: $dark-blue;
-  background: $background-gradient;
-  border-left: 1px solid $light-gray;
+  color: $bitnami-text;
+  border-left: 1px solid $bitnami-light;
   text-align: left;
   padding: 0 2em 4em 2em;
   overflow: auto;
 
   .functionTitle {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid $bitnami-light;
     margin-bottom: 20px;
   }
   .functionRun {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid $bitnami-light;
     padding-bottom: 20px;
     margin-bottom: 20px;
   }
@@ -121,15 +115,15 @@ limitations under the License.
   .body {
     width: 100%;
     border: 0;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    background-color: $bitnami-light;
+    border-radius: 3px;
     padding: 5px;
     resize: vertical;
     outline: none;
   }
 
   .methodContainer {
-    background: $dark-blue;
+    background: $bitnami-primary;
     width: 75px;
     height: 36px;
     display: inline-block;

@@ -28,7 +28,6 @@ import RuntimeHelper from 'utils/RuntimeHelper'
 import FuncDetail from 'components/Func/FuncDetailContainer'
 import FuncCreateContainer from 'components/Func/FuncCreateContainer'
 import Logs from 'components/Logs'
-import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
@@ -168,7 +167,7 @@ export default class Editor extends Component {
     const { func, editing } = this.props
     return (
       <div className='editorHeader'>
-        <h5 className='title'>{func.metadata.name}</h5>
+        <h4 className='title'>{func.metadata.name}</h4>
         {editing && <div className='editingFlag' />}
       </div>
     )
@@ -212,11 +211,9 @@ export default class Editor extends Component {
           <br />
           {'or create a new one'}
         </p>
-        <FlatButton
-          label='create'
-          onClick={() => this.setState({ newFuncOpen: true })}
-          icon={<FontIcon className='material-icons'>add</FontIcon>}
-        />
+        <a className='button button-primary' onClick={() => this.setState({ newFuncOpen: true })}>
+          Create Function
+        </a>
         <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
       </div>
     )

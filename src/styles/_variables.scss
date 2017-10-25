@@ -14,11 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-$background-gradient: linear-gradient(to left, #303030, #142d5b);
-$blue: #3371e3;
-$dark-blue: #38383f;
-$light-gray: #d7d9dd;
-$red: #e53935;
+// Colors from Bitnami Design System
+$bitnami-brand: #162d50;
+$bitnami-primary: #14384e;
+$bitnami-secondary: #1f577a;
+$bitnami-accent: #40b654;
+$bitnami-light: #e6e7e8;
+$bitnami-dark: #37474f;
+$bitnami-text: #2f3032;
+$bitnami-action: #ef4324;
+$bitnami-base: #fff;
 
 @mixin placeholder {
   &::-webkit-input-placeholder {

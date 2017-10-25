@@ -48,14 +48,11 @@ export default class ClusterComponent extends Component {
     const { cluster } = this.props
     return (
       <div className='cluster'>
-        <FontIcon className='clusterIcon fa fa-cube' />
-        <TextField
-          className='clusterField'
-          floatingLabelText='Cluster url'
-          defaultValue={cluster.url}
-          underlineShow={false}
-          onKeyDown={this.onKeyDown}
-        />
+        <FontIcon className='margin-r-normal fa fa-cube' />
+        <div className='clusterUrl'>
+          <label>Cluster url</label>
+          <input placeholder='http://localhost:8080' defaultValue={cluster.url} onKeyDown={this.onKeyDown} />
+        </div>
       </div>
     )
   }
