@@ -166,8 +166,8 @@ export default class Editor extends Component {
   renderHeader() {
     const { func, editing } = this.props
     return (
-      <div className='editorHeader'>
-        <h4 className='title'>{func.metadata.name}</h4>
+      <div className='editorHeader padding-h-big padding-v-small'>
+        <h4 className='title margin-reset'>{func.metadata.name}</h4>
         {editing && <div className='editingFlag' />}
       </div>
     )
