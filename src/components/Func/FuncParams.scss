@@ -27,18 +27,18 @@ limitations under the License.
   }
   .react-tagsinput {
     border-radius: 3px;
-    border-color: $bitnami-light;
+    border-color: $kubeapps-light;
     &--focused {
-      border-color: $bitnami-accent;
+      border-color: $kubeapps-accent;
     }
     input {
       font-size: 1em;
       min-width: 150px;
     }
     &-tag {
-      background: $bitnami-secondary;
-      border-color: $bitnami-primary;
-      color: $bitnami-base;
+      background: $kubeapps-secondary;
+      border-color: $kubeapps-primary;
+      color: $kubeapps-base;
       a {
         color: inherit;
       }

@@ -18,17 +18,17 @@ limitations under the License.
 
 .funcDetail {
   width: 300px;
-  color: $bitnami-text;
+  color: $kubeapps-text;
   background: white;
   text-align: left;
   overflow: auto;
-  border-left: 1px solid $bitnami-light;
+  border-left: 1px solid $kubeapps-light;
 
   .functionTitle {
-    border-bottom: 1px solid $bitnami-light;
+    border-bottom: 1px solid $kubeapps-light;
   }
   .functionRun {
-    border-bottom: 1px solid $bitnami-light;
+    border-bottom: 1px solid $kubeapps-light;
     .radios label {
       display: inline-block;
     }
@@ -39,8 +39,8 @@ limitations under the License.
   .body {
     width: 100%;
     border: 0;
-    background: $bitnami-base;
-    border: 1px solid $bitnami-light;
+    background: $kubeapps-base;
+    border: 1px solid $kubeapps-light;
     border-radius: 2px;
     padding: 5px;
     resize: vertical;

@@ -20,8 +20,8 @@ limitations under the License.
   position: relative;
   flex: 1;
   max-width: 250px;
-  color: $bitnami-text;
-  border-right: 1px solid $bitnami-light;
+  color: $kubeapps-text;
+  border-right: 1px solid $kubeapps-light;
   display: flex;
   flex-direction: column;
 
@@ -43,7 +43,7 @@ limitations under the License.
       cursor: pointer;
       font-size: 1.2em;
       font-weight: normal;
-      color: $bitnami-text;
+      color: $kubeapps-text;
       opacity: 0.5;
       .fa {
         color: inherit !important;
@@ -52,7 +52,7 @@ limitations under the License.
       }
       &.active {
         opacity: 1;
-        color: $bitnami-secondary;
+        color: $kubeapps-secondary;
       }
     }
   }
@@ -60,15 +60,15 @@ limitations under the License.
   .treeviewFooter {
     height: 40px;
     padding: 0;
-    border-top: 1px solid $bitnami-light;
+    border-top: 1px solid $kubeapps-light;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     a {
-      color: $bitnami-text;
+      color: $kubeapps-text;
     }
     .fa {
-      color: $bitnami-text !important;
+      color: $kubeapps-text !important;
       font-size: 18px !important;
     }
   }

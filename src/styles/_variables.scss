@@ -15,15 +15,15 @@ limitations under the License.
 */
 
 // Colors from Bitnami Design System
-$bitnami-brand: #162d50;
-$bitnami-primary: #14384e;
-$bitnami-secondary: #1f577a;
-$bitnami-accent: #40b654;
-$bitnami-light: #e6e7e8;
-$bitnami-dark: #37474f;
-$bitnami-text: #2f3032;
-$bitnami-action: #ef4324;
-$bitnami-base: #fff;
+$kubeapps-brand: #162d50;
+$kubeapps-primary: #14384e;
+$kubeapps-secondary: #1f577a;
+$kubeapps-accent: #40b654;
+$kubeapps-light: #e6e7e8;
+$kubeapps-dark: #37474f;
+$kubeapps-text: #2f3032;
+$kubeapps-action: #ef4324;
+$kubeapps-base: #fff;
 
 @mixin placeholder {
   &::-webkit-input-placeholder {
