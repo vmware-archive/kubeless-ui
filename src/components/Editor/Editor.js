@@ -177,7 +177,7 @@ export default class Editor extends Component {
     const isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
     const saveButton = (
       <IconButton onClick={this.save} tooltip={`Save (${isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-center'>
-        <FontIcon className='fa fa-cloud-upload' color='black' />
+        <FontIcon className='fa fa-cloud-upload' />
       </IconButton>
     )
     return (
@@ -194,7 +194,7 @@ export default class Editor extends Component {
             tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`}
             tooltipPosition='top-center'
           >
-            <FontIcon className='fa fa-terminal' color='black' />
+            <FontIcon className='fa fa-terminal' />
           </IconButton>
         </div>
         <div style={{ display: 'flex', height: this.state.logsHeight }}>

@@ -112,7 +112,7 @@ export default class FuncDetail extends Component {
 
     return (
       <div className='funcDetail'>
-        <div className='functionTitle padding-big'>
+        <div className='functionTitle padding-big padding-t-reset'>
           <p>
             <b>Handler: </b>
             {func.spec.handler}

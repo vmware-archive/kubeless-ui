@@ -45,6 +45,9 @@ limitations under the License.
   .editorHeader {
     text-align: left;
     border-bottom: 1px solid $kubeapps-light;
+    .title {
+      display: inline-block;
+    }
     .editingFlag {
       width: 10px;
       height: 10px;
@@ -62,6 +65,10 @@ limitations under the License.
     a {
       color: $kubeapps-text;
     }
+    .fa {
+      color: $kubeapps-text !important;
+      font-size: 18px !important;
+    }
     .editorFooterLinks {
       flex: 1;
       padding: 0;
@@ -71,76 +78,5 @@ limitations under the License.
       align-items: center;
       justify-content: space-between;
     }
-  }
-}
-.editorPanel {
-  width: 300px;
-  color: $kubeapps-text;
-  border-left: 1px solid $kubeapps-light;
-  text-align: left;
-  padding: 0 2em 4em 2em;
-  overflow: auto;
-
-  .functionTitle {
-    border-bottom: 1px solid $kubeapps-light;
-    margin-bottom: 20px;
-  }
-  .functionRun {
-    border-bottom: 1px solid $kubeapps-light;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-  }
-  .actionsButtons {
-    text-align: right;
-    .button:nth-child(1),
-    .button:nth-child(1) button {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-    }
-    .button:nth-child(2),
-    .button:nth-child(2) button {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
-    }
-  }
-  .radioButton {
-    width: auto !important;
-    display: inline-block !important;
-    label {
-      margin-left: -11px;
-      margin-right: 10px;
-    }
-  }
-  .body {
-    width: 100%;
-    border: 0;
-    background-color: $kubeapps-light;
-    border-radius: 3px;
-    padding: 5px;
-    resize: vertical;
-    outline: none;
-  }
-
-  .methodContainer {
-    background: $kubeapps-primary;
-    width: 75px;
-    height: 36px;
-    display: inline-block;
-    overflow: hidden;
-    box-sizing: border-box;
-    vertical-align: bottom;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    button {
-      // tick
-      right: -10px !important;
-      fill: rgba(0, 0, 0, 0.3) !important;
-    }
-  }
-
-  .runButton,
-  .runButton button {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
   }
 }
