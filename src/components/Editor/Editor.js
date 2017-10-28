@@ -205,11 +205,11 @@ export default class Editor extends Component {
   }
   renderEmptyView() {
     return (
-      <div className='editorEmpty'>
+      <div className='editorEmpty type-big'>
         <p>
-          {'Choose a function on the list'}
+          Choose a function on the list
           <br />
-          {'or create a new one'}
+          or create a new one
         </p>
         <a className='button button-primary' onClick={() => this.setState({ newFuncOpen: true })}>
           Create Function

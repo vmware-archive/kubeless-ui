@@ -41,8 +41,12 @@ export default class FuncsList extends Component {
     const { selectedFunc, onSelect } = this.props
     const isActive = selectedFunc && func.metadata.uid === selectedFunc.metadata.uid
     return (
-      <div key={func.metadata.uid} onClick={() => onSelect(func)} className={`func ${isActive ? 'active' : ''}`}>
-        <FontIcon className='fa fa-file-code-o' />
+      <div
+        key={func.metadata.uid}
+        onClick={() => onSelect(func)}
+        className={`func type-big ${isActive ? 'active' : ''}`}
+      >
+        <FontIcon className='fa fa-file-code-o margin-r-small' />
         {func.metadata.name}
       </div>
     )

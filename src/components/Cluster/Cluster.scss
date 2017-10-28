@@ -24,16 +24,9 @@ limitations under the License.
     color: $kubeapps-text !important;
   }
   .clusterUrl {
-    text-align: left;
-    label {
-      margin: 0;
-    }
     input {
-      font-size: 1.3em !important;
-      line-height: 0;
-      height: auto;
-      margin: 0;
-      padding: 0;
+      margin-top: -6px;
+      background: none;
       border-color: transparent;
       box-shadow: none;
     }

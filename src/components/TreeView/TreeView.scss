@@ -41,14 +41,12 @@ limitations under the License.
       align-items: center;
       height: 30px;
       cursor: pointer;
-      font-size: 1.2em;
       font-weight: normal;
       color: $kubeapps-text;
       opacity: 0.5;
       .fa {
         color: inherit !important;
-        margin-right: 8px;
-        font-size: 0.9em !important;
+        font-size: 1rem !important;
       }
       &.active {
         opacity: 1;
@@ -69,7 +67,7 @@ limitations under the License.
     }
     .fa {
       color: $kubeapps-text !important;
-      font-size: 18px !important;
+      font-size: 1.2rem !important;
     }
   }
 }

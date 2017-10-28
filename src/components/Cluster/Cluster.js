@@ -47,10 +47,15 @@ export default class ClusterComponent extends Component {
     const { cluster } = this.props
     return (
       <div className='cluster padding-big'>
-        <FontIcon className='margin-r-normal fa fa-cube' />
-        <div className='clusterUrl'>
-          <label>Cluster url</label>
-          <input placeholder='http://localhost:8080' defaultValue={cluster.url} onKeyDown={this.onKeyDown} />
+        <FontIcon className='fa fa-cube margin-r-normal' />
+        <div className='clusterUrl text-l'>
+          <label className='margin-reset'>Cluster url</label>
+          <input
+            className='type-big margin-reset padding-reset'
+            placeholder='http://localhost:8080'
+            defaultValue={cluster.url}
+            onKeyDown={this.onKeyDown}
+          />
         </div>
       </div>
     )
