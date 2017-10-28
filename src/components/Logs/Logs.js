@@ -99,7 +99,7 @@ export default class Logs extends Component {
 
     return (
       <div className='logs'>
-        {pods.length === 0 && <div className='emptyPods'>{'Loading Pods...'}</div>}
+        {pods.length === 0 && <div className='emptyPods'>Loading Pods...</div>}
         {this.renderPods()}
         <div ref='logsContainer' className='logsContainer'>
           <pre className='padding-normal'>{logs}</pre>

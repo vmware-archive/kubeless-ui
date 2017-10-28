@@ -21,7 +21,7 @@ import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/ruby'
 import 'brace/mode/javascript'
-import 'brace/theme/tomorrow_night_bright'
+import 'brace/theme/chrome'
 import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
@@ -153,7 +153,7 @@ export default class Editor extends Component {
           {func && (
             <AceEditor
               mode={mode}
-              theme='monokai'
+              theme='chrome'
               onChange={this.onTextChange}
               value={this.state.content}
               name='ACE_EDITOR_01'

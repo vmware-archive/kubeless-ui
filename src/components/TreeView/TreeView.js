@@ -88,7 +88,7 @@ export default class TreeView extends Component {
     } else if (this.props.funcs.length === 0) {
       content = (
         <div>
-          <p> {'No function found'}</p>
+          <p>No function found</p>
           <a className='button button-primary' onClick={this.refresh}>
             Refresh
           </a>
