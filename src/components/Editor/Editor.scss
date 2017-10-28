@@ -46,13 +46,17 @@ limitations under the License.
     .title {
       display: inline-block;
     }
-    .editingFlag {
-      width: 10px;
-      height: 10px;
-      border-radius: 5px;
-      background: $kubeapps-accent;
-      display: inline-block;
-      margin-left: 5px;
+    .editingIconContainer {
+      padding: 0 !important;
+      height: auto !important;
+      width: auto !important;
+      margin-left: 5px !important;
+      .editingIcon {
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background: $kubeapps-accent;
+      }
     }
   }
   .editorFooter {

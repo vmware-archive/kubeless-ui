@@ -70,6 +70,7 @@ export default class Editor extends Component {
       content: props.func ? props.func.spec['function'] : '',
       logsHeight: 0
     }
+    this.isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
   }
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
@@ -104,6 +105,10 @@ export default class Editor extends Component {
     const { func } = this.props
     const runtime = func ? func.spec.runtime : null
     return RuntimeHelper.runtimeToLanguage(runtime)
+  }
+
+  toggleNewFuncModal = () => {
+    this.setState({ newFuncOpen: !this.state.newFuncOpen })
   }
 
   toggleLogs = () => {
@@ -168,15 +173,23 @@ export default class Editor extends Component {
     return (
       <div className='editorHeader padding-h-big padding-v-small'>
         <h4 className='title margin-reset'>{func.metadata.name}</h4>
-        {editing && <div className='editingFlag' />}
+        {editing && (
+          <IconButton
+            className='editingIconContainer'
+            onClick={this.save}
+            tooltip={`Save (${this.isMac ? 'Cmd-S' : 'Ctrl-S'})`}
+            tooltipPosition='top-right'
+          >
+            <div className='editingIcon' />
+          </IconButton>
+        )}
       </div>
     )
   }
 
   renderFooter() {
-    const isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
     const saveButton = (
-      <IconButton onClick={this.save} tooltip={`Save (${isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-center'>
+      <IconButton onClick={this.save} tooltip={`Save (${this.isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-right'>
         <FontIcon className='fa fa-cloud-upload' />
       </IconButton>
     )
@@ -191,8 +204,8 @@ export default class Editor extends Component {
           <IconButton
             style={{ marginLeft: 'auto' }}
             onClick={this.toggleLogs}
-            tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`}
-            tooltipPosition='top-center'
+            tooltip={`Logs (${this.isMac ? 'Cmd-P' : 'Ctrl-P'})`}
+            tooltipPosition='top-left'
           >
             <FontIcon className='fa fa-terminal' />
           </IconButton>
@@ -211,10 +224,10 @@ export default class Editor extends Component {
           <br />
           or create a new one
         </p>
-        <a className='button button-primary' onClick={() => this.setState({ newFuncOpen: true })}>
+        <a className='button button-primary' onClick={this.toggleNewFuncModal}>
           Create Function
         </a>
-        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
+        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={this.toggleNewFuncModal} />
       </div>
     )
   }

@@ -44,6 +44,11 @@ $status-error: #e74c3c;
       &.active {
         background: rgba(255, 255, 255, 0.2);
       }
+      .statusIconContainer {
+        width: auto !important;
+        height: auto !important;
+        padding: 0 !important;
+      }
       .statusIconContainer > div > div:not(.statusIcon) {
         transform: translate(-16px, 0px) !important;
       }

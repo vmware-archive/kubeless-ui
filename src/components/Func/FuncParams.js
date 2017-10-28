@@ -57,6 +57,10 @@ export default class FuncParams extends Component {
     return this.state
   }
 
+  handleChangeProperty = (property: string, value: any) => {
+    this.setState({ [property]: value })
+  }
+
   render() {
     const runtimes = RuntimeHelper.getAllRuntimes().map(r => {
       return (
@@ -84,7 +88,7 @@ export default class FuncParams extends Component {
               placeholder='hello'
               value={this.state.name}
               disabled={!!this.props.func}
-              onChange={e => this.setState({ name: e.target.value })}
+              onChange={e => this.handleChangeProperty('name', e.target.value)}
             />
             <label htmlFor='handler'>Handler</label>
             <input
@@ -92,19 +96,26 @@ export default class FuncParams extends Component {
               id='handler'
               placeholder='hello.world'
               value={this.state.handler}
-              onChange={e => this.setState({ handler: e.target.value })}
+              onChange={e => this.handleChangeProperty('handler', e.target.value)}
             />
           </div>
           <div className='col-3'>
             <label htmlFor='type'>Type</label>
-            <select name='type' value={this.state.type} onChange={e => this.setState({ type: e.target.value })}>
+            <select
+              name='type'
+              value={this.state.type}
+              onChange={e => this.handleChangeProperty('type', e.target.value)}
+            >
               {types}
             </select>
             <label htmlFor='runtime'>Runtime</label>
             <select
               name='runtime'
               value={this.state.runtime}
-              onChange={e => this.setState({ runtime: e.target.value, deps: '' })}
+              onChange={e => {
+                this.handleChangeProperty('runtime', e.target.value)
+                this.handleChangeProperty('deps', '')
+              }}
             >
               {runtimes}
             </select>
@@ -123,7 +134,7 @@ export default class FuncParams extends Component {
           <TagsInput
             value={_.words(this.state.deps, /[^,\n ]+/g)}
             inputProps={{ placeholder: 'Add dependencies' }}
-            onChange={deps => this.setState({ deps: deps.join('\n') })}
+            onChange={deps => this.handleChangeProperty('deps', deps.join('\n'))}
           />
         </div>
       )
@@ -132,7 +143,10 @@ export default class FuncParams extends Component {
     return (
       <div className='depsContainer'>
         <label>Dependencies ({depFileName})</label>
-        <textarea placeholder={`Paste ${depFileName}`} onChange={e => this.setState({ deps: e.target.value })}>
+        <textarea
+          placeholder={`Paste ${depFileName}`}
+          onChange={e => this.handleChangeProperty('deps', e.target.value)}
+        >
           {this.state.deps}
         </textarea>
       </div>

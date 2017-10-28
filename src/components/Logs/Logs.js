@@ -123,7 +123,7 @@ export default class Logs extends Component {
         className={`podItem padding-normal ${isActive ? 'active' : ''}`}
         onClick={() => this.props.onSelectPod(pod)}
       >
-        <IconButton className='statusIconContainer' style={{ width: 18, height: 12, padding: 0 }} tooltip={status}>
+        <IconButton className='statusIconContainer' tooltip={status}>
           <div className={`statusIcon ${status}`} />
         </IconButton>
         {`${pod.metadata.name}`}

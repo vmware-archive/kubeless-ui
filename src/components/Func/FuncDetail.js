@@ -79,9 +79,21 @@ export default class FuncDetail extends Component {
     this.props.onRun(func, requestData, cluster, method)
   }
 
+  toggleDeleteConfirmModal = () => {
+    this.setState({ confirmDelete: !this.state.confirmDelete })
+  }
+
   delete = () => {
     const { func, cluster } = this.props
     this.props.onDelete(func, cluster)
+  }
+
+  toggleEditingModal = () => {
+    this.setState({ editing: !this.state.editing })
+  }
+
+  handleChangeRequestProperty = (property: string, value: any) => {
+    this.setState({ [property]: value })
   }
 
   doneEditing = (params: any) => {
@@ -106,7 +118,7 @@ export default class FuncDetail extends Component {
     }
 
     const deleteActions = [
-      <FlatButton label='Cancel' primary onTouchTap={() => this.setState({ confirmDelete: false })} />,
+      <FlatButton label='Cancel' primary onTouchTap={this.toggleDeleteConfirmModal} />,
       <FlatButton label='Yes, delete it!' secondary onTouchTap={this.delete} />
     ]
 
@@ -124,17 +136,17 @@ export default class FuncDetail extends Component {
             {func.spec.type}
           </p>
           <div className='actionsButtons'>
-            <a className='button' onClick={() => this.setState({ editing: true })}>
+            <a className='button' onClick={this.toggleEditingModal}>
               Edit
             </a>
-            <a className='button button-action' onClick={() => this.setState({ confirmDelete: true })}>
+            <a className='button button-action' onClick={this.toggleDeleteConfirmModal}>
               Delete
             </a>
           </div>
           <FuncEdit
             open={!!this.state.editing}
             func={func}
-            onDismiss={() => this.setState({ editing: false })}
+            onDismiss={this.toggleEditingModal}
             onDone={params => this.doneEditing(params)}
           />
           <Dialog
@@ -142,7 +154,7 @@ export default class FuncDetail extends Component {
             modal={false}
             contentStyle={{ width: '300px' }}
             open={this.state.confirmDelete}
-            onRequestClose={() => this.setState({ confirmDelete: false })}
+            onRequestClose={this.toggleDeleteConfirmModal}
           >
             {`Delete ${func.metadata.name} function from Kubeless? This cannot be undone`}
           </Dialog>
@@ -159,21 +171,26 @@ export default class FuncDetail extends Component {
     return (
       <div className='functionRun padding-big'>
         <h5>Request</h5>
-        <select onChange={e => this.setState({ method: e.target.value })}>
+        <select onChange={e => this.handleChangeRequestProperty('method', e.target.value)}>
           <option value='get'>GET</option>
           <option value='post'>POST</option>
         </select>
         <div className='radios'>
-          <input name='paramType' type='radio' defaultChecked onChange={() => this.setState({ json: true })} />
+          <input
+            name='paramType'
+            type='radio'
+            defaultChecked
+            onChange={() => this.handleChangeRequestProperty('json', true)}
+          />
           <label className='radio margin-r-normal'>JSON</label>
-          <input name='paramType' type='radio' onChange={() => this.setState({ json: false })} />
+          <input name='paramType' type='radio' onChange={() => this.handleChangeRequestProperty('json', false)} />
           <label className='radio'>Text</label>
         </div>
         <textarea
           className='body'
           placeholder={json ? '{ "hello": "world" }' : 'hello=world'}
           value={body}
-          onChange={e => this.setState({ body: e.target.value })}
+          onChange={e => this.handleChangeRequestProperty('body', e.target.value)}
         />
         <a className='button button-primary' onClick={this.run}>
           Run function

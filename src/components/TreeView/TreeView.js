@@ -49,6 +49,10 @@ export default class TreeView extends Component {
     this.props.onFetch(cluster)
   }
 
+  toggleCreateModal = () => {
+    this.setState({ newFuncOpen: !this.state.newFuncOpen })
+  }
+
   createFunc = (params: {}) => {
     this.props.onCreateFunc(params, this.props.cluster)
     this.setState({ newFuncOpen: false })
@@ -80,7 +84,7 @@ export default class TreeView extends Component {
   renderLoader() {
     let content
     if (this.props.loading) {
-      content = <p>{'Loading functions...'}</p>
+      content = <p>Loading functions...</p>
     } else if (this.props.funcs.length === 0) {
       content = (
         <div>
@@ -99,11 +103,7 @@ export default class TreeView extends Component {
   renderFooter() {
     return (
       <div className='treeviewFooter'>
-        <IconButton
-          tooltip='New Function'
-          tooltipPosition='top-right'
-          onClick={() => this.setState({ newFuncOpen: true })}
-        >
+        <IconButton tooltip='New Function' tooltipPosition='top-right' onClick={this.toggleCreateModal}>
           <FontIcon className='fa fa-plus' />
         </IconButton>
         <IconButton
@@ -114,7 +114,7 @@ export default class TreeView extends Component {
         >
           <FontIcon className='fa fa-refresh' />
         </IconButton>
-        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
+        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={this.toggleCreateModal} />
       </div>
     )
   }
