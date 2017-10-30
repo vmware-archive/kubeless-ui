@@ -21,14 +21,13 @@ import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/ruby'
 import 'brace/mode/javascript'
-import 'brace/theme/tomorrow_night_bright'
+import 'brace/theme/chrome'
 import './Editor.scss'
 import type { Func, Cluster } from 'utils/Types'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import FuncDetail from 'components/Func/FuncDetailContainer'
 import FuncCreateContainer from 'components/Func/FuncCreateContainer'
 import Logs from 'components/Logs'
-import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import FontIcon from 'material-ui/FontIcon'
 
@@ -71,6 +70,7 @@ export default class Editor extends Component {
       content: props.func ? props.func.spec['function'] : '',
       logsHeight: 0
     }
+    this.isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
   }
 
   componentWillReceiveProps(nextProps: { [string]: any }) {
@@ -105,6 +105,10 @@ export default class Editor extends Component {
     const { func } = this.props
     const runtime = func ? func.spec.runtime : null
     return RuntimeHelper.runtimeToLanguage(runtime)
+  }
+
+  toggleNewFuncModal = () => {
+    this.setState({ newFuncOpen: !this.state.newFuncOpen })
   }
 
   toggleLogs = () => {
@@ -149,7 +153,7 @@ export default class Editor extends Component {
           {func && (
             <AceEditor
               mode={mode}
-              theme='monokai'
+              theme='chrome'
               onChange={this.onTextChange}
               value={this.state.content}
               name='ACE_EDITOR_01'
@@ -167,18 +171,26 @@ export default class Editor extends Component {
   renderHeader() {
     const { func, editing } = this.props
     return (
-      <div className='editorHeader'>
-        <h5 className='title'>{func.metadata.name}</h5>
-        {editing && <div className='editingFlag' />}
+      <div className='editorHeader padding-h-big padding-v-small'>
+        <h4 className='title margin-reset'>{func.metadata.name}</h4>
+        {editing && (
+          <IconButton
+            className='editingIconContainer'
+            onClick={this.save}
+            tooltip={`Save (${this.isMac ? 'Cmd-S' : 'Ctrl-S'})`}
+            tooltipPosition='top-right'
+          >
+            <div className='editingIcon' />
+          </IconButton>
+        )}
       </div>
     )
   }
 
   renderFooter() {
-    const isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i)
     const saveButton = (
-      <IconButton onClick={this.save} tooltip={`Save (${isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-center'>
-        <FontIcon className='fa fa-cloud-upload' color='black' />
+      <IconButton onClick={this.save} tooltip={`Save (${this.isMac ? 'Cmd-S' : 'Ctrl-S'})`} tooltipPosition='top-right'>
+        <FontIcon className='fa fa-cloud-upload' />
       </IconButton>
     )
     return (
@@ -192,10 +204,10 @@ export default class Editor extends Component {
           <IconButton
             style={{ marginLeft: 'auto' }}
             onClick={this.toggleLogs}
-            tooltip={`Logs (${isMac ? 'Cmd-P' : 'Ctrl-P'})`}
-            tooltipPosition='top-center'
+            tooltip={`Logs (${this.isMac ? 'Cmd-P' : 'Ctrl-P'})`}
+            tooltipPosition='top-left'
           >
-            <FontIcon className='fa fa-terminal' color='black' />
+            <FontIcon className='fa fa-terminal' />
           </IconButton>
         </div>
         <div style={{ display: 'flex', height: this.state.logsHeight }}>
@@ -206,18 +218,16 @@ export default class Editor extends Component {
   }
   renderEmptyView() {
     return (
-      <div className='editorEmpty'>
+      <div className='editorEmpty type-big'>
         <p>
-          {'Choose a function on the list'}
+          Choose a function on the list
           <br />
-          {'or create a new one'}
+          or create a new one
         </p>
-        <FlatButton
-          label='create'
-          onClick={() => this.setState({ newFuncOpen: true })}
-          icon={<FontIcon className='material-icons'>add</FontIcon>}
-        />
-        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={() => this.setState({ newFuncOpen: false })} />
+        <a className='button button-primary' onClick={this.toggleNewFuncModal}>
+          Create Function
+        </a>
+        <FuncCreateContainer open={this.state.newFuncOpen} onDismiss={this.toggleNewFuncModal} />
       </div>
     )
   }

@@ -18,85 +18,32 @@ limitations under the License.
 
 .funcDetail {
   width: 300px;
-  color: $dark-blue;
+  color: $kubeapps-text;
   background: white;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
   overflow: auto;
-  border-left: 1px solid $light-gray;
+  border-left: 1px solid $kubeapps-light;
 
   .functionTitle {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 20px;
-    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid $kubeapps-light;
   }
   .functionRun {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0 20px 20px 20px;
-    margin-bottom: 20px;
-  }
-  .functionResult {
-    padding: 0 20px 20px 20px;
-    margin-bottom: 20px;
+    border-bottom: 1px solid $kubeapps-light;
+    .radios label {
+      display: inline-block;
+    }
   }
   .actionsButtons {
     text-align: right;
-    .button:nth-child(1),
-    .button:nth-child(1) button {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-    }
-    .button:nth-child(2),
-    .button:nth-child(2) button {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
-    }
-  }
-  .radioButtonGroup {
-    margin-top: 10px;
-    padding-top: 10px;
-    margin-bottom: 20px;
-  }
-  .radioButton {
-    width: auto !important;
-    display: inline-block !important;
-    label {
-      margin-left: -11px;
-      margin-right: 10px;
-    }
   }
   .body {
     width: 100%;
     border: 0;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid $light-gray;
+    background: $kubeapps-base;
+    border: 1px solid $kubeapps-light;
     border-radius: 2px;
     padding: 5px;
     resize: vertical;
     outline: none;
-  }
-
-  .runButton,
-  .runButton * {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-  }
-  .methodContainer {
-    background: $red;
-    width: 75px;
-    height: 36px;
-    display: inline-block;
-    overflow: hidden;
-    box-sizing: border-box;
-    vertical-align: bottom;
-    text-align: right;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-    button {
-      // tick
-      right: -10px !important;
-      fill: white !important;
-    }
   }
 }

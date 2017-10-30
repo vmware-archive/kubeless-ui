@@ -17,15 +17,6 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import _ from 'lodash'
-import AceEditor from 'react-ace'
-import brace from 'brace' // eslint-disable-line
-import 'brace/mode/python'
-import 'brace/mode/ruby'
-import 'brace/mode/javascript'
-import 'brace/theme/tomorrow_night_bright'
-import TextField from 'material-ui/TextField'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import type { Func } from 'utils/Types'
@@ -66,51 +57,69 @@ export default class FuncParams extends Component {
     return this.state
   }
 
+  handleChangeProperty = (property: string, value: any) => {
+    this.setState({ [property]: value })
+  }
+
   render() {
     const runtimes = RuntimeHelper.getAllRuntimes().map(r => {
-      return <MenuItem key={r.value} value={r.value} primaryText={r.label} />
+      return (
+        <option key={r.value} value={r.value}>
+          {r.label}
+        </option>
+      )
     })
     const types = [
-      <MenuItem key={1} value='HTTP' primaryText='HTTP' />,
-      <MenuItem key={2} value='PubSub' primaryText='PubSub' />
+      <option key={1} value='HTTP'>
+        HTTP
+      </option>,
+      <option key={2} value='PubSub'>
+        PubSub
+      </option>
     ]
     return (
-      <div className='funcParams'>
-        <div className='inputGroup'>
-          <TextField
-            floatingLabelText='Function name'
-            floatingLabelFixed
-            hintText='hello'
-            disabled={!!this.props.func}
-            value={this.state.name}
-            onChange={(e, value) => this.setState({ name: value })}
-          />
-          <br />
-          <TextField
-            floatingLabelText='Handler'
-            floatingLabelFixed
-            hintText='hello.world'
-            value={this.state.handler}
-            onChange={(e, value) => this.setState({ handler: value })}
-          />
-        </div>
-        <div className='inputGroup'>
-          <SelectField
-            floatingLabelText='Type'
-            value={this.state.type}
-            onChange={(e, i, value) => this.setState({ type: value })}
-          >
-            {types}
-          </SelectField>
-          <br />
-          <SelectField
-            floatingLabelText='Runtime'
-            value={this.state.runtime}
-            onChange={(e, i, value) => this.setState({ runtime: value, deps: '' })}
-          >
-            {runtimes}
-          </SelectField>
-          <br />
+      <div className='funcParams padding-v-big'>
+        <div className='row'>
+          <div className='col-3'>
+            <label htmlFor='name'>Function name</label>
+            <input
+              name='name'
+              id='name'
+              placeholder='hello'
+              value={this.state.name}
+              disabled={!!this.props.func}
+              onChange={e => this.handleChangeProperty('name', e.target.value)}
+            />
+            <label htmlFor='handler'>Handler</label>
+            <input
+              name='handler'
+              id='handler'
+              placeholder='hello.world'
+              value={this.state.handler}
+              onChange={e => this.handleChangeProperty('handler', e.target.value)}
+            />
+          </div>
+          <div className='col-3'>
+            <label htmlFor='type'>Type</label>
+            <select
+              name='type'
+              value={this.state.type}
+              onChange={e => this.handleChangeProperty('type', e.target.value)}
+            >
+              {types}
+            </select>
+            <label htmlFor='runtime'>Runtime</label>
+            <select
+              name='runtime'
+              value={this.state.runtime}
+              onChange={e => {
+                this.handleChangeProperty('runtime', e.target.value)
+                this.handleChangeProperty('deps', '')
+              }}
+            >
+              {runtimes}
+            </select>
+          </div>
         </div>
         {this.renderDependencies()}
       </div>
@@ -120,28 +129,26 @@ export default class FuncParams extends Component {
   renderDependencies() {
     if (this.state.runtime.indexOf('python') !== -1) {
       return (
-        <div className='inputGroup'>
-          <label className='inputLabel'>Dependencies</label>
+        <div className='depsContainer'>
+          <label>Dependencies</label>
           <TagsInput
             value={_.words(this.state.deps, /[^,\n ]+/g)}
             inputProps={{ placeholder: 'Add dependencies' }}
-            onChange={deps => this.setState({ deps: deps.join('\n') })}
+            onChange={deps => this.handleChangeProperty('deps', deps.join('\n'))}
           />
         </div>
       )
     }
     const depFileName = RuntimeHelper.runtimeDepsFilename(this.state.runtime)
     return (
-      <div className='inputGroup editorContainer'>
-        <label className='inputLabel'>Dependencies ({depFileName})</label>
-        <AceEditor
-          mode={RuntimeHelper.runtimeToLanguage(this.state.runtime)}
-          theme='solarized_dark'
-          onChange={value => this.setState({ deps: value })}
-          value={this.state.deps}
-          name='ACE_EDITOR_DEPS'
-          showGutter={false}
-        />
+      <div className='depsContainer'>
+        <label>Dependencies ({depFileName})</label>
+        <textarea
+          placeholder={`Paste ${depFileName}`}
+          onChange={e => this.handleChangeProperty('deps', e.target.value)}
+        >
+          {this.state.deps}
+        </textarea>
       </div>
     )
   }

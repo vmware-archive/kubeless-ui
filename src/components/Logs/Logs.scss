@@ -13,6 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+@import '../../styles/variables';
+
+// Pods status colors
+$status-default: #2980b9;
+$status-running: $kubeapps-accent;
+$status-pending: #f1c40f;
+$status-error: #e74c3c;
+
 .logs {
   position: relative;
   flex: 1;
@@ -26,26 +34,20 @@ limitations under the License.
     align-items: center;
     justify-content: center;
     opacity: 0.7;
-    font-size: 20px;
-  }
-  .selectedPod {
-    position: absolute;
-    right: 0;
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px 8px;
-    border-bottom-left-radius: 3px;
-    cursor: pointer;
   }
   .podsList {
     flex: 1;
     max-width: 200px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
     .podItem {
       cursor: pointer;
-      padding: 12px 10px;
       &.active {
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .statusIconContainer {
+        width: auto !important;
+        height: auto !important;
+        padding: 0 !important;
       }
       .statusIconContainer > div > div:not(.statusIcon) {
         transform: translate(-16px, 0px) !important;
@@ -61,15 +63,16 @@ limitations under the License.
         position: relative;
         top: 1px;
         border-radius: 10px;
-        background: #2980b9;
+        background: $status-default;
         &.Running {
-          background: #27ae60;
+          background: $status-running;
         }
-        &.Pending, &.ContainerCreating {
-          background: #f1c40f;
+        &.Pending,
+        &.ContainerCreating {
+          background: $status-pending;
         }
         &.Terminating {
-          background: #e74c3c;
+          background: $status-error;
         }
       }
     }
@@ -78,7 +81,6 @@ limitations under the License.
     flex: 1;
     overflow: auto;
     pre {
-      padding: 0 10px;
       color: white;
       background: black;
       border: 0;

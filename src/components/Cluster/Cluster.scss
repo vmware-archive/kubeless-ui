@@ -20,11 +20,15 @@ limitations under the License.
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 1em 2em;
-  .clusterIcon {
-    margin-right: 10px;
+  .fa {
+    color: $kubeapps-text !important;
   }
-  .clusterField {
-    font-size: 1.4em !important;
+  .clusterUrl {
+    input {
+      margin-top: -6px;
+      background: none;
+      border-color: transparent;
+      box-shadow: none;
+    }
   }
 }

@@ -18,7 +18,6 @@ limitations under the License.
 import React, { Component } from 'react'
 import keycode from 'keycode'
 import type { Cluster } from 'utils/Types'
-import TextField from 'material-ui/TextField'
 import FontIcon from 'material-ui/FontIcon'
 import './Cluster.scss'
 
@@ -47,15 +46,17 @@ export default class ClusterComponent extends Component {
   render() {
     const { cluster } = this.props
     return (
-      <div className='cluster'>
-        <FontIcon className='clusterIcon fa fa-cube' />
-        <TextField
-          className='clusterField'
-          floatingLabelText='Cluster url'
-          defaultValue={cluster.url}
-          underlineShow={false}
-          onKeyDown={this.onKeyDown}
-        />
+      <div className='cluster padding-big'>
+        <FontIcon className='fa fa-cube margin-r-normal' />
+        <div className='clusterUrl text-l'>
+          <label className='margin-reset'>Cluster url</label>
+          <input
+            className='type-big margin-reset padding-reset'
+            placeholder='http://localhost:8080'
+            defaultValue={cluster.url}
+            onKeyDown={this.onKeyDown}
+          />
+        </div>
       </div>
     )
   }

@@ -14,11 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-$background-gradient: linear-gradient(to left, #303030, #142d5b);
-$blue: #3371e3;
-$dark-blue: #38383f;
-$light-gray: #d7d9dd;
-$red: #e53935;
+// Colors from Bitnami Design System
+$kubeapps-brand: #162d50;
+$kubeapps-primary: #14384e;
+$kubeapps-secondary: #1f577a;
+$kubeapps-accent: #40b654;
+$kubeapps-light: #e6e7e8;
+$kubeapps-dark: #37474f;
+$kubeapps-text: #2f3032;
+$kubeapps-action: #ef4324;
+$kubeapps-base: #fff;
 
 @mixin placeholder {
   &::-webkit-input-placeholder {
