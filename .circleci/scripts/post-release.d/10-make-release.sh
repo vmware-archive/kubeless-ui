@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -n $GITHUB_USER && -n $GITHUB_PASSWORD && -n $DOCKER_PROJECT && -n $IMAGE_NAME  ]]; then
+if [[ -n $GITHUB_USER && -n $GITHUB_PASSWORD && -n $DOCKER_PROJECT && -n $IMAGE_NAME ]]; then
   install_hub || exit 1
 
   # hub release complains if we're not on a branch
