@@ -9,6 +9,7 @@ jobs:
           DOCKER_PROJECT: bitnami
           QUAY_PROJECT: bitnami
           GCLOUD_PROJECT: bitnami-containers
+          LATEST_TAG_SOURCE: HEAD
 
     steps:
       - checkout
