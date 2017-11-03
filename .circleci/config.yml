@@ -9,6 +9,7 @@ jobs:
           DOCKER_PROJECT: bitnami
           QUAY_PROJECT: bitnami
           GCLOUD_PROJECT: bitnami-containers
+          LATEST_TAG_SOURCE: HEAD
 
     steps:
       - checkout
@@ -58,4 +59,4 @@ workflows:
             branches:
               only: /.*/
             tags:
-              only: /^[0-9].*-r[0-9]+$/
+              only: /^v[0-9].*+$/
