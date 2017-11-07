@@ -47,4 +47,4 @@ spec:
   selector:
     controller: ui
   sessionAffinity: None
-  type: LoadBalancer
+  type: NodePort
