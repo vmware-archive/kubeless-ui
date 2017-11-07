@@ -1,53 +1,9 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  labels:
-   controller: ui
-  namespace: kubeless
-  name: ui
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-     controller: ui
-  template:
-    metadata:
-      labels:
-        controller: ui
-    spec:
-      containers:
-      - name: ui
-        image: bitnami/kubeless-ui:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3000
-          protocol: TCP
-      - name: proxy
-        image: kelseyhightower/kubectl:1.4.0
-        imagePullPolicy: IfNotPresent
-        args:
-        - proxy
-        - "-p"
-        - "8080"
-        imagePullPolicy: Always
 ---
 apiVersion: v1
-kind: Service
+kind: ServiceAccount
 metadata:
-  labels:
-    controller: ui
-  name: ui
+  name: ui-acct
   namespace: kubeless
-spec:
-  ports:
-  - name: ui-port
-    port: 3000
-    protocol: TCP
-    targetPort: 3000
-  selector:
-    controller: ui
-  sessionAffinity: None
-  type: NodePort
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -93,5 +49,57 @@ roleRef:
   name: kubeless-ui
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: ui-acct
   namespace: kubeless
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+   controller: ui
+  namespace: kubeless
+  name: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     controller: ui
+  template:
+    metadata:
+      labels:
+        controller: ui
+    spec:
+      containers:
+      - name: ui
+        image: bitnami/kubeless-ui:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+      - name: proxy
+        image: kelseyhightower/kubectl:1.4.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - proxy
+        - "-p"
+        - "8080"
+        imagePullPolicy: Always
+      serviceAccountName: ui-acct
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    controller: ui
+  name: ui
+  namespace: kubeless
+spec:
+  ports:
+  - name: ui-port
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    controller: ui
+  sessionAffinity: None
+  type: NodePort
