@@ -27,7 +27,7 @@ export default class Api {
       url: URL, method, json
     }
 
-    return fetch('/proxy', {
+    return fetch('proxy', {
       method: 'post',
       headers,
       body: JSON.stringify(forwardBody)
