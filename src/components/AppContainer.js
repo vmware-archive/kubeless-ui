@@ -16,7 +16,7 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
-import { browserHistory, Router } from 'react-router'
+import { hashHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
@@ -48,7 +48,7 @@ export default class AppContainer extends Component {
       <Provider store={store}>
         <MuiThemeProvider muiTheme={muiTheme}>
           <div style={{ height: '100%' }}>
-            <Router history={browserHistory} children={routes} />
+            <Router history={hashHistory} children={routes} />
           </div>
         </MuiThemeProvider>
       </Provider>

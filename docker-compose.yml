@@ -4,7 +4,7 @@ services:
     image: kubeless-ui-dev
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-prod
     command: bash -c "yarn install && npm rebuild node-sass && yarn run dev"
     environment:
       NODE_ENV: development
