@@ -30,8 +30,8 @@ export default class FuncsList extends Component {
 
   render() {
     return (
-      <div className='funcs padding-h-big'>
-        <h4 className='funcsTitle margin-t-tiny'>Functions</h4>
+      <div className='funcs'>
+        <h3 className='funcsTitle'>Functions</h3>
         {this.props.funcs.map(func => this.renderFunc(func))}
       </div>
     )
@@ -41,12 +41,8 @@ export default class FuncsList extends Component {
     const { selectedFunc, onSelect } = this.props
     const isActive = selectedFunc && func.metadata.uid === selectedFunc.metadata.uid
     return (
-      <div
-        key={func.metadata.uid}
-        onClick={() => onSelect(func)}
-        className={`func type-big ${isActive ? 'active' : ''}`}
-      >
-        <FontIcon className='fa fa-file-code-o margin-r-small' />
+      <div key={func.metadata.uid} onClick={() => onSelect(func)} className={`func ${isActive ? 'active' : ''}`}>
+        <FontIcon className='fa fa-file-code-o' />
         {func.metadata.name}
       </div>
     )

@@ -17,8 +17,12 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import qs from 'qs'
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+import Button from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import FuncEdit from 'components/Func/FuncEdit'
 import type { Func, Cluster } from 'utils/Types'
 import './FuncDetail.scss'
@@ -79,21 +83,9 @@ export default class FuncDetail extends Component {
     this.props.onRun(func, requestData, cluster, method)
   }
 
-  toggleDeleteConfirmModal = () => {
-    this.setState({ confirmDelete: !this.state.confirmDelete })
-  }
-
   delete = () => {
     const { func, cluster } = this.props
     this.props.onDelete(func, cluster)
-  }
-
-  toggleEditingModal = () => {
-    this.setState({ editing: !this.state.editing })
-  }
-
-  handleChangeRequestProperty = (property: string, value: any) => {
-    this.setState({ [property]: value })
   }
 
   doneEditing = (params: any) => {
@@ -118,13 +110,13 @@ export default class FuncDetail extends Component {
     }
 
     const deleteActions = [
-      <FlatButton label='Cancel' primary onTouchTap={this.toggleDeleteConfirmModal} />,
+      <FlatButton label='Cancel' primary onTouchTap={() => this.setState({ confirmDelete: false })} />,
       <FlatButton label='Yes, delete it!' secondary onTouchTap={this.delete} />
     ]
 
     return (
       <div className='funcDetail'>
-        <div className='functionTitle padding-big padding-t-reset'>
+        <div className='functionTitle'>
           <p>
             <b>Handler: </b>
             {func.spec.handler}
@@ -136,17 +128,18 @@ export default class FuncDetail extends Component {
             {func.spec.type}
           </p>
           <div className='actionsButtons'>
-            <a className='button' onClick={this.toggleEditingModal}>
-              Edit
-            </a>
-            <a className='button button-action' onClick={this.toggleDeleteConfirmModal}>
-              Delete
-            </a>
+            <Button className='button' label='Edit' primary onClick={() => this.setState({ editing: true })} />
+            <Button
+              className='button'
+              label='Delete'
+              secondary
+              onClick={() => this.setState({ confirmDelete: true })}
+            />
           </div>
           <FuncEdit
             open={!!this.state.editing}
             func={func}
-            onDismiss={this.toggleEditingModal}
+            onDismiss={() => this.setState({ editing: false })}
             onDone={params => this.doneEditing(params)}
           />
           <Dialog
@@ -154,7 +147,7 @@ export default class FuncDetail extends Component {
             modal={false}
             contentStyle={{ width: '300px' }}
             open={this.state.confirmDelete}
-            onRequestClose={this.toggleDeleteConfirmModal}
+            onRequestClose={() => this.setState({ confirmDelete: false })}
           >
             {`Delete ${func.metadata.name} function from Kubeless? This cannot be undone`}
           </Dialog>
@@ -166,35 +159,44 @@ export default class FuncDetail extends Component {
   }
 
   renderRun() {
-    const { body, json } = this.state
+    const { body, json, method } = this.state
 
+    const methods = [
+      <MenuItem key={1} value='get' primaryText='GET' />,
+      <MenuItem key={2} value='post' primaryText='POST' />
+    ]
     return (
-      <div className='functionRun padding-big'>
+      <div className='functionRun'>
         <h5>Request</h5>
-        <select onChange={e => this.handleChangeRequestProperty('method', e.target.value)}>
-          <option value='get'>GET</option>
-          <option value='post'>POST</option>
-        </select>
-        <div className='radios'>
-          <input
-            name='paramType'
-            type='radio'
-            defaultChecked
-            onChange={() => this.handleChangeRequestProperty('json', true)}
-          />
-          <label className='radio margin-r-normal'>JSON</label>
-          <input name='paramType' type='radio' onChange={() => this.handleChangeRequestProperty('json', false)} />
-          <label className='radio'>Text</label>
-        </div>
+        <RadioButtonGroup
+          name='bodyFormat'
+          valueSelected={json ? 'json' : 'text'}
+          onChange={(o, v) => this.setState({ json: v === 'json' })}
+        >
+          <RadioButton value='json' label='JSON' className='radioButton' />
+          <RadioButton value='text' label='Text' className='radioButton' />
+        </RadioButtonGroup>
         <textarea
           className='body'
           placeholder={json ? '{ "hello": "world" }' : 'hello=world'}
           value={body}
-          onChange={e => this.handleChangeRequestProperty('body', e.target.value)}
+          onChange={e => this.setState({ body: e.target.value })}
         />
-        <a className='button button-primary' onClick={this.run}>
-          Run function
-        </a>
+        <br />
+        <br />
+        <div className='methodContainer'>
+          <SelectField
+            value={method}
+            fullWidth
+            style={{ paddingLeft: 10, marginTop: -5 }}
+            underlineStyle={{ border: 0 }}
+            labelStyle={{ color: 'white' }}
+            onChange={(e, i, method) => this.setState({ method })}
+          >
+            {methods}
+          </SelectField>
+        </div>
+        <Button className='runButton' label='Run function' primary onClick={this.run} />
       </div>
     )
   }
@@ -227,7 +229,7 @@ export default class FuncDetail extends Component {
         </div>
       )
     }
-    return <div className='functionResult padding-big'>{content}</div>
+    return <div className='functionResult'>{content}</div>
   }
 
 }

@@ -17,6 +17,7 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 import type { Func } from 'utils/Types'
 import FuncParams from './FuncParams'
 
@@ -38,17 +39,13 @@ export default class FuncEdit extends Component {
     const { func, open, onDismiss } = this.props
 
     const dialogActions = [
-      <a className='button button-secondary' onClick={onDismiss}>
-        Cancel
-      </a>,
-      <a className='button button-primary' onClick={this.donePressed}>
-        Save
-      </a>
+      <FlatButton label='Cancel' primary onClick={onDismiss} />,
+      <FlatButton label='Save' primary onClick={this.donePressed} />
     ]
 
     return (
       <Dialog
-        title={<h2>Edit Function</h2>}
+        title='Edit Function'
         modal={false}
         actions={dialogActions}
         open={!!open}

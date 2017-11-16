@@ -25,7 +25,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div className='header bg-brand padding-h-big'>
+      <div className='header'>
         <div className='left'>
           <img className='logo' src={logo} />
         </div>

@@ -20,8 +20,8 @@ limitations under the License.
   position: relative;
   flex: 1;
   max-width: 250px;
-  color: $kubeapps-text;
-  border-right: 1px solid $kubeapps-light;
+  color: $dark-blue;
+  border-right: 1px solid $light-gray;
   display: flex;
   flex-direction: column;
 
@@ -31,26 +31,38 @@ limitations under the License.
     align-items: center;
     justify-content: center;
     text-align: center;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    p,
+    a {
+      color: $dark-blue;
+    }
   }
 
   .funcs {
     flex: 1;
     text-align: left;
+    padding: 0.5em 2em 0 2em;
+    .funcsTitle {
+      margin-top: 0;
+    }
     .func {
       display: flex;
       align-items: center;
       height: 30px;
       cursor: pointer;
+      font-size: 1.2em;
       font-weight: normal;
-      color: $kubeapps-text;
+      color: $dark-blue;
       opacity: 0.5;
       .fa {
         color: inherit !important;
-        font-size: 1rem !important;
+        margin-right: 8px;
+        font-size: 0.9em !important;
       }
       &.active {
         opacity: 1;
-        color: $kubeapps-secondary;
+        color: $blue;
       }
     }
   }
@@ -58,16 +70,12 @@ limitations under the License.
   .treeviewFooter {
     height: 40px;
     padding: 0;
-    border-top: 1px solid $kubeapps-light;
+    border-top: 1px solid $light-gray;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     a {
-      color: $kubeapps-text;
-    }
-    .fa {
-      color: $kubeapps-text !important;
-      font-size: 1.2rem !important;
+      color: $dark-blue;
     }
   }
 }

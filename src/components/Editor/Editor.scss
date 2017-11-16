@@ -38,38 +38,35 @@ limitations under the License.
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: $kubeapps-text;
+    text-align: center;
+    color: $dark-blue;
+    font-size: 1.2em;
   }
   .editorHeader {
     text-align: left;
-    border-bottom: 1px solid $kubeapps-light;
+    padding: 0 1em;
+    border-bottom: 1px solid $light-gray;
     .title {
       display: inline-block;
+      font-size: 1.2em;
+      opacity: 0.5;
     }
-    .editingIconContainer {
-      padding: 0 !important;
-      height: auto !important;
-      width: auto !important;
-      margin-left: 5px !important;
-      .editingIcon {
-        width: 10px;
-        height: 10px;
-        border-radius: 5px;
-        background: $kubeapps-accent;
-      }
+    .editingFlag {
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      background: $blue;
+      display: inline-block;
+      margin-left: 5px;
     }
   }
   .editorFooter {
     display: flex;
-    border-top: 1px solid $kubeapps-light;
+    border-top: 1px solid $light-gray;
     flex-direction: column;
     z-index: 10;
     a {
-      color: $kubeapps-text;
-    }
-    .fa {
-      color: $kubeapps-text !important;
-      font-size: 1.2rem !important;
+      color: $dark-blue;
     }
     .editorFooterLinks {
       flex: 1;
@@ -80,5 +77,77 @@ limitations under the License.
       align-items: center;
       justify-content: space-between;
     }
+  }
+}
+.editorPanel {
+  width: 300px;
+  color: $dark-blue;
+  background: $background-gradient;
+  border-left: 1px solid $light-gray;
+  text-align: left;
+  padding: 0 2em 4em 2em;
+  overflow: auto;
+
+  .functionTitle {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+  }
+  .functionRun {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .actionsButtons {
+    text-align: right;
+    .button:nth-child(1),
+    .button:nth-child(1) button {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    .button:nth-child(2),
+    .button:nth-child(2) button {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+  .radioButton {
+    width: auto !important;
+    display: inline-block !important;
+    label {
+      margin-left: -11px;
+      margin-right: 10px;
+    }
+  }
+  .body {
+    width: 100%;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    resize: vertical;
+    outline: none;
+  }
+
+  .methodContainer {
+    background: $dark-blue;
+    width: 75px;
+    height: 36px;
+    display: inline-block;
+    overflow: hidden;
+    box-sizing: border-box;
+    vertical-align: bottom;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    button {
+      // tick
+      right: -10px !important;
+      fill: rgba(0, 0, 0, 0.3) !important;
+    }
+  }
+
+  .runButton,
+  .runButton button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
   }
 }

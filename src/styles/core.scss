@@ -14,14 +14,64 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 @import 'variables';
+@import '~normalize.css/normalize';
 $fa-font-path: '~font-awesome/fonts';
 @import '~font-awesome/scss/font-awesome';
-$bitnami-ui-version: '0.4.1';
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700');
-@import url('https://d1d5nb8vlsbujg.cloudfront.net/bitnami-ui/#{$bitnami-ui-version}/bitnami.ui.min.css');
-@import url('https://d1d5nb8vlsbujg.cloudfront.net/bitnami-ui/#{$bitnami-ui-version}/bitnami.ui.components.min.css');
+
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 
 a,
 a:hover {
   text-decoration: none;
+}
+
+/* MATERIAL ICONS */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(fonts/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(fonts/MaterialIcons-Regular.woff2) format('woff2'),
+    url(fonts/MaterialIcons-Regular.woff) format('woff'), url(fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// @flow
+// @flowoo
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './Logs.scss'
@@ -35,14 +35,14 @@ export default class Logs extends Component {
     visible: ?boolean,
     onFetchLogs: (cluster: Cluster, pod: Pod) => void,
     onFetchPods: (cluster: Cluster) => void,
-    onSelectPod: (pod: ?Pod) => void
+    onSelectPod: (pod: ?Pod) => void,
   }
 
   shouldScrollBottom = false
   logsContainerRef: Element
 
   componentWillUpdate(nextProps: any) {
-    if (!this.props.visible && nextProps.visible) {
+    if ((!this.props.visible && nextProps.visible)) {
       this.shouldScrollBottom = true
       this.selectFirstPod()
     } else if (nextProps.logs.length > this.props.logs.length) {
@@ -93,16 +93,17 @@ export default class Logs extends Component {
 
   render() {
     const { func, logs, pods } = this.props
-    if (!func) {
-      return
-    }
+    if (!func) { return }
 
     return (
       <div className='logs'>
-        {pods.length === 0 && <div className='emptyPods'>Loading Pods...</div>}
+        {pods.length === 0 && <div className='emptyPods'>{'Loading Pods...'}</div>}
         {this.renderPods()}
         <div ref='logsContainer' className='logsContainer'>
-          <pre className='padding-normal'>{logs}</pre>
+          <br />
+          <pre>
+            {logs}
+          </pre>
         </div>
       </div>
     )
@@ -110,7 +111,11 @@ export default class Logs extends Component {
 
   renderPods() {
     const { pods } = this.props
-    return <div className='podsList'>{pods.map(pod => this.renderPod(pod))}</div>
+    return (
+      <div className='podsList'>
+        {pods.map(pod => this.renderPod(pod))}
+      </div>
+    )
   }
 
   renderPod(pod: Pod) {
@@ -118,12 +123,10 @@ export default class Logs extends Component {
     const isActive = selectedPod && selectedPod.metadata.uid === pod.metadata.uid
     const status = EntityHelper.entityStatus(pod)
     return (
-      <div
-        key={pod.metadata.uid}
-        className={`podItem padding-normal ${isActive ? 'active' : ''}`}
-        onClick={() => this.props.onSelectPod(pod)}
-      >
-        <IconButton className='statusIconContainer' tooltip={status}>
+      <div key={pod.metadata.uid} className={`podItem ${isActive ? 'active' : ''}`}
+        onClick={() => this.props.onSelectPod(pod)}>
+        <IconButton className='statusIconContainer'
+          style={{ width: 18, height: 12, padding: 0 }} tooltip={status}>
           <div className={`statusIcon ${status}`} />
         </IconButton>
         {`${pod.metadata.name}`}
