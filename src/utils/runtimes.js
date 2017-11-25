@@ -15,7 +15,7 @@ def <<HANDLER>>():
 const rubyFunction = `
 class Kubelessfunction
     def self.run(request)
-        puts "Hello Wordl"
+        puts "Hello World"
     end
 end
 `
@@ -23,6 +23,12 @@ end
 export default [
   { value: 'nodejs6',
     label: 'NodeJS (6)',
+    language: 'javascript',
+    depsFilename: 'package.json',
+    defaultFunction: nodeFunction
+  }, {
+    value: 'nodejs8',
+    label: 'NodeJS (8)',
     language: 'javascript',
     depsFilename: 'package.json',
     defaultFunction: nodeFunction
@@ -35,6 +41,12 @@ export default [
   },
   { value: 'python2.7',
     label: 'Python (2.7)',
+    language: 'python',
+    depsFilename: 'requirements.txt',
+    defaultFunction: pythonFunction
+  },
+  { value: 'python3.4',
+    label: 'Python (3.4)',
     language: 'python',
     depsFilename: 'requirements.txt',
     defaultFunction: pythonFunction
