@@ -13,10 +13,8 @@ def <<HANDLER>>():
 `
 
 const rubyFunction = `
-class Kubelessfunction
-    def self.run(request)
-        puts "Hello World"
-    end
+def <<HANDLER>>(request)
+  "Hello World"
 end
 `
 
