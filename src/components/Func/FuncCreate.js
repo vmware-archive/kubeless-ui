@@ -17,6 +17,7 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 import type { Cluster } from 'utils/Types'
 import FuncParams from './FuncParams'
 import './FuncParams.scss'
@@ -40,17 +41,13 @@ export default class FuncCreate extends Component {
     const { open, onDismiss } = this.props
 
     const dialogActions = [
-      <a className='button button-secondary' onClick={onDismiss}>
-        Cancel
-      </a>,
-      <a className='button button-primary' onClick={this.donePressed}>
-        Create
-      </a>
+      <FlatButton label='Cancel' primary onClick={onDismiss} />,
+      <FlatButton label='Create' primary onClick={this.donePressed} />
     ]
 
     return (
       <Dialog
-        title={<h2>Create Function</h2>}
+        title='New Function'
         modal={false}
         actions={dialogActions}
         open={!!open}
