@@ -23,7 +23,7 @@ import { podsSelect, podsFetchLogs, podsFetch } from 'store/pods'
 const mapStateToProps = ({ funcs, clusters, pods }) => {
   const func = funcs.selected
   const podsList = _.filter(pods.list, (p) => {
-    return p.metadata.labels['function'] === func.metadata.name
+    return p.metadata.labels && p.metadata.labels['function'] === func.metadata.name
   })
   const logs = pods.selected ? pods.logs[pods.selected.metadata.uid] : ''
   return {
