@@ -1,7 +1,7 @@
 # kubeless-ui
 
 [![CircleCI](https://circleci.com/gh/kubeless/kubeless-ui/tree/master.svg?style=svg)](https://circleci.com/gh/kubeless/kubeless-ui/tree/master)
-[![Slack](https://img.shields.io/badge/slack-join%20chat%20%E2%86%92-e01563.svg)](http://slack.oss.bitnami.com)
+[![Slack](https://img.shields.io/badge/slack-join%20chat%20%E2%86%92-e01563.svg)](http://slack.k8s.io)
 
 Graphical User Interface for [Kubeless](https://github.com/kubeless/kubeless), a serverless framework for Kubernetes.
 
