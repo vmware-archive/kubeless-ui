@@ -40,7 +40,7 @@ export default class EntityHelper {
   static functionFromParams(params: {[string]: any}) {
     return {
       kind: 'Function',
-      apiVersion: 'k8s.io/v1',
+      apiVersion: 'kubeless.io/v1beta1',
       metadata: {
         name: params.name,
         namespace: params.namespace || 'default'
