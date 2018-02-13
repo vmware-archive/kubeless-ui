@@ -122,7 +122,7 @@ export default class Api {
       if (url.indexOf('/api/v1') === -1 && url.indexOf('/apis/extensions') === -1) {
         let api = '/api/v1'
         if (url.indexOf('/functions') === 0) {
-          api = '/apis/k8s.io/v1'
+          api = '/apis/kubeless.io/v1beta1'
         } else if (url.indexOf('/deployments') === 0 ||
           url.indexOf('/ingresses') === 0 ||
           url.indexOf('/replicasets') === 0) {
