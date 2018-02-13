@@ -95,8 +95,8 @@ export function funcsSave(func: Func, cluster: Cluster, params: {}) {
 }
 
 export function funcsCreate(params: any, cluster: Cluster) {
-  return (dispatch: () => void) => {
-    const entity = EntityHelper.functionFromParams(params)
+  return async (dispatch: () => void) => {
+    const entity = await EntityHelper.functionFromParams(params)
     return Api.post('/functions', entity, cluster, entity).then(result => {
       dispatch({
         type: FUNCS_CREATE,

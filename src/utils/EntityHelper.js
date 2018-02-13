@@ -37,7 +37,7 @@ export default class EntityHelper {
     })
   }
 
-  static functionFromParams(params: {[string]: any}) {
+  static async functionFromParams(params: {[string]: any}) {
     return {
       kind: 'Function',
       apiVersion: 'kubeless.io/v1beta1',
@@ -47,7 +47,7 @@ export default class EntityHelper {
       },
       spec: {
         deps: params.deps || '',
-        'function': params['function'] || RuntimeHelper.defaultFunction(params.runtime, params.handler),
+        'function': params['function'] || await RuntimeHelper.defaultFunction(params.runtime, params.handler),
         handler: params.handler,
         runtime: params.runtime,
         topic: params.topic || 'kubeless',
