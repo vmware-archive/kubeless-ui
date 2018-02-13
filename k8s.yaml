@@ -19,7 +19,7 @@ rules:
   - get
   - list
 - apiGroups:
-  - k8s.io
+  - kubeless.io
   resources:
   - functions
   verbs:
