@@ -1,4 +1,5 @@
 import { shallow, render, mount } from 'enzyme'
+import 'babel-polyfill' // https://github.com/facebook/jest/issues/3126#issuecomment-345949328
 global.shallow = shallow
 global.render = render
 global.mount = mount

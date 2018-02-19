@@ -52,14 +52,18 @@ end
 export default class RuntimeHelper {
 
   static _runtimes = []
+
+  static _getRuntimesApiCall() {
+    return Api.get(
+      `/api/v1/namespaces/${namespace}/configmaps/kubeless-config`,
+      {},
+      initialState.cluster
+    )
+  }
+
   static async getAllRuntimes() {
     if (_.isEmpty(this._runtimes)) {
-      console.log(initialState.cluster)
-      const config = await Api.get(
-        `/api/v1/namespaces/${namespace}/configmaps/kubeless-config`,
-        {},
-        initialState.cluster
-      )
+      const config = await this._getRuntimesApiCall()
       const runtimes = JSON.parse(config.data['runtime-images'])
       _.each(runtimes, runtime => {
         _.each(runtime.versions, async (version) => {
