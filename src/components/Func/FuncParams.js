@@ -36,28 +36,27 @@ export default class FuncParams extends Component {
     func?: Func
   }
 
-  state = initialState
-
-  async componentWillMount() {
-    const { func } = this.props
-    const runtimes = await RuntimeHelper.getAllRuntimes()
-    this.setState({
-      runtimes: runtimes
-    })
+  constructor(props) {
+    super(props)
+    const { func } = props
     if (func) {
-      this.setState({
+      this.state = {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
         type: func.spec.type,
         deps: func.spec.deps
-      })
+      }
     } else {
-      this.setState(initialState)
-      this.setState({
-        runtime: runtimes[0].value
-      })
+      this.state = initialState
     }
+  }
+
+  async componentDidMount() {
+    const r = await RuntimeHelper.getAllRuntimes()
+    this.setState({
+      runtimes: r
+    })
   }
 
   getParams(): { [string]: string } {
