@@ -26,7 +26,7 @@ import './FuncParams.scss'
 const initialState = {
   name: '',
   handler: '',
-  runtime: RuntimeHelper.defaultRuntime().value,
+  runtime: '',
   type: 'HTTP',
   deps: ''
 }
@@ -36,21 +36,27 @@ export default class FuncParams extends Component {
     func?: Func
   }
 
-  state = initialState
-
-  componentWillMount() {
-    const { func } = this.props
+  constructor(props) {
+    super(props)
+    const { func } = props
     if (func) {
-      this.setState({
+      this.state = {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
         type: func.spec.type,
         deps: func.spec.deps
-      })
+      }
     } else {
-      this.setState(initialState)
+      this.state = initialState
     }
+  }
+
+  async componentDidMount() {
+    const r = await RuntimeHelper.getAllRuntimes()
+    this.setState({
+      runtimes: r
+    })
   }
 
   getParams(): { [string]: string } {
@@ -62,13 +68,16 @@ export default class FuncParams extends Component {
   }
 
   render() {
-    const runtimes = RuntimeHelper.getAllRuntimes().map(r => {
-      return (
-        <option key={r.value} value={r.value}>
-          {r.label}
-        </option>
-      )
-    })
+    let runtimes = <option> Loading </option>
+    if (this.state.runtimes) {
+      runtimes = this.state.runtimes.map(r => {
+        return (
+          <option key={r.value} value={r.value}>
+            {r.label}
+          </option>
+        )
+      })
+    }
     const types = [
       <option key={1} value='HTTP'>
         HTTP
@@ -139,7 +148,8 @@ export default class FuncParams extends Component {
         </div>
       )
     }
-    const depFileName = RuntimeHelper.runtimeDepsFilename(this.state.runtime)
+    const runtimeObject = _.find(this.state.runtimes, (r) => r.value === this.state.runtime)
+    const depFileName = runtimeObject ? runtimeObject.depsFilename : ''
     return (
       <div className='depsContainer'>
         <label>Dependencies ({depFileName})</label>

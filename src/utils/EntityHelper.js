@@ -16,7 +16,6 @@ limitations under the License.
 
 // @flow
 import _ from 'lodash'
-import RuntimeHelper from 'utils/RuntimeHelper'
 
 export default class EntityHelper {
 
@@ -47,7 +46,7 @@ export default class EntityHelper {
       },
       spec: {
         deps: params.deps || '',
-        'function': params['function'] || RuntimeHelper.defaultFunction(params.runtime, params.handler),
+        'function': params['function'] || params.defaultFunction || '',
         handler: params.handler,
         runtime: params.runtime,
         topic: params.topic || 'kubeless',

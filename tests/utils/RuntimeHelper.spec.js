@@ -16,31 +16,35 @@ limitations under the License.
 import RuntimeHelper from 'utils/RuntimeHelper'
 
 describe('(Utils) RuntimeHelper', () => {
-
-  it('should return a default runtime', () => {
-    expect(RuntimeHelper.defaultRuntime).toBeInstanceOf(Function)
-    expect(RuntimeHelper.defaultRuntime()).toBeDefined()
+  const apiCallF = RuntimeHelper._getRuntimesApiCall
+  beforeEach(() => {
+    // Mock API call
+    RuntimeHelper._getRuntimesApiCall = () => ({ data: {
+      'runtime-images': JSON.stringify([{ ID: 'test1', language: 'test', versions: [{ version: '1.0' }] }]) }
+    })
   })
-
-  it('should return a list of all available runtimes', () => {
+  afterEach(() => {
+    RuntimeHelper._getRuntimesApiCall = apiCallF
+  })
+  it('should return a list of all available runtimes', async () => {
     expect(RuntimeHelper.getAllRuntimes).toBeInstanceOf(Function)
-
-    const runtimes = RuntimeHelper.getAllRuntimes()
+    const runtimes = await RuntimeHelper.getAllRuntimes()
     expect(runtimes).toBeInstanceOf(Array)
     expect(runtimes.length).toBeGreaterThan(0)
   })
 
-  it('should return language from runtime value', () => {
+  it('should return language from runtime value', async () => {
     expect(RuntimeHelper.runtimeToLanguage).toBeInstanceOf(Function)
 
-    const defaultLanguage = RuntimeHelper.defaultRuntime().language
-    const nullRuntime = RuntimeHelper.runtimeToLanguage()
+    const langs = await RuntimeHelper.getAllRuntimes()
+    const defaultLanguage = langs[0].language
+    const nullRuntime = await RuntimeHelper.runtimeToLanguage()
     expect(nullRuntime).toEqual(defaultLanguage)
 
-    const unmatchedRuntime = RuntimeHelper.runtimeToLanguage('fakeruntime')
+    const unmatchedRuntime = await RuntimeHelper.runtimeToLanguage('fakeruntime')
     expect(unmatchedRuntime).toEqual(defaultLanguage)
 
-    const existingRuntime = RuntimeHelper.runtimeToLanguage()
+    const existingRuntime = await RuntimeHelper.runtimeToLanguage()
     expect(typeof existingRuntime).toBe('string')
   })
 

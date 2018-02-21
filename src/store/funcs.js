@@ -18,6 +18,7 @@ limitations under the License.
 import _ from 'lodash'
 import Api from 'utils/Api'
 import EntityHelper from 'utils/EntityHelper'
+import RuntimeHelper from 'utils/RuntimeHelper'
 import { alertUpdate } from 'store/alert'
 import type { Func, Cluster, ReduxAction } from 'utils/Types'
 
@@ -95,8 +96,9 @@ export function funcsSave(func: Func, cluster: Cluster, params: {}) {
 }
 
 export function funcsCreate(params: any, cluster: Cluster) {
-  return (dispatch: () => void) => {
-    const entity = EntityHelper.functionFromParams(params)
+  return async (dispatch: () => void) => {
+    params.defaultFunction = await RuntimeHelper.defaultFunction(params.runtime, params.handler)
+    const entity = await EntityHelper.functionFromParams(params)
     return Api.post('/functions', entity, cluster, entity).then(result => {
       dispatch({
         type: FUNCS_CREATE,

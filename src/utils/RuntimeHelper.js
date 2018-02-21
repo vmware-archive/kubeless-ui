@@ -16,35 +16,87 @@ limitations under the License.
 
 // @flow
 import _ from 'lodash'
-import runtimes from './runtimes'
+import Api from 'utils/Api'
+import { initialState } from 'store/clusters'
+
+const namespace = _.get(process.env, 'KUBELESS_NAMESPACE', 'kubeless')
+
+function defaultFunction(runtime) {
+  let result = ''
+  switch (runtime) {
+    case 'nodejs':
+      result = `
+module.exports = {
+  <<HANDLER>>: function(req, res) {
+     res.end("Hello World");
+  }
+};
+`
+      break
+    case 'python':
+      result = `
+def <<HANDLER>>():
+    return "Hello World"
+`
+      break
+    case 'ruby':
+      result = `
+def <<HANDLER>>(request)
+  "Hello World"
+end
+`
+  }
+  return result
+}
 
 export default class RuntimeHelper {
 
-  static defaultRuntime() {
-    return runtimes[0]
-  }
-  static getAllRuntimes() {
-    return runtimes
+  static _runtimes = []
+
+  static _getRuntimesApiCall() {
+    return Api.get(
+      `/api/v1/namespaces/${namespace}/configmaps/kubeless-config`,
+      {},
+      initialState.cluster
+    )
   }
 
-  static runtimeToLanguage(runtime: ?string):string {
-    const defaultLanguage = this.defaultRuntime().language
+  static async getAllRuntimes() {
+    if (_.isEmpty(this._runtimes)) {
+      const config = await this._getRuntimesApiCall()
+      const runtimes = JSON.parse(config.data['runtime-images'])
+      _.each(runtimes, runtime => {
+        _.each(runtime.versions, async (version) => {
+          this._runtimes.push({
+            value: `${runtime.ID}${version.version}`,
+            label: `${runtime.ID} (${version.version})`,
+            language: runtime.ID,
+            depsFilename: runtime.depName,
+            defaultFunction: await defaultFunction(runtime.ID)
+          })
+        })
+      })
+      return this._runtimes
+    } else {
+      return this._runtimes
+    }
+  }
+
+  static async runtimeToLanguage(runtime: ?string):string {
+    const runtimes = await this.getAllRuntimes()
+    const defaultLanguage = runtimes[0].language
     if (!runtime) { return defaultLanguage }
     const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
     return runtimeObject ? runtimeObject.language : defaultLanguage
   }
 
-  static defaultFunction(runtime: string, handler: string):string {
+  static async defaultFunction(runtime: string, handler: string):string {
+    const runtimes = await this.getAllRuntimes()
     const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
     if (!runtimeObject) { return '' }
     handler = handler.split('.').length > 0 ? handler.split('.')[1] : 'handler'
     const defaultFunction = runtimeObject.defaultFunction.replace('<<HANDLER>>', handler)
     return defaultFunction
-  }
-
-  static runtimeDepsFilename(runtime):string {
-    const runtimeObject = _.find(runtimes, (r) => r.value === runtime)
-    return runtimeObject ? runtimeObject.depsFilename : ''
   }
 
 }
