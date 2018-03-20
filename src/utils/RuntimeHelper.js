@@ -27,23 +27,32 @@ function defaultFunction(runtime) {
     case 'nodejs':
       result = `
 module.exports = {
-  <<HANDLER>>: function(req, res) {
-     res.end("Hello World");
+  <<HANDLER>>: function(event, context) {
+     return "Hello World";
   }
 };
 `
       break
     case 'python':
       result = `
-def <<HANDLER>>():
+def <<HANDLER>>(event, context):
     return "Hello World"
 `
       break
     case 'ruby':
       result = `
-def <<HANDLER>>(request)
+def <<HANDLER>>(event, context)
   "Hello World"
 end
+`
+      break
+    case 'php':
+      result = `
+<?php
+
+function <<HANDLER>>($event, $context) {
+  return "Hello World";
+}
 `
   }
   return result

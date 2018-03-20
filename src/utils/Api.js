@@ -20,13 +20,12 @@ import _ from 'lodash'
 
 export default class Api {
 
-  static apiFetch({ url, method, body, dataUrl, cluster, entity }) {
-    let { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity })
+  static apiFetch({ url, method, body, dataUrl, cluster, entity, baseHeaders }) {
+    let { url: URL, headers } = this.updateParams({ url, method, body, dataUrl, cluster, entity, baseHeaders })
     const json = _.isEmpty(body) ? undefined : JSON.stringify(body)
     const forwardBody = {
-      url: URL, method, json
+      url: URL, method, json, headers
     }
-
     return fetch('proxy', {
       method: 'post',
       headers,
@@ -73,24 +72,24 @@ export default class Api {
     return Promise.reject(new Error(error.message))
   }
 
-  static post(url, body = {}, cluster, entity) {
-    return Api.apiFetch({ method: 'post', url, body, cluster, entity })
+  static post(url, body = {}, cluster, entity, baseHeaders) {
+    return Api.apiFetch({ method: 'post', url, body, cluster, entity, baseHeaders })
   }
 
-  static get(url, dataUrl, cluster, entity) {
-    return Api.apiFetch({ method: 'get', url, dataUrl, cluster, entity })
+  static get(url, dataUrl, cluster, entity, baseHeaders) {
+    return Api.apiFetch({ method: 'get', url, dataUrl, cluster, entity, baseHeaders })
   }
 
-  static put(url, body, cluster, entity) {
-    return Api.apiFetch({ method: 'put', url, body, cluster, entity })
+  static put(url, body, cluster, entity, baseHeaders) {
+    return Api.apiFetch({ method: 'put', url, body, cluster, entity, baseHeaders })
   }
 
-  static patch(url, body, cluster, entity) {
-    return Api.apiFetch({ method: 'patch', url, body, cluster, entity })
+  static patch(url, body, cluster, entity, baseHeaders) {
+    return Api.apiFetch({ method: 'patch', url, body, cluster, entity, baseHeaders })
   }
 
-  static delete(url, body, cluster, entity) {
-    return Api.apiFetch({ method: 'delete', url, body, cluster, entity })
+  static delete(url, body, cluster, entity, baseHeaders) {
+    return Api.apiFetch({ method: 'delete', url, body, cluster, entity, baseHeaders })
   }
 
   static getStatus(response = {}) {
@@ -111,12 +110,12 @@ export default class Api {
     return status
   }
 
-  static updateParams({ url, method, dataUrl, cluster, entity }) {
-    const headers = {
+  static updateParams({ url, method, body, dataUrl, cluster, entity, baseHeaders }) {
+    const headers = _.defaults({}, baseHeaders, {
       'X-Requested-With': 'XMLHttpRequest',
       'Accept': 'application/json',
       'Content-Type': 'application/json'
-    }
+    })
     if (cluster && url.indexOf('http') === -1) {
       let path = ''
       if (url.indexOf('/api/v1') === -1 && url.indexOf('/apis/extensions') === -1) {

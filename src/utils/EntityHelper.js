@@ -48,9 +48,7 @@ export default class EntityHelper {
         deps: params.deps || '',
         'function': params['function'] || params.defaultFunction || '',
         handler: params.handler,
-        runtime: params.runtime,
-        topic: params.topic || 'kubeless',
-        type: params.type || 'HTTP'
+        runtime: params.runtime
       }
     }
   }

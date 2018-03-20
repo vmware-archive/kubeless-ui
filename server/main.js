@@ -38,9 +38,7 @@ app.post('/proxy', function(req, res) {
   nodeFetch(url, {
     method: method,
     body: json,
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: req.body.headers
   }).then(function(response) {
     if (typeof response.text !== 'function') {
       return Promise.reject(new Error('Error - Not ok'))
