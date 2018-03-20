@@ -24,8 +24,6 @@ Object {
     "function": "//code goes here",
     "handler": "funcName.foo",
     "runtime": undefined,
-    "topic": "kubeless",
-    "type": "HTTP",
   },
 }
 `;
