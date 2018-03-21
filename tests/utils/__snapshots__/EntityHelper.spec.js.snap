@@ -20,6 +20,7 @@ Object {
     "namespace": "kubeless",
   },
   "spec": Object {
+    "checksum": "sha256:e4032e36ebd8b1e2e7249bff8ef675a32d01a1f96ead2b6979fa9d3a2c53f371",
     "deps": "",
     "function": "//code goes here",
     "handler": "funcName.foo",
