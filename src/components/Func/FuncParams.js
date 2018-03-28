@@ -26,8 +26,7 @@ import './FuncParams.scss'
 const initialState = {
   name: '',
   handler: '',
-  runtime: '',
-  type: 'HTTP',
+  runtime: 'python2.7',
   deps: ''
 }
 export default class FuncParams extends Component {
@@ -44,7 +43,6 @@ export default class FuncParams extends Component {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
-        type: func.spec.type,
         deps: func.spec.deps
       }
     } else {
@@ -78,14 +76,6 @@ export default class FuncParams extends Component {
         )
       })
     }
-    const types = [
-      <option key={1} value='HTTP'>
-        HTTP
-      </option>,
-      <option key={2} value='PubSub'>
-        PubSub
-      </option>
-    ]
     return (
       <div className='funcParams padding-v-big'>
         <div className='row'>
@@ -109,14 +99,6 @@ export default class FuncParams extends Component {
             />
           </div>
           <div className='col-3'>
-            <label htmlFor='type'>Type</label>
-            <select
-              name='type'
-              value={this.state.type}
-              onChange={e => this.handleChangeProperty('type', e.target.value)}
-            >
-              {types}
-            </select>
             <label htmlFor='runtime'>Runtime</label>
             <select
               name='runtime'

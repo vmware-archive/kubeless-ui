@@ -17,6 +17,7 @@ limitations under the License.
 // @flow
 import _ from 'lodash'
 import Api from 'utils/Api'
+import crypto from 'crypto'
 import EntityHelper from 'utils/EntityHelper'
 import RuntimeHelper from 'utils/RuntimeHelper'
 import { alertUpdate } from 'store/alert'
@@ -122,7 +123,7 @@ export function funcsDelete(func: Func, cluster: Cluster) {
   }
 }
 
-export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?string = 'get') {
+export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?string = 'get', json: ?false) {
   return (dispatch: () => void) => {
     dispatch({
       type: FUNCS_RUN,
@@ -132,6 +133,15 @@ export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?stri
     if (method === 'post') {
       _call = Api.post
     }
+    const headers = {
+      'event-id': `ui-${crypto.randomBytes(6).toString('hex')}`,
+      'event-time': new Date().toISOString(),
+      'event-type': 'application/json',
+      'event-namespace': 'ui.kubeless.io'
+    }
+    if (!json) {
+      headers['event-type'] = 'application/x-www-form-urlencoded'
+    }
     return Api.get(`/namespaces/${func.metadata.namespace}/services/${func.metadata.name}`, {}, cluster)
     .then(service => {
       let port
@@ -140,7 +150,7 @@ export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?stri
       }
       return _call(
         `/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}${port ? ':' + port : ''}`,
-        data || {}, cluster, func)
+        data || {}, cluster, func, headers)
     }).then(result => {
       dispatch({
         type: FUNCS_RUN,

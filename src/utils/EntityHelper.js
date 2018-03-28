@@ -16,6 +16,7 @@ limitations under the License.
 
 // @flow
 import _ from 'lodash'
+import crypto from 'crypto'
 
 export default class EntityHelper {
 
@@ -37,6 +38,8 @@ export default class EntityHelper {
   }
 
   static functionFromParams(params: {[string]: any}) {
+    const func = params['function'] || params.defaultFunction || ''
+    const funcSha256 = crypto.createHash('sha256').update(func).digest('hex')
     return {
       kind: 'Function',
       apiVersion: 'kubeless.io/v1beta1',
@@ -46,11 +49,10 @@ export default class EntityHelper {
       },
       spec: {
         deps: params.deps || '',
-        'function': params['function'] || params.defaultFunction || '',
+        'function': func,
+        checksum: `sha256:${funcSha256}`,
         handler: params.handler,
-        runtime: params.runtime,
-        topic: params.topic || 'kubeless',
-        type: params.type || 'HTTP'
+        runtime: params.runtime
       }
     }
   }

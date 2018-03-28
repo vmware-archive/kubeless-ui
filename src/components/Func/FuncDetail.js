@@ -16,7 +16,6 @@ limitations under the License.
 
 // @flow
 import React, { Component } from 'react'
-import qs from 'qs'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 import FuncEdit from 'components/Func/FuncEdit'
@@ -69,14 +68,14 @@ export default class FuncDetail extends Component {
     let requestData
     if (body) {
       try {
-        requestData = json ? JSON.parse(body) : qs.parse(body)
+        requestData = json ? JSON.parse(body) : body
       } catch (e) {
         this.setState({ errorMessage: e.message, running: false })
         return
       }
     }
     this.setState({ running: true, errorMessage: null })
-    this.props.onRun(func, requestData, cluster, method)
+    this.props.onRun(func, requestData, cluster, method, json)
   }
 
   toggleDeleteConfirmModal = () => {
@@ -103,8 +102,7 @@ export default class FuncDetail extends Component {
       spec: {
         deps: params.deps,
         handler: params.handler,
-        runtime: params.runtime,
-        type: params.type
+        runtime: params.runtime
       }
     }
     this.props.onSave(func, cluster, data)
@@ -132,8 +130,6 @@ export default class FuncDetail extends Component {
             <b>Runtime: </b>
             {func.spec.runtime}
             <br />
-            <b>Type: </b>
-            {func.spec.type}
           </p>
           <div className='actionsButtons'>
             <a className='button' onClick={this.toggleEditingModal}>

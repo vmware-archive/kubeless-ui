@@ -40,9 +40,7 @@ describe('(Utils) EntityHelper', () => {
       name: 'funcName',
       namespace: 'kubeless',
       'function': '//code goes here',
-      handler: 'funcName.foo',
-      topic: 'kubeless',
-      type: 'HTTP'
+      handler: 'funcName.foo'
     }
     expect(EntityHelper.functionFromParams(params)).toMatchSnapshot()
   })
