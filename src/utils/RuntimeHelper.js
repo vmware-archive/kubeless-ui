@@ -46,6 +46,19 @@ def <<HANDLER>>(event, context)
 end
 `
       break
+    case 'go':
+      result = `
+package kubeless
+
+import (
+        "github.com/kubeless/kubeless/pkg/functions"
+)
+
+func <<HANDLER>>(event functions.Event, context functions.Context) (string, error) {
+        return "Hello world!", nil
+}
+`
+      break
     case 'php':
       result = `
 <?php
