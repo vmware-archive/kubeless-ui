@@ -52,6 +52,7 @@ export type Func = {
     handler: string,
     type: string,
     deps: string,
-    function: string
+    function: string,
+    checksum: string,
   }
 }

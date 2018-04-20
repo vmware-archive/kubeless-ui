@@ -17,6 +17,7 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import _ from 'lodash'
+import crypto from 'crypto'
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import type { Func } from 'utils/Types'
@@ -27,7 +28,8 @@ const initialState = {
   name: '',
   handler: '',
   runtime: 'python2.7',
-  deps: ''
+  deps: '',
+  checksum: ''
 }
 export default class FuncParams extends Component {
 
@@ -43,7 +45,8 @@ export default class FuncParams extends Component {
         name: func.metadata.name,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
-        deps: func.spec.deps
+        deps: func.spec.deps,
+        checksum: `sha256:${crypto.createHash('sha256').update(func.spec.function, 'utf8').digest().toString('hex')}`
       }
     } else {
       this.state = initialState
