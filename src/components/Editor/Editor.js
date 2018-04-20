@@ -17,6 +17,7 @@ limitations under the License.
 // @flow
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
+import crypto from 'crypto'
 import brace from 'brace' // eslint-disable-line
 import 'brace/mode/python'
 import 'brace/mode/ruby'
@@ -90,7 +91,10 @@ export default class Editor extends Component {
     const { func, cluster } = this.props
     const params = {
       ...func,
-      spec: { function: this.state.content }
+      spec: {
+        function: this.state.content,
+        checksum: `sha256:${crypto.createHash('sha256').update(this.state.content).digest().toString('hex')}`
+      }
     }
     this.props.onSave(func, cluster, params)
     this.props.onSetEditing(false)
