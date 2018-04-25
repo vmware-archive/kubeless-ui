@@ -149,7 +149,7 @@ export function funcsRun(func: Func, data: ?any, cluster: Cluster, method: ?stri
         port = service.spec.ports[0].port
       }
       return _call(
-        `/api/v1/proxy/namespaces/${func.metadata.namespace}/services/${func.metadata.name}${port ? ':' + port : ''}`,
+        `/api/v1/namespaces/${func.metadata.namespace}/services/${func.metadata.name}${port ? ':' + port : ''}/proxy/`,
         data || {}, cluster, func, headers)
     }).then(result => {
       dispatch({
