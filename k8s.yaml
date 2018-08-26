@@ -33,10 +33,18 @@ rules:
   - ""
   resources:
   - services
-  - services/proxy
   verbs:
   - get
   - list
+  - proxy
+- apiGroups:
+  - ""
+  resources:
+  - services/proxy
+  verbs:
+  - get
+  # the 'create' verb is required because otherwise POST requests are blocked
+  - create
   - proxy
 - apiGroups:
   - ""
