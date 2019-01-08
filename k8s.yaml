@@ -91,7 +91,7 @@ spec:
         - containerPort: 3000
           protocol: TCP
       - name: proxy
-        image: kelseyhightower/kubectl:1.4.0
+        image: lachlanevenson/k8s-kubectl:v1.13.1
         imagePullPolicy: IfNotPresent
         args:
         - proxy
