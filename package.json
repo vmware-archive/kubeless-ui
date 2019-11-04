@@ -67,7 +67,7 @@
     "compression": "^1.6.2",
     "css-loader": "^0.28.0",
     "cssnano": "^3.7.4",
-    "debug": "^2.6.4",
+    "debug": "^2.6.9",
     "enzyme": "^2.8.2",
     "eslint": "^3.0.1",
     "eslint-config-standard": "^10.2.1",
