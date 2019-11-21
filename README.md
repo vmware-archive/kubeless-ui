@@ -1,5 +1,7 @@
 # kubeless-ui
 
+**NOTICE** This project is no longer actively maintained. Kubeless maintainers will still accept and review Pull Requests but no active development is expected.
+
 [![CircleCI](https://circleci.com/gh/kubeless/kubeless-ui/tree/master.svg?style=svg)](https://circleci.com/gh/kubeless/kubeless-ui/tree/master)
 [![Slack](https://img.shields.io/badge/slack-join%20chat%20%E2%86%92-e01563.svg)](http://slack.k8s.io)
 
