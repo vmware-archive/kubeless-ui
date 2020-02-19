@@ -117,7 +117,7 @@
     "yargs": "^7.1.0"
   },
   "devDependencies": {
-    "codecov": "^2.1.0",
+    "codecov": "^3.6.5",
     "flow-bin": "^0.44.2",
     "nodemon": "^1.10.2",
     "redbox-react": "^1.2.10",
