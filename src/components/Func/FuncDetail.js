@@ -98,7 +98,10 @@ export default class FuncDetail extends Component {
   doneEditing = (params: any) => {
     const { func, cluster } = this.props
     const data = {
-      metadata: { name: params.name },
+      metadata: {
+        name: params.name,
+        namespace: params.namespace
+      },
       spec: {
         deps: params.deps,
         handler: params.handler,

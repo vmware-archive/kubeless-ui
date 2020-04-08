@@ -45,7 +45,7 @@ export default class EntityHelper {
       apiVersion: 'kubeless.io/v1beta1',
       metadata: {
         name: params.name,
-        namespace: params.namespace || 'default'
+        namespace: params.namespace || 'kubeless'
       },
       spec: {
         deps: params.deps || '',
