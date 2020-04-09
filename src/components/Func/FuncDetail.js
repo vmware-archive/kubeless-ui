@@ -127,6 +127,9 @@ export default class FuncDetail extends Component {
       <div className='funcDetail'>
         <div className='functionTitle padding-big padding-t-reset'>
           <p>
+            <b>Namespace: </b>
+            {func.metadata.namespace}
+            <br />
             <b>Handler: </b>
             {func.spec.handler}
             <br />
