@@ -26,6 +26,7 @@ import './FuncParams.scss'
 
 const initialState = {
   name: '',
+  namespace: '',
   handler: '',
   runtime: 'python2.7',
   deps: '',
@@ -43,6 +44,7 @@ export default class FuncParams extends Component {
     if (func) {
       this.state = {
         name: func.metadata.name,
+        namespace: func.metadata.namespace,
         handler: func.spec.handler,
         runtime: func.spec.runtime,
         deps: func.spec.deps,
@@ -91,6 +93,15 @@ export default class FuncParams extends Component {
               value={this.state.name}
               disabled={!!this.props.func}
               onChange={e => this.handleChangeProperty('name', e.target.value)}
+            />
+            <label htmlFor='namespace'>Namespace</label>
+            <input
+              name='namespace'
+              id='namespace'
+              placeholder='kubeless'
+              value={this.state.namespace}
+              disabled={!!this.props.func}
+              onChange={e => this.handleChangeProperty('namespace', e.target.value)}
             />
             <label htmlFor='handler'>Handler</label>
             <input

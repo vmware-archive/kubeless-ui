@@ -98,7 +98,10 @@ export default class FuncDetail extends Component {
   doneEditing = (params: any) => {
     const { func, cluster } = this.props
     const data = {
-      metadata: { name: params.name },
+      metadata: {
+        name: params.name,
+        namespace: params.namespace
+      },
       spec: {
         deps: params.deps,
         handler: params.handler,
@@ -124,6 +127,9 @@ export default class FuncDetail extends Component {
       <div className='funcDetail'>
         <div className='functionTitle padding-big padding-t-reset'>
           <p>
+            <b>Namespace: </b>
+            {func.metadata.namespace}
+            <br />
             <b>Handler: </b>
             {func.spec.handler}
             <br />
