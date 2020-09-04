@@ -93,7 +93,7 @@
     "lodash": "^4.17.19",
     "material-ui": "^0.17.4",
     "node-fetch": "^1.6.3",
-    "node-sass": "^4.0.0",
+    "node-sass": "^4.13.1",
     "normalize.css": "^6.0.0",
     "postcss-loader": "^1.1.0",
     "qs": "^6.4.0",
