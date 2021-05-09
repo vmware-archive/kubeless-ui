@@ -90,7 +90,7 @@
     "jest-static-stubs": "^0.0.1",
     "json-loader": "^0.5.4",
     "keycode": "^2.1.9",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "material-ui": "^0.17.4",
     "node-fetch": "^2.6.1",
     "node-sass": "^4.13.1",
