@@ -1,3 +1,9 @@
+## WARNING: Kubeless is no longer actively maintained by VMware.
+
+VMware has made the difficult decision to stop driving this project and therefore we will no longer actively respond to issues or pull requests. If you would like to take over maintaining this project independently from VMware, please let us know so we can add a link to your forked project here.
+
+Thank You.
+
 # kubeless-ui
 
 **NOTICE** This project is no longer actively maintained. Kubeless maintainers will still accept and review Pull Requests but no active development is expected.
